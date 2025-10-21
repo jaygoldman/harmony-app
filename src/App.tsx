@@ -274,29 +274,73 @@ const WidgetCard: React.FC<{ widgetName: string; widgetData: any }> = ({ widgetN
   };
 
   const renderWidgetPreview = () => {
+    let data = widgetData;
+    
+    // Try to parse if it's a JSON string
     if (typeof widgetData === 'string') {
-      return <div className="text-xs text-slate-600">{widgetData}</div>;
+      try {
+        data = JSON.parse(widgetData);
+      } catch {
+        // If it's not JSON, just display the string
+        return <div className="text-xs text-slate-600">{widgetData}</div>;
+      }
     }
     
-    if (Array.isArray(widgetData)) {
+    if (Array.isArray(data)) {
       return (
         <div className="text-xs text-slate-600">
-          <div className="font-medium mb-1">{widgetData.length} items</div>
+          <div className="font-medium mb-1">{data.length} items</div>
         </div>
       );
     }
     
     // For objects, show key-value pairs
-    return (
-      <div className="space-y-1 text-xs text-slate-600">
-        {Object.entries(widgetData).slice(0, 3).map(([key, value]) => (
-          <div key={key} className="flex justify-between">
-            <span className="text-slate-500">{key}:</span>
-            <span className="font-medium">{String(value)}</span>
+    if (typeof data === 'object' && data !== null) {
+      // Special handling for Ask Harmony response format
+      if (data.type) {
+        return (
+          <div className="space-y-1 text-xs text-slate-600">
+            <div className="flex justify-between">
+              <span className="text-slate-500">Type:</span>
+              <span className="font-medium capitalize">{data.type}</span>
+            </div>
+            {data.columns && (
+              <div className="flex justify-between">
+                <span className="text-slate-500">Columns:</span>
+                <span className="font-medium">{data.columns.length}</span>
+              </div>
+            )}
+            {data.rows && (
+              <div className="flex justify-between">
+                <span className="text-slate-500">Rows:</span>
+                <span className="font-medium">{data.rows.length}</span>
+              </div>
+            )}
+            {data.paragraphs && (
+              <div className="flex justify-between">
+                <span className="text-slate-500">Paragraphs:</span>
+                <span className="font-medium">{data.paragraphs.length}</span>
+              </div>
+            )}
           </div>
-        ))}
-      </div>
-    );
+        );
+      }
+      
+      // Default object display
+      return (
+        <div className="space-y-1 text-xs text-slate-600">
+          {Object.entries(data).slice(0, 3).map(([key, value]) => (
+            <div key={key} className="flex justify-between gap-2">
+              <span className="text-slate-500 truncate">{key}:</span>
+              <span className="font-medium truncate">{String(value)}</span>
+            </div>
+          ))}
+        </div>
+      );
+    }
+    
+    // Fallback for other types
+    return <div className="text-xs text-slate-600">{String(data)}</div>;
   };
 
   return (
