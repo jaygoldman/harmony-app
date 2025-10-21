@@ -183,7 +183,9 @@ interface ChatMessage {
   sender?: string; // For agent messages, which agent sent it
   timestamp: Date;
   attachments?: {
-    type: 'scenario';
+    type: 'scenario' | 'widget';
+    widgetName?: string;
+    widgetData?: any;
   }[];
 }
 
@@ -242,6 +244,81 @@ const ScenarioPlanner: React.FC<{
           />
         </div>
       </div>
+    </div>
+  );
+};
+
+// ======================== WIDGET CARD COMPONENT ==================
+const WidgetCard: React.FC<{ widgetName: string; widgetData: any }> = ({ widgetName, widgetData }) => {
+  const getWidgetIcon = (name: string) => {
+    switch (name) {
+      case 'Activity Feed':
+        return '📋';
+      case 'Ask Harmony':
+        return '💬';
+      case 'Project Reviews':
+        return '📊';
+      case 'Project Stages':
+        return '🎯';
+      case 'Net Benefit':
+        return '💰';
+      case 'Purpose':
+        return '🎯';
+      case 'Financial Approvals':
+        return '✅';
+      case 'Risk Assessment':
+        return '⚠️';
+      default:
+        return '📦';
+    }
+  };
+
+  const renderWidgetPreview = () => {
+    if (typeof widgetData === 'string') {
+      return <div className="text-xs text-slate-600">{widgetData}</div>;
+    }
+    
+    if (Array.isArray(widgetData)) {
+      return (
+        <div className="text-xs text-slate-600">
+          <div className="font-medium mb-1">{widgetData.length} items</div>
+        </div>
+      );
+    }
+    
+    // For objects, show key-value pairs
+    return (
+      <div className="space-y-1 text-xs text-slate-600">
+        {Object.entries(widgetData).slice(0, 3).map(([key, value]) => (
+          <div key={key} className="flex justify-between">
+            <span className="text-slate-500">{key}:</span>
+            <span className="font-medium">{String(value)}</span>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  return (
+    <div className="bg-white border border-slate-200 rounded-lg p-4 max-w-sm">
+      {/* Header */}
+      <div className="flex items-center gap-3 mb-3">
+        <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center text-2xl">
+          {getWidgetIcon(widgetName)}
+        </div>
+        <div>
+          <div className="font-semibold text-sm text-slate-900">{widgetName}</div>
+          <div className="text-xs text-slate-500">Widget Context</div>
+        </div>
+      </div>
+      
+      {/* Content Preview */}
+      {renderWidgetPreview()}
+      
+      {/* Action Button */}
+      <button className="w-full mt-3 px-3 py-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-md text-xs font-medium text-slate-700 transition-colors">
+        View Full Widget
+      </button>
     </div>
   );
 };
@@ -385,6 +462,9 @@ const ChatMessage: React.FC<{ message: ChatMessage }> = ({ message }) => {
               {message.attachments.map((attachment, index) => {
                 if (attachment.type === 'scenario') {
                   return <ScenarioCard key={index} />;
+                }
+                if (attachment.type === 'widget' && attachment.widgetName) {
+                  return <WidgetCard key={index} widgetName={attachment.widgetName} widgetData={attachment.widgetData} />;
                 }
                 return null;
               })}
@@ -1762,6 +1842,7 @@ const ActivityFeedWidget: React.FC = () => {
   const [showBriefingViewer, setShowBriefingViewer] = useState(false);
   const [selectedBriefingContent, setSelectedBriefingContent] = useState('');
   const [selectedBriefingTitle, setSelectedBriefingTitle] = useState('');
+  const [openActivityMenu, setOpenActivityMenu] = useState<string | null>(null);
   
   // Briefings management state
   const [briefingsList, setBriefingsList] = useState<Array<{
@@ -1829,6 +1910,21 @@ const ActivityFeedWidget: React.FC = () => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  // Close activity row menus when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      // Close if clicking outside any activity menu
+      if (!target.closest('.relative')) {
+        setOpenActivityMenu(null);
+      }
+    };
+    if (openActivityMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [openActivityMenu]);
 
   // Handle escape key and outside clicks for config modal
   useEffect(() => {
@@ -2800,9 +2896,56 @@ const ActivityFeedWidget: React.FC = () => {
                     )}
                   </div>
                   
-                  {/* External Link Button - Hidden for Harmony Briefings since they have their own View button */}
-                  {activity.activityType !== 'harmony-briefing' && (
-                    <div className="flex-shrink-0">
+                  {/* Row Actions - Menu and External Link Button */}
+                  <div className="flex-shrink-0 flex items-center gap-1">
+                    {/* Row Menu Button */}
+                    <div className="relative">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setOpenActivityMenu(openActivityMenu === activity.id ? null : activity.id);
+                        }}
+                        className="w-6 h-6 flex items-center justify-center rounded hover:bg-slate-200 transition-colors group"
+                        title="More options"
+                      >
+                        <svg className="w-4 h-4 text-slate-400 group-hover:text-slate-600" fill="currentColor" viewBox="0 0 24 24">
+                          <circle cx="12" cy="5" r="2" />
+                          <circle cx="12" cy="12" r="2" />
+                          <circle cx="12" cy="19" r="2" />
+                        </svg>
+                      </button>
+                      
+                      {/* Activity Row Menu */}
+                      {openActivityMenu === activity.id && (
+                        <div className="absolute right-0 top-full mt-1 bg-white border border-slate-200 rounded-lg shadow-xl min-w-[180px] z-50">
+                          <div className="py-1">
+                            <button
+                              onClick={() => {
+                                setOpenActivityMenu(null);
+                                const widgetInfo = {
+                                  name: 'Activity Feed Item',
+                                  type: 'widget',
+                                  data: {
+                                    action: activity.action,
+                                    details: activity.details,
+                                    platform: platformLabels[activity.platform as keyof typeof platformLabels],
+                                    user: activity.user,
+                                    timestamp: formatRelativeTime(activity.timestamp)
+                                  }
+                                };
+                                window.dispatchEvent(new CustomEvent('discussWithHarmony', { detail: widgetInfo }));
+                              }}
+                              className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors text-sm"
+                            >
+                              Chat with Harmony...
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    
+                    {/* External Link Button - Hidden for Harmony Briefings */}
+                    {activity.activityType !== 'harmony-briefing' && (
                       <button
                         onClick={() => window.open(activity.link, '_blank')}
                         className="w-6 h-6 flex items-center justify-center rounded hover:bg-slate-200 transition-colors group"
@@ -2812,8 +2955,8 @@ const ActivityFeedWidget: React.FC = () => {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
                       </button>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               </div>
               
@@ -3451,12 +3594,17 @@ const HarmonySidebar: React.FC<{ onOpenScenario: () => void }> = ({ onOpenScenar
       const customEvent = event as CustomEvent;
       const widgetInfo = customEvent.detail;
       
-      // Create widget context card message
+      // Create widget context card message with attachment
       const widgetCard: ChatMessage = {
         id: `widget-${Date.now()}`,
         type: 'user',
-        content: `[Widget Context: ${widgetInfo.name}]\n${widgetInfo.data}`,
-        timestamp: new Date()
+        content: `Let's discuss ${widgetInfo.name}`,
+        timestamp: new Date(),
+        attachments: [{
+          type: 'widget',
+          widgetName: widgetInfo.name,
+          widgetData: widgetInfo.data
+        }]
       };
       
       // Add Harmony's response
@@ -3794,11 +3942,21 @@ function App() {
   const [scenarioOpen, setScenarioOpen] = useState(false);
   const [showHarmonyReviewsModal, setShowHarmonyReviewsModal] = useState(false);
   const [showProjectReviewsMenu, setShowProjectReviewsMenu] = useState(false);
+  const [showProjectStagesMenu, setShowProjectStagesMenu] = useState(false);
+  const [showNetBenefitMenu, setShowNetBenefitMenu] = useState(false);
+  const [showPurposeMenu, setShowPurposeMenu] = useState(false);
+  const [showFinancialApprovalsMenu, setShowFinancialApprovalsMenu] = useState(false);
+  const [showRiskAssessmentMenu, setShowRiskAssessmentMenu] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [rocketOpen, setRocketOpen] = useState(true);
   const [briefOpen, setBriefOpen] = useState<Record<string, boolean>>({ Distribution: false, Finance: false, IT: false, Manufacturing: true });
   
   const projectReviewsMenuRef = useRef<HTMLDivElement>(null);
+  const projectStagesMenuRef = useRef<HTMLDivElement>(null);
+  const netBenefitMenuRef = useRef<HTMLDivElement>(null);
+  const purposeMenuRef = useRef<HTMLDivElement>(null);
+  const financialApprovalsMenuRef = useRef<HTMLDivElement>(null);
+  const riskAssessmentMenuRef = useRef<HTMLDivElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
 
   const leftW = leftOpen ? LEFT_EXPANDED : LEFT_COLLAPSED;
@@ -3843,11 +4001,26 @@ function App() {
     };
   }, [showHarmonyReviewsModal]);
 
-  // Close Project Reviews menu when clicking outside
+  // Close widget menus when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (projectReviewsMenuRef.current && !projectReviewsMenuRef.current.contains(event.target as Node)) {
         setShowProjectReviewsMenu(false);
+      }
+      if (projectStagesMenuRef.current && !projectStagesMenuRef.current.contains(event.target as Node)) {
+        setShowProjectStagesMenu(false);
+      }
+      if (netBenefitMenuRef.current && !netBenefitMenuRef.current.contains(event.target as Node)) {
+        setShowNetBenefitMenu(false);
+      }
+      if (purposeMenuRef.current && !purposeMenuRef.current.contains(event.target as Node)) {
+        setShowPurposeMenu(false);
+      }
+      if (financialApprovalsMenuRef.current && !financialApprovalsMenuRef.current.contains(event.target as Node)) {
+        setShowFinancialApprovalsMenu(false);
+      }
+      if (riskAssessmentMenuRef.current && !riskAssessmentMenuRef.current.contains(event.target as Node)) {
+        setShowRiskAssessmentMenu(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -4133,7 +4306,31 @@ function App() {
             <div className="space-y-4">
               {/* Row 1: Project Stages, Project Reviews, and Net Benefit */}
               <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
-                <Card title="Project Stages" subtitle="2. Implementing">
+                <Card 
+                  title="Project Stages" 
+                  subtitle="2. Implementing"
+                  onMenuClick={() => setShowProjectStagesMenu(!showProjectStagesMenu)}
+                  showMenu={showProjectStagesMenu}
+                  menuRef={projectStagesMenuRef}
+                  menuContent={
+                    <div className="py-1">
+                      <button
+                        onClick={() => {
+                          setShowProjectStagesMenu(false);
+                          const widgetInfo = {
+                            name: 'Project Stages',
+                            type: 'widget',
+                            data: '4 project stages: Planning (complete), Implementing (current), Scaling and Completing (pending), Monitoring (pending)'
+                          };
+                          window.dispatchEvent(new CustomEvent('discussWithHarmony', { detail: widgetInfo }));
+                        }}
+                        className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors"
+                      >
+                        Chat with Harmony...
+                      </button>
+                    </div>
+                  }
+                >
                   <div className="max-h-64 overflow-y-auto">
                     <table className="w-full text-sm">
                       <thead className="sticky top-0 bg-white">
@@ -4381,7 +4578,30 @@ function App() {
                     </div>
                   </div>
                 </Card>
-                <Card title="Net Benefit: target vs. year">
+                <Card 
+                  title="Net Benefit: target vs. year"
+                  onMenuClick={() => setShowNetBenefitMenu(!showNetBenefitMenu)}
+                  showMenu={showNetBenefitMenu}
+                  menuRef={netBenefitMenuRef}
+                  menuContent={
+                    <div className="py-1">
+                      <button
+                        onClick={() => {
+                          setShowNetBenefitMenu(false);
+                          const widgetInfo = {
+                            name: 'Net Benefit',
+                            type: 'widget',
+                            data: 'Quarterly targets vs actual: Q1 (60% target, 50% actual), Q2 (70% target, 62% actual), Q3 (85% target, 74% actual), Q4 (100% target, 88% actual)'
+                          };
+                          window.dispatchEvent(new CustomEvent('discussWithHarmony', { detail: widgetInfo }));
+                        }}
+                        className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors"
+                      >
+                        Chat with Harmony...
+                      </button>
+                    </div>
+                  }
+                >
                   <div className="space-y-2 text-sm">
                     {[["Q1", 60, 50], ["Q2", 70, 62], ["Q3", 85, 74], ["Q4", 100, 88]].map(([q, target, actual]) => (
                       <div key={String(q)}>
@@ -4398,7 +4618,30 @@ function App() {
 
               {/* Row 2: Purpose, Scope, Risk Assessment */}
               <div className="grid grid-cols-3 gap-4">
-                <Card title="Purpose">
+                <Card 
+                  title="Purpose"
+                  onMenuClick={() => setShowPurposeMenu(!showPurposeMenu)}
+                  showMenu={showPurposeMenu}
+                  menuRef={purposeMenuRef}
+                  menuContent={
+                    <div className="py-1">
+                      <button
+                        onClick={() => {
+                          setShowPurposeMenu(false);
+                          const widgetInfo = {
+                            name: 'Purpose',
+                            type: 'widget',
+                            data: 'Deliver measurable operational efficiencies across manufacturing sites by consolidating lines and deploying automation'
+                          };
+                          window.dispatchEvent(new CustomEvent('discussWithHarmony', { detail: widgetInfo }));
+                        }}
+                        className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors"
+                      >
+                        Chat with Harmony...
+                      </button>
+                    </div>
+                  }
+                >
                   <p className="text-sm text-slate-700">Deliver measurable operational efficiencies across manufacturing sites by consolidating lines and deploying automation to reduce cycle time and scrap.</p>
                   <ul className="mt-2 list-disc list-inside text-sm text-slate-700">
                     <li>Reduce cycle time by 15% YoY</li>
@@ -4406,7 +4649,30 @@ function App() {
                     <li>Standardize reporting cadence across plants</li>
                   </ul>
                 </Card>
-                  <Card title="Financial Approvals">
+                  <Card 
+                    title="Financial Approvals"
+                    onMenuClick={() => setShowFinancialApprovalsMenu(!showFinancialApprovalsMenu)}
+                    showMenu={showFinancialApprovalsMenu}
+                    menuRef={financialApprovalsMenuRef}
+                    menuContent={
+                      <div className="py-1">
+                        <button
+                          onClick={() => {
+                            setShowFinancialApprovalsMenu(false);
+                            const widgetInfo = {
+                              name: 'Financial Approvals',
+                              type: 'widget',
+                              data: '3 approval gates: Idea ($250k, Approved), Business Case ($1.2M, In Review), Execution ($3.8M, Pending)'
+                            };
+                            window.dispatchEvent(new CustomEvent('discussWithHarmony', { detail: widgetInfo }));
+                          }}
+                          className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors"
+                        >
+                          Chat with Harmony...
+                        </button>
+                      </div>
+                    }
+                  >
                     <div className="overflow-auto">
                       <table className="min-w-[480px] text-sm">
                         <thead style={{ background: "#F6F6F7" }}>
@@ -4436,7 +4702,30 @@ function App() {
                       </table>
                     </div>
                   </Card>
-                <Card title="Risk Assessment">
+                <Card 
+                  title="Risk Assessment"
+                  onMenuClick={() => setShowRiskAssessmentMenu(!showRiskAssessmentMenu)}
+                  showMenu={showRiskAssessmentMenu}
+                  menuRef={riskAssessmentMenuRef}
+                  menuContent={
+                    <div className="py-1">
+                      <button
+                        onClick={() => {
+                          setShowRiskAssessmentMenu(false);
+                          const widgetInfo = {
+                            name: 'Risk Assessment',
+                            type: 'widget',
+                            data: '4 risks identified: Equipment Lead Times (High), Budget Variance (Medium), Change Management (Medium), Supplier Dependency (Low)'
+                          };
+                          window.dispatchEvent(new CustomEvent('discussWithHarmony', { detail: widgetInfo }));
+                        }}
+                        className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors"
+                      >
+                        Chat with Harmony...
+                      </button>
+                    </div>
+                  }
+                >
                   <div className="space-y-3">
                     {[
                       { risk: "Equipment Lead Times", level: "High", impact: "Schedule delay potential", color: "#f59e0b" },
