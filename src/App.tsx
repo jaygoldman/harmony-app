@@ -1776,34 +1776,50 @@ const AskHarmonyBoxWithMenu: React.FC = () => {
       title="Ask Harmony" 
       className="h-full flex flex-col overflow-visible"
       onMenuClick={() => setShowWidgetMenu(!showWidgetMenu)}
-      showMenu={showWidgetMenu && !!response}
+      showMenu={showWidgetMenu}
       menuRef={widgetMenuRef}
       menuContent={
         <div className="py-1 min-w-[240px]">
           <button
             onClick={() => {
+              if (!response) return;
               console.log('Save answer as widget clicked');
               setShowWidgetMenu(false);
             }}
-            className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors flex items-center gap-2"
+            disabled={!response}
+            className={`w-full text-left px-4 py-2 transition-colors flex items-center gap-2 ${
+              response 
+                ? 'hover:bg-slate-50 text-slate-700 cursor-pointer' 
+                : 'text-slate-400 cursor-not-allowed'
+            }`}
           >
-            <span>💾</span>
+            <span className={response ? '' : 'opacity-50'}>💾</span>
             Save answer as widget...
           </button>
           <div className="border-t border-slate-100" />
           <button
             onClick={() => {
+              if (!response) return;
               setShowWidgetMenu(false);
               const widgetInfo = {
                 name: 'Ask Harmony',
                 type: 'widget',
-                data: response ? JSON.stringify(response) : 'No response yet'
+                data: JSON.stringify(response)
               };
               window.dispatchEvent(new CustomEvent('discussWithHarmony', { detail: widgetInfo }));
             }}
-            className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors flex items-center gap-2"
+            disabled={!response}
+            className={`w-full text-left px-4 py-2 transition-colors flex items-center gap-2 ${
+              response 
+                ? 'hover:bg-slate-50 text-slate-700 cursor-pointer' 
+                : 'text-slate-400 cursor-not-allowed'
+            }`}
           >
-            <img src="https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png" alt="Harmony" className="w-4 h-4" />
+            <img 
+              src="https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png" 
+              alt="Harmony" 
+              className={`w-4 h-4 ${response ? '' : 'opacity-50'}`}
+            />
             Chat with Harmony...
           </button>
         </div>
