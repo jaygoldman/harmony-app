@@ -1,5 +1,13 @@
 import { Configuration, PopupRequest } from '@azure/msal-browser';
 
+// Debug: Log environment variables (remove in production)
+console.log('Environment variables:', {
+  clientId: process.env.REACT_APP_AZURE_CLIENT_ID,
+  tenantId: process.env.REACT_APP_AZURE_TENANT_ID,
+  redirectUri: process.env.REACT_APP_AZURE_REDIRECT_URI,
+  authority: process.env.REACT_APP_AZURE_AUTHORITY
+});
+
 // MSAL configuration
 export const msalConfig: Configuration = {
   auth: {

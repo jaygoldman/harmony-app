@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
+import { useAuth } from './AuthWrapper';
 
 // ======================== LAYOUT CONSTANTS ========================
 const LEFT_EXPANDED = 260;
@@ -3501,6 +3502,7 @@ const HarmonySidebar: React.FC<{ onOpenScenario: () => void }> = ({ onOpenScenar
 };
 
 function App() {
+  const { account, logout } = useAuth();
   const [leftOpen, setLeftOpen] = useState(true);
   const [rightOpen, setRightOpen] = useState(false);
   const [wsOpen, setWsOpen] = useState(false);
@@ -3508,10 +3510,12 @@ function App() {
   const [scenarioOpen, setScenarioOpen] = useState(false);
   const [showHarmonyReviewsModal, setShowHarmonyReviewsModal] = useState(false);
   const [showProjectReviewsMenu, setShowProjectReviewsMenu] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const [rocketOpen, setRocketOpen] = useState(true);
   const [briefOpen, setBriefOpen] = useState<Record<string, boolean>>({ Distribution: false, Finance: false, IT: false, Manufacturing: true });
   
   const projectReviewsMenuRef = useRef<HTMLDivElement>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
 
   const leftW = leftOpen ? LEFT_EXPANDED : LEFT_COLLAPSED;
   const rightW = rightOpen ? 340 : 0;
@@ -3566,6 +3570,17 @@ function App() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Close User menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setShowUserMenu(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const navItems = useMemo(() => [
     { icon: "📘", label: "Academy" },
     { icon: "🧰", label: "Tools" },
@@ -3603,8 +3618,46 @@ function App() {
                 </button>
                 <button aria-label="Notifications" className="grid place-items-center w-8 h-8 rounded-full bg-white/10 cursor-pointer">🔔</button>
                 <button aria-label="Help" className="grid place-items-center w-8 h-8 rounded-full bg-white/10 cursor-pointer">❓</button>
-                <div className="w-8 h-8 rounded-full bg-white/20 overflow-hidden">
-                  <div className="w-full h-full bg-gradient-to-br from-purple-300 to-indigo-500" />
+                <div className="relative" ref={userMenuRef}>
+                  <button 
+                    onClick={() => setShowUserMenu(!showUserMenu)}
+                    className="w-8 h-8 rounded-full bg-white/20 overflow-hidden hover:ring-2 hover:ring-white/40 transition-all cursor-pointer flex items-center justify-center"
+                    aria-label="User menu"
+                  >
+                    {account ? (
+                      <div className="w-full h-full bg-gradient-to-br from-purple-400 to-indigo-600 flex items-center justify-center text-white font-semibold text-sm">
+                        {account.name?.charAt(0).toUpperCase()}
+                      </div>
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-purple-300 to-indigo-500" />
+                    )}
+                  </button>
+                  {showUserMenu && account && (
+                    <div className="absolute top-full mt-2 right-0 bg-white border border-slate-200 rounded-lg shadow-xl min-w-[240px] z-50">
+                      <div className="p-4 border-b border-slate-100">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-indigo-600 rounded-full flex items-center justify-center text-white font-semibold">
+                            {account.name?.charAt(0).toUpperCase()}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="text-sm font-semibold text-slate-800 truncate">{account.name}</div>
+                            <div className="text-xs text-slate-500 truncate">{account.username}</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="py-1">
+                        <button
+                          onClick={() => {
+                            setShowUserMenu(false);
+                            logout();
+                          }}
+                          className="w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
+                        >
+                          Sign out
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

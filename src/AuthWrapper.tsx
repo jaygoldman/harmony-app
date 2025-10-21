@@ -1,10 +1,26 @@
-import React from 'react';
+import React, { createContext, useContext } from 'react';
 import { useIsAuthenticated, useMsal, useAccount } from '@azure/msal-react';
 import { loginRequest } from './authConfig';
+import { AccountInfo } from '@azure/msal-browser';
 
 interface AuthWrapperProps {
   children: React.ReactNode;
 }
+
+interface AuthContextType {
+  account: AccountInfo | null;
+  logout: () => void;
+}
+
+const AuthContext = createContext<AuthContextType | null>(null);
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within AuthWrapper');
+  }
+  return context;
+};
 
 const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
   const isAuthenticated = useIsAuthenticated();
@@ -55,45 +71,9 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* User info header */}
-      <div className="bg-white border-b border-slate-200 px-6 py-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img 
-              src="https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png" 
-              alt="Harmony AI" 
-              className="w-8 h-8" 
-            />
-            <span className="text-lg font-semibold text-slate-800">Harmony</span>
-          </div>
-          <div className="flex items-center gap-4">
-            {account && (
-              <div className="flex items-center gap-3">
-                <div className="text-right">
-                  <div className="text-sm font-medium text-slate-800">{account.name}</div>
-                  <div className="text-xs text-slate-500">{account.username}</div>
-                </div>
-                <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white font-medium text-sm">
-                  {account.name?.charAt(0).toUpperCase()}
-                </div>
-              </div>
-            )}
-            <button
-              onClick={handleLogout}
-              className="text-sm text-slate-600 hover:text-slate-800 px-3 py-1 rounded hover:bg-slate-100 transition-colors"
-            >
-              Sign out
-            </button>
-          </div>
-        </div>
-      </div>
-      
-      {/* Main app content */}
-      <div>
-        {children}
-      </div>
-    </div>
+    <AuthContext.Provider value={{ account, logout: handleLogout }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 
