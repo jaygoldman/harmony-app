@@ -1800,8 +1800,9 @@ const AskHarmonyBoxWithMenu: React.FC = () => {
               };
               window.dispatchEvent(new CustomEvent('discussWithHarmony', { detail: widgetInfo }));
             }}
-            className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors"
+            className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors flex items-center gap-2"
           >
+            <img src="https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png" alt="Harmony" className="w-4 h-4" />
             Chat with Harmony...
           </button>
         </div>
@@ -2712,8 +2713,9 @@ const ActivityFeedWidget: React.FC = () => {
               };
               window.dispatchEvent(new CustomEvent('discussWithHarmony', { detail: widgetInfo }));
             }}
-            className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors"
+            className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors flex items-center gap-2"
           >
+            <img src="https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png" alt="Harmony" className="w-4 h-4" />
             Chat with Harmony...
           </button>
         </div>
@@ -2935,8 +2937,9 @@ const ActivityFeedWidget: React.FC = () => {
                                 };
                                 window.dispatchEvent(new CustomEvent('discussWithHarmony', { detail: widgetInfo }));
                               }}
-                              className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors text-sm"
+                              className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors text-sm flex items-center gap-2"
                             >
+                              <img src="https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png" alt="Harmony" className="w-4 h-4" />
                               Chat with Harmony...
                             </button>
                           </div>
@@ -4324,8 +4327,9 @@ function App() {
                           };
                           window.dispatchEvent(new CustomEvent('discussWithHarmony', { detail: widgetInfo }));
                         }}
-                        className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors"
+                        className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors flex items-center gap-2"
                       >
+                        <img src="https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png" alt="Harmony" className="w-4 h-4" />
                         Chat with Harmony...
                       </button>
                     </div>
@@ -4473,8 +4477,9 @@ function App() {
                           };
                           window.dispatchEvent(new CustomEvent('discussWithHarmony', { detail: widgetInfo }));
                         }}
-                        className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors"
+                        className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors flex items-center gap-2"
                       >
+                        <img src="https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png" alt="Harmony" className="w-4 h-4" />
                         Chat with Harmony...
                       </button>
                     </div>
@@ -4595,8 +4600,9 @@ function App() {
                           };
                           window.dispatchEvent(new CustomEvent('discussWithHarmony', { detail: widgetInfo }));
                         }}
-                        className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors"
+                        className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors flex items-center gap-2"
                       >
+                        <img src="https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png" alt="Harmony" className="w-4 h-4" />
                         Chat with Harmony...
                       </button>
                     </div>
@@ -4635,8 +4641,9 @@ function App() {
                           };
                           window.dispatchEvent(new CustomEvent('discussWithHarmony', { detail: widgetInfo }));
                         }}
-                        className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors"
+                        className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors flex items-center gap-2"
                       >
+                        <img src="https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png" alt="Harmony" className="w-4 h-4" />
                         Chat with Harmony...
                       </button>
                     </div>
@@ -4666,8 +4673,9 @@ function App() {
                             };
                             window.dispatchEvent(new CustomEvent('discussWithHarmony', { detail: widgetInfo }));
                           }}
-                          className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors"
+                          className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors flex items-center gap-2"
                         >
+                          <img src="https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png" alt="Harmony" className="w-4 h-4" />
                           Chat with Harmony...
                         </button>
                       </div>
@@ -4719,8 +4727,9 @@ function App() {
                           };
                           window.dispatchEvent(new CustomEvent('discussWithHarmony', { detail: widgetInfo }));
                         }}
-                        className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors"
+                        className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors flex items-center gap-2"
                       >
+                        <img src="https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png" alt="Harmony" className="w-4 h-4" />
                         Chat with Harmony...
                       </button>
                     </div>
