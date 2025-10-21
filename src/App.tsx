@@ -1747,6 +1747,30 @@ const ActivityFeedWidget: React.FC = () => {
   const [showBriefingViewer, setShowBriefingViewer] = useState(false);
   const [selectedBriefingContent, setSelectedBriefingContent] = useState('');
   const [selectedBriefingTitle, setSelectedBriefingTitle] = useState('');
+  
+  // Briefings management state
+  const [briefingsList, setBriefingsList] = useState<Array<{
+    id: string;
+    name: string;
+    frequency: string;
+    day: string;
+    time: string;
+    deliveryMethods: string[];
+  }>>([{
+    id: '1',
+    name: 'Executive Briefing',
+    frequency: 'Weekly',
+    day: 'Monday',
+    time: '09:00',
+    deliveryMethods: ['Activity Feed']
+  }]);
+  const [selectedBriefingId, setSelectedBriefingId] = useState<string | null>(null);
+  const [briefingSearch, setBriefingSearch] = useState('');
+  const [selectedAnalysis, setSelectedAnalysis] = useState('');
+  const [briefingFrequency, setBriefingFrequency] = useState('Weekly');
+  const [briefingDay, setBriefingDay] = useState('Monday');
+  const [briefingTime, setBriefingTime] = useState('09:00');
+  const [briefingDelivery, setBriefingDelivery] = useState<string[]>(['Activity Feed']);
   const filtersRef = useRef<HTMLDivElement>(null);
   const filterButtonRef = useRef<HTMLButtonElement>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -2966,7 +2990,7 @@ const ActivityFeedWidget: React.FC = () => {
     {/* Manage Harmony Briefings Modal */}
     {showBriefingsModal && (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 briefings-modal-overlay">
-        <div ref={briefingsModalRef} className="bg-white rounded-lg shadow-xl max-w-3xl w-full mx-4 max-h-[80vh] overflow-hidden" onClick={(e) => e.stopPropagation()}>
+        <div ref={briefingsModalRef} className="bg-white rounded-lg shadow-xl max-w-3xl w-full mx-4 max-h-[85vh] flex flex-col" onClick={(e) => e.stopPropagation()}>
           <div className="flex items-center justify-between p-6 border-b border-slate-200">
             <h2 className="text-lg font-semibold text-slate-900">Manage Harmony Briefings</h2>
             <button
@@ -2980,28 +3004,85 @@ const ActivityFeedWidget: React.FC = () => {
             </button>
           </div>
 
-          <div className="p-6 overflow-y-auto max-h-[calc(80vh-120px)] space-y-6">
-            {/* Add Briefing */}
-            <div className="space-y-3">
-              <label className="block text-sm font-medium text-slate-700">Add a scheduled briefing</label>
-              <div className="border border-slate-300 rounded-md">
-                {/* Simple searchable select mock inspired by provided image */}
-                <div className="p-2 border-b border-slate-200">
-                  <input placeholder="Search briefings" className="w-full px-3 py-2 text-sm border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500" />
-                </div>
-                <div className="max-h-48 overflow-y-auto text-sm">
-                  {[
-                    'Executive Briefing',
-                    'Executive Briefing (GPT-4o mini)',
-                    'Governance - Projects to investigate',
-                    'Governance - Unusual project reviews, last 90 days',
-                    'Project Review Trends (trailing 12 months)',
-                    'Significant changes over 90 days.',
-                    'What are the three worst projects, and what were they 30 days ago?',
-                    'Where should I spend my next 20 minutes?'
-                  ].map((name) => (
-                    <div key={name} className="px-4 py-2 hover:bg-slate-50 cursor-pointer">{name}</div>
-                  ))}
+          <div className="flex-1 overflow-y-auto p-6 space-y-6">
+            {/* Scheduled Briefings List */}
+            <div>
+              <h3 className="text-sm font-medium text-slate-700 mb-2">Scheduled Briefings</h3>
+              <div className="border border-slate-200 rounded-md max-h-48 overflow-y-auto">
+                {briefingsList.length > 0 ? (
+                  <div className="divide-y">
+                    {briefingsList.map((briefing) => (
+                      <div
+                        key={briefing.id}
+                        className={cls(
+                          "p-3 flex items-center justify-between text-sm cursor-pointer hover:bg-slate-50",
+                          selectedBriefingId === briefing.id && "bg-purple-50 hover:bg-purple-50"
+                        )}
+                        onClick={() => {
+                          setSelectedBriefingId(briefing.id);
+                          setSelectedAnalysis(briefing.name);
+                          setBriefingFrequency(briefing.frequency);
+                          setBriefingDay(briefing.day);
+                          setBriefingTime(briefing.time);
+                          setBriefingDelivery(briefing.deliveryMethods);
+                        }}
+                      >
+                        <div className="flex-1">
+                          <div className="font-medium">{briefing.name}</div>
+                          <div className="text-slate-500">
+                            {briefing.frequency} on {briefing.day} at {briefing.time} • Delivered to {briefing.deliveryMethods.join(', ')}
+                          </div>
+                        </div>
+                        {selectedBriefingId === briefing.id && (
+                          <div className="text-purple-600 mr-2">✓</div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="p-8 text-center text-slate-500 text-sm">No scheduled briefings yet</div>
+                )}
+              </div>
+            </div>
+
+            {/* Form */}
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">Select Analysis</label>
+                <div className="border border-slate-300 rounded-md">
+                  <div className="p-2 border-b border-slate-200">
+                    <input
+                      placeholder="Search briefings"
+                      value={briefingSearch}
+                      onChange={(e) => setBriefingSearch(e.target.value)}
+                      className="w-full px-3 py-2 text-sm border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    />
+                  </div>
+                  <div className="max-h-40 overflow-y-auto text-sm">
+                    {[
+                      'Executive Briefing',
+                      'Executive Briefing (GPT-4o mini)',
+                      'Governance - Projects to investigate',
+                      'Governance - Unusual project reviews, last 90 days',
+                      'Project Review Trends (trailing 12 months)',
+                      'Significant changes over 90 days.',
+                      'What are the three worst projects, and what were they 30 days ago?',
+                      'Where should I spend my next 20 minutes?'
+                    ]
+                      .filter(name => name.toLowerCase().includes(briefingSearch.toLowerCase()))
+                      .map((name) => (
+                        <div
+                          key={name}
+                          onClick={() => setSelectedAnalysis(name)}
+                          className={cls(
+                            "px-4 py-2 hover:bg-slate-50 cursor-pointer",
+                            selectedAnalysis === name && "bg-purple-50 text-purple-700 font-medium"
+                          )}
+                        >
+                          {name} {selectedAnalysis === name && '✓'}
+                        </div>
+                      ))}
+                  </div>
                 </div>
               </div>
 
@@ -3009,45 +3090,146 @@ const ActivityFeedWidget: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-1">Frequency</label>
-                  <select className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                  <select
+                    value={briefingFrequency}
+                    onChange={(e) => setBriefingFrequency(e.target.value)}
+                    className="w-full h-10 px-3 py-2 border border-slate-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  >
                     <option>Daily</option>
-                    <option selected>Weekly</option>
+                    <option>Weekly</option>
                     <option>Monthly</option>
                   </select>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-1">Day</label>
-                  <select className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
-                    {['Monday','Tuesday','Wednesday','Thursday','Friday'].map(d => <option key={d}>{d}</option>)}
+                  <select
+                    value={briefingDay}
+                    onChange={(e) => setBriefingDay(e.target.value)}
+                    className="w-full h-10 px-3 py-2 border border-slate-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  >
+                    {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].map(d => <option key={d}>{d}</option>)}
                   </select>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-1">Time</label>
-                  <input type="time" className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500" defaultValue="09:00" />
+                  <input
+                    type="time"
+                    value={briefingTime}
+                    onChange={(e) => setBriefingTime(e.target.value)}
+                    className="w-full h-10 px-3 py-2 border border-slate-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  />
                 </div>
               </div>
 
-              <div className="flex justify-end">
-                <button className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors">Add briefing</button>
+              {/* Delivery methods */}
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-2">Delivery Methods</label>
+                <div className="space-y-2">
+                  {['Activity Feed', 'Conductor Notifications', 'Email', 'Microsoft Teams'].sort().map(method => (
+                    <label key={method} className="flex items-center gap-2 text-sm">
+                      <input
+                        type="checkbox"
+                        checked={briefingDelivery.includes(method)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setBriefingDelivery([...briefingDelivery, method]);
+                          } else {
+                            setBriefingDelivery(briefingDelivery.filter(m => m !== method));
+                          }
+                        }}
+                        className="rounded border-slate-300 text-purple-600 focus:ring-purple-500"
+                      />
+                      <span>{method}</span>
+                    </label>
+                  ))}
+                </div>
               </div>
             </div>
+          </div>
 
-            {/* Existing schedules */}
+          {/* Footer buttons */}
+          <div className="border-t border-slate-200 p-4 flex justify-between gap-3">
             <div>
-              <h3 className="text-sm font-medium text-slate-700 mb-2">Scheduled briefings</h3>
-              <div className="border border-slate-200 rounded-md divide-y">
-                <div className="p-3 flex items-center justify-between text-sm">
-                  <div>
-                    <div className="font-medium">Executive Briefing</div>
-                    <div className="text-slate-500">Weekly on Monday at 9:00 AM • Delivered to Activity Feed</div>
-                  </div>
-                  <button className="text-slate-600 hover:text-slate-800">Remove</button>
-                </div>
-              </div>
+              {selectedBriefingId && (
+                <button
+                  onClick={() => {
+                    setBriefingsList(briefingsList.filter(b => b.id !== selectedBriefingId));
+                    setSelectedBriefingId(null);
+                    setSelectedAnalysis('');
+                    setBriefingFrequency('Weekly');
+                    setBriefingDay('Monday');
+                    setBriefingTime('09:00');
+                    setBriefingDelivery(['Activity Feed']);
+                  }}
+                  className="px-4 py-2 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-md transition-colors"
+                >
+                  Remove
+                </button>
+              )}
             </div>
-
-            <div className="flex justify-end gap-3 pt-2">
-              <button onClick={() => setShowBriefingsModal(false)} className="px-4 py-2 text-slate-600 hover:text-slate-800">Close</button>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowBriefingsModal(false)}
+                className="px-4 py-2 text-slate-600 hover:text-slate-800"
+              >
+                Close
+              </button>
+              {selectedBriefingId ? (
+                <button
+                  onClick={() => {
+                    if (!selectedAnalysis) return;
+                    setBriefingsList(briefingsList.map(b =>
+                      b.id === selectedBriefingId
+                        ? {
+                            ...b,
+                            name: selectedAnalysis,
+                            frequency: briefingFrequency,
+                            day: briefingDay,
+                            time: briefingTime,
+                            deliveryMethods: briefingDelivery
+                          }
+                        : b
+                    ));
+                    setSelectedBriefingId(null);
+                    setSelectedAnalysis('');
+                    setBriefingFrequency('Weekly');
+                    setBriefingDay('Monday');
+                    setBriefingTime('09:00');
+                    setBriefingDelivery(['Activity Feed']);
+                  }}
+                  className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={!selectedAnalysis}
+                >
+                  Update
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    if (!selectedAnalysis) return;
+                    const newId = String(Date.now());
+                    setBriefingsList([
+                      ...briefingsList,
+                      {
+                        id: newId,
+                        name: selectedAnalysis,
+                        frequency: briefingFrequency,
+                        day: briefingDay,
+                        time: briefingTime,
+                        deliveryMethods: briefingDelivery
+                      }
+                    ]);
+                    setSelectedAnalysis('');
+                    setBriefingFrequency('Weekly');
+                    setBriefingDay('Monday');
+                    setBriefingTime('09:00');
+                    setBriefingDelivery(['Activity Feed']);
+                  }}
+                  className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={!selectedAnalysis}
+                >
+                  Add Briefing
+                </button>
+              )}
             </div>
           </div>
         </div>
