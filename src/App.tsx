@@ -296,32 +296,57 @@ const WidgetCard: React.FC<{ widgetName: string; widgetData: any }> = ({ widgetN
     
     // For objects, show key-value pairs
     if (typeof data === 'object' && data !== null) {
-      // Special handling for Ask Harmony response format
-      if (data.type) {
+      // Ask Harmony text response format
+      if (data.content) {
+        // Extract first line or first 100 chars of content
+        const preview = data.content.split('\n')[0].replace(/\*\*/g, '').substring(0, 100);
+        return (
+          <div className="space-y-1 text-xs text-slate-600">
+            <div className="flex items-start gap-2">
+              <span className="text-slate-500 flex-shrink-0">Type:</span>
+              <span className="font-medium">Text Response</span>
+            </div>
+            <div className="text-slate-600 italic line-clamp-2">{preview}...</div>
+          </div>
+        );
+      }
+      
+      // Ask Harmony table response format
+      if (data.columns && data.rows) {
         return (
           <div className="space-y-1 text-xs text-slate-600">
             <div className="flex justify-between">
               <span className="text-slate-500">Type:</span>
-              <span className="font-medium capitalize">{data.type}</span>
+              <span className="font-medium">Table</span>
             </div>
-            {data.columns && (
-              <div className="flex justify-between">
-                <span className="text-slate-500">Columns:</span>
-                <span className="font-medium">{data.columns.length}</span>
-              </div>
-            )}
-            {data.rows && (
-              <div className="flex justify-between">
-                <span className="text-slate-500">Rows:</span>
-                <span className="font-medium">{data.rows.length}</span>
-              </div>
-            )}
-            {data.paragraphs && (
-              <div className="flex justify-between">
-                <span className="text-slate-500">Paragraphs:</span>
-                <span className="font-medium">{data.paragraphs.length}</span>
-              </div>
-            )}
+            <div className="flex justify-between">
+              <span className="text-slate-500">Columns:</span>
+              <span className="font-medium">{data.columns.length}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-slate-500">Rows:</span>
+              <span className="font-medium">{data.rows.length}</span>
+            </div>
+          </div>
+        );
+      }
+      
+      // Ask Harmony chart response format
+      if (data.chartType && data.data) {
+        return (
+          <div className="space-y-1 text-xs text-slate-600">
+            <div className="flex justify-between">
+              <span className="text-slate-500">Type:</span>
+              <span className="font-medium">Chart</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-slate-500">Chart Type:</span>
+              <span className="font-medium capitalize">{data.chartType}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-slate-500">Data Points:</span>
+              <span className="font-medium">{data.data.length}</span>
+            </div>
           </div>
         );
       }
