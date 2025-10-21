@@ -19,7 +19,7 @@ This guide walks you through setting up Microsoft Entra ID (Azure AD) authentica
      - **Multi-tenant**: Any Azure AD directory
    - **Redirect URI**: 
      - Type: `Single-page application (SPA)`
-     - URL: `http://localhost:5173` (for development)
+     - URL: `http://localhost:3000` (for development)
      - For production, use your actual domain: `https://yourdomain.com`
 
 ## Step 2: Configure App Registration
@@ -44,17 +44,17 @@ After creating the app registration:
 
 2. Update the `.env` file with your Azure AD values:
    ```env
-   VITE_AZURE_TENANT_ID=your-tenant-id-here
-   VITE_AZURE_CLIENT_ID=your-client-id-here
-   VITE_AZURE_REDIRECT_URI=http://localhost:5173
-   VITE_AZURE_AUTHORITY=https://login.microsoftonline.com/your-tenant-id-here
+   REACT_APP_AZURE_TENANT_ID=your-tenant-id-here
+   REACT_APP_AZURE_CLIENT_ID=your-client-id-here
+   REACT_APP_AZURE_REDIRECT_URI=http://localhost:3000
+   REACT_APP_AZURE_AUTHORITY=https://login.microsoftonline.com/your-tenant-id-here
    ```
 
    **Where to find these values:**
-   - **VITE_AZURE_TENANT_ID**: Azure Portal > Azure Active Directory > Overview > Directory (tenant) ID
-   - **VITE_AZURE_CLIENT_ID**: Azure Portal > Azure Active Directory > App registrations > Your app > Overview > Application (client) ID
-   - **VITE_AZURE_REDIRECT_URI**: Should match what you configured in the app registration
-   - **VITE_AZURE_AUTHORITY**: Replace `your-tenant-id-here` with your actual tenant ID
+   - **REACT_APP_AZURE_TENANT_ID**: Azure Portal > Azure Active Directory > Overview > Directory (tenant) ID
+   - **REACT_APP_AZURE_CLIENT_ID**: Azure Portal > Azure Active Directory > App registrations > Your app > Overview > Application (client) ID
+   - **REACT_APP_AZURE_REDIRECT_URI**: Should match what you configured in the app registration
+   - **REACT_APP_AZURE_AUTHORITY**: Replace `your-tenant-id-here` with your actual tenant ID
 
 ## Step 4: Test the Authentication
 
@@ -63,7 +63,7 @@ After creating the app registration:
    npm start
    ```
 
-2. Navigate to `http://localhost:5173`
+2. Navigate to `http://localhost:3000`
 3. You should see the login screen
 4. Click "Sign in with Microsoft" and authenticate with your Microsoft account
 5. After successful authentication, you should see the main Harmony dashboard
@@ -78,7 +78,7 @@ When deploying to Azure App Service or Static Web Apps:
 
 2. **Update Environment Variables**:
    - Set the production environment variables in your Azure service
-   - Update `VITE_AZURE_REDIRECT_URI` to your production URL
+   - Update `REACT_APP_AZURE_REDIRECT_URI` to your production URL
 
 3. **Configure Azure Static Web Apps** (if using):
    - Add the environment variables in the Azure portal under Configuration

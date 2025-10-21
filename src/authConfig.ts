@@ -3,9 +3,9 @@ import { Configuration, PopupRequest } from '@azure/msal-browser';
 // MSAL configuration
 export const msalConfig: Configuration = {
   auth: {
-    clientId: import.meta.env.VITE_AZURE_CLIENT_ID || '',
-    authority: import.meta.env.VITE_AZURE_AUTHORITY || `https://login.microsoftonline.com/${import.meta.env.VITE_AZURE_TENANT_ID || 'common'}`,
-    redirectUri: import.meta.env.VITE_AZURE_REDIRECT_URI || window.location.origin,
+    clientId: process.env.REACT_APP_AZURE_CLIENT_ID || '',
+    authority: process.env.REACT_APP_AZURE_AUTHORITY || `https://login.microsoftonline.com/${process.env.REACT_APP_AZURE_TENANT_ID || 'common'}`,
+    redirectUri: process.env.REACT_APP_AZURE_REDIRECT_URI || window.location.origin,
   },
   cache: {
     cacheLocation: 'sessionStorage', // This configures where your cache will be stored
