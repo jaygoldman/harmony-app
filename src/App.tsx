@@ -3125,7 +3125,7 @@ const ActivityFeedWidget: React.FC = () => {
               
               {/* Activity Content */}
               <div className="flex-1 min-w-0">
-                <div className="flex items-start justify-between">
+                <div className="flex items-start justify-between gap-2">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-sm font-medium text-slate-800">{activity.action}</span>
@@ -3138,32 +3138,56 @@ const ActivityFeedWidget: React.FC = () => {
                         </span>
                       )}
                     </div>
-                    <div className="text-sm text-slate-600 mb-1">{activity.details}</div>
+                    <div className="text-sm text-slate-600 mb-2">{activity.details}</div>
+                    
+                    {/* View Button - shown for all activities */}
+                    <div className="mb-2">
+                      <button
+                        onClick={() => {
+                          if (activity.activityType === 'harmony-briefing' && activity.briefingContent) {
+                            setSelectedBriefingTitle(`3D print capabilities in each facility - ${activity.briefingType}`);
+                            setSelectedBriefingContent(activity.briefingContent);
+                            setShowBriefingViewer(true);
+                          } else {
+                            window.open(activity.link, '_blank');
+                          }
+                        }}
+                        className="text-xs bg-purple-600 text-white px-3 py-1 rounded hover:bg-purple-700 transition-colors"
+                      >
+                        {(() => {
+                          // Determine button text based on activity type
+                          if (activity.activityType === 'harmony-briefing') return 'View Briefing';
+                          
+                          const platformName = platformLabels[activity.platform as keyof typeof platformLabels];
+                          const isInternalPlatform = activity.platform === 'conductor' || activity.platform === 'harmony';
+                          
+                          // Map activity types to appropriate view action
+                          let viewAction = 'View';
+                          if (activity.activityType === 'meeting') viewAction = 'View Meeting';
+                          else if (activity.activityType === 'kpi-update') viewAction = 'View KPI';
+                          else if (activity.activityType === 'bug' || activity.activityType === 'issue') viewAction = 'View Bug';
+                          else if (activity.activityType === 'pull-request') viewAction = 'View PR';
+                          else if (activity.activityType === 'release') viewAction = 'View Release';
+                          else if (activity.activityType === 'comment') viewAction = 'View Comment';
+                          else if (activity.activityType === 'task') viewAction = 'View Task';
+                          else if (activity.activityType === 'milestone') viewAction = 'View Milestone';
+                          else viewAction = 'View';
+                          
+                          // Add platform name if external
+                          return isInternalPlatform ? viewAction : `${viewAction} in ${platformName}`;
+                        })()}
+                      </button>
+                    </div>
+                    
                     <div className="flex items-center gap-2 text-xs text-slate-500">
                       <span>{formatRelativeTime(activity.timestamp)}</span>
                       <span>•</span>
                       <span>{activity.user}</span>
                     </div>
-                    {/* View Briefing button for Harmony Briefings */}
-                    {activity.activityType === 'harmony-briefing' && activity.briefingContent && (
-                      <div className="mt-2">
-                        <button
-                          onClick={() => {
-                            setSelectedBriefingTitle(`3D print capabilities in each facility - ${activity.briefingType}`);
-                            setSelectedBriefingContent(activity.briefingContent);
-                            setShowBriefingViewer(true);
-                          }}
-                          className="text-xs bg-purple-600 text-white px-3 py-1 rounded hover:bg-purple-700 transition-colors"
-                        >
-                          View Briefing
-                        </button>
-                      </div>
-                    )}
                   </div>
                   
-                  {/* Row Actions - Menu and External Link Button */}
-                  <div className="flex-shrink-0 flex items-center gap-1">
-                    {/* Row Menu Button */}
+                  {/* Row Menu Button - moved next to colored dot */}
+                  <div className="flex items-start gap-2">
                     <div className="relative">
                       <button
                         onClick={(e) => {
@@ -3210,27 +3234,14 @@ const ActivityFeedWidget: React.FC = () => {
                       )}
                     </div>
                     
-                    {/* External Link Button - Hidden for Harmony Briefings */}
-                    {activity.activityType !== 'harmony-briefing' && (
-                      <button
-                        onClick={() => window.open(activity.link, '_blank')}
-                        className="w-6 h-6 flex items-center justify-center rounded hover:bg-slate-200 transition-colors group"
-                        title="Open in new tab"
-                      >
-                        <svg className="w-3 h-3 text-slate-400 group-hover:text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                      </button>
-                    )}
+                    {/* Activity Type Indicator (colored dot) */}
+                    <div className={`w-2 h-2 rounded-full flex-shrink-0 mt-2 ${
+                      activity.platform === 'conductor' ? 'bg-purple-400' :
+                      activity.platform === 'harmony' ? 'bg-green-400' : 'bg-blue-400'
+                    }`}></div>
                   </div>
                 </div>
               </div>
-              
-              {/* Activity Type Indicator */}
-              <div className={`w-2 h-2 rounded-full flex-shrink-0 mt-2 ${
-                activity.platform === 'conductor' ? 'bg-purple-400' :
-                activity.platform === 'harmony' ? 'bg-green-400' : 'bg-blue-400'
-              }`}></div>
             </div>
           ))}
         </div>
