@@ -1771,6 +1771,17 @@ const ActivityFeedWidget: React.FC = () => {
   const [briefingDay, setBriefingDay] = useState('Monday');
   const [briefingTime, setBriefingTime] = useState('09:00');
   const [briefingDelivery, setBriefingDelivery] = useState<string[]>(['Activity Feed']);
+  
+  // Reset day field when frequency changes
+  useEffect(() => {
+    if (briefingFrequency === 'Daily') {
+      setBriefingDay('Every Day');
+    } else if (briefingFrequency === 'Weekly' && !['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].includes(briefingDay)) {
+      setBriefingDay('Monday');
+    } else if (briefingFrequency === 'Monthly' && !briefingDay.includes('First') && !briefingDay.includes('Last') && !briefingDay.includes('of month')) {
+      setBriefingDay('First Monday');
+    }
+  }, [briefingFrequency, briefingDay]);
   const filtersRef = useRef<HTMLDivElement>(null);
   const filterButtonRef = useRef<HTMLButtonElement>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -3015,7 +3026,7 @@ const ActivityFeedWidget: React.FC = () => {
                       <div
                         key={briefing.id}
                         className={cls(
-                          "p-3 flex items-center justify-between text-sm cursor-pointer hover:bg-slate-50",
+                          "p-3 flex items-center justify-between text-sm cursor-pointer hover:bg-slate-50 group",
                           selectedBriefingId === briefing.id && "bg-purple-50 hover:bg-purple-50"
                         )}
                         onClick={() => {
@@ -3033,9 +3044,14 @@ const ActivityFeedWidget: React.FC = () => {
                             {briefing.frequency} on {briefing.day} at {briefing.time} • Delivered to {briefing.deliveryMethods.join(', ')}
                           </div>
                         </div>
-                        {selectedBriefingId === briefing.id && (
-                          <div className="text-purple-600 mr-2">✓</div>
-                        )}
+                        <div className="flex items-center gap-2">
+                          <svg className="w-4 h-4 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                          </svg>
+                          {selectedBriefingId === briefing.id && (
+                            <div className="text-purple-600">✓</div>
+                          )}
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -3101,13 +3117,36 @@ const ActivityFeedWidget: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Day</label>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                    {briefingFrequency === 'Monthly' ? 'On' : 'Day'}
+                  </label>
                   <select
                     value={briefingDay}
                     onChange={(e) => setBriefingDay(e.target.value)}
                     className="w-full h-10 px-3 py-2 border border-slate-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                   >
-                    {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].map(d => <option key={d}>{d}</option>)}
+                    {briefingFrequency === 'Daily' ? (
+                      <option>Every Day</option>
+                    ) : briefingFrequency === 'Weekly' ? (
+                      ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(d => <option key={d}>{d}</option>)
+                    ) : (
+                      // Monthly options
+                      [
+                        'First Monday',
+                        'First Tuesday', 
+                        'First Wednesday',
+                        'First Thursday',
+                        'First Friday',
+                        'Last Monday',
+                        'Last Tuesday',
+                        'Last Wednesday',
+                        'Last Thursday',
+                        'Last Friday',
+                        '1st of month',
+                        '15th of month',
+                        'Last day of month'
+                      ].map(d => <option key={d}>{d}</option>)
+                    )}
                   </select>
                 </div>
                 <div>
