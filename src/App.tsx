@@ -2589,6 +2589,22 @@ const ActivityFeedWidget: React.FC = () => {
           >
             Manage Harmony Briefings...
           </button>
+          <div className="border-t border-slate-100" />
+          <button
+            onClick={() => {
+              setShowWidgetMenu(false);
+              // Trigger widget discussion - will be handled by Harmony Sidebar and parent
+              const widgetInfo = {
+                name: 'Activity Feed',
+                type: 'widget',
+                data: `Showing ${filteredActivities.length} activities from various platforms and integrations`
+              };
+              window.dispatchEvent(new CustomEvent('discussWithHarmony', { detail: widgetInfo }));
+            }}
+            className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors"
+          >
+            Discuss with Harmony
+          </button>
         </div>
       }
     >
@@ -3414,6 +3430,38 @@ const HarmonySidebar: React.FC<{ onOpenScenario: () => void }> = ({ onOpenScenar
   // Current chat messages state
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>(chatData['Thoughts on the rollout']);
   
+  // Listen for widget discussion requests
+  useEffect(() => {
+    const handleDiscussWidget = (event: Event) => {
+      const customEvent = event as CustomEvent;
+      const widgetInfo = customEvent.detail;
+      
+      // Create widget context card message
+      const widgetCard: ChatMessage = {
+        id: `widget-${Date.now()}`,
+        type: 'user',
+        content: `[Widget Context: ${widgetInfo.name}]\n${widgetInfo.data}`,
+        timestamp: new Date()
+      };
+      
+      // Add Harmony's response
+      const harmonyResponse: ChatMessage = {
+        id: `harmony-${Date.now()}`,
+        type: 'harmony',
+        content: `I've pulled in ${widgetInfo.name}. What would you like to know about it?`,
+        timestamp: new Date()
+      };
+      
+      // Start new chat with widget context
+      const newChatName = `Discussion: ${widgetInfo.name}`;
+      setCurrentChatName(newChatName);
+      setChatMessages([widgetCard, harmonyResponse]);
+    };
+    
+    window.addEventListener('discussWithHarmony', handleDiscussWidget);
+    return () => window.removeEventListener('discussWithHarmony', handleDiscussWidget);
+  }, []);
+  
   // Auto-scroll to bottom when new messages are added
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -3800,6 +3848,15 @@ function App() {
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Open sidebar when Discuss with Harmony is triggered
+  useEffect(() => {
+    const handleDiscussWidget = () => {
+      setRightOpen(true);
+    };
+    window.addEventListener('discussWithHarmony', handleDiscussWidget);
+    return () => window.removeEventListener('discussWithHarmony', handleDiscussWidget);
   }, []);
 
   const navItems = useMemo(() => [
