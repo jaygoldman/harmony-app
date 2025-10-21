@@ -1779,14 +1779,15 @@ const AskHarmonyBoxWithMenu: React.FC = () => {
       showMenu={showWidgetMenu && !!response}
       menuRef={widgetMenuRef}
       menuContent={
-        <div className="py-1">
+        <div className="py-1 min-w-[240px]">
           <button
             onClick={() => {
               console.log('Save answer as widget clicked');
               setShowWidgetMenu(false);
             }}
-            className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors"
+            className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors flex items-center gap-2"
           >
+            <span>💾</span>
             Save answer as widget...
           </button>
           <div className="border-t border-slate-100" />
@@ -2682,14 +2683,15 @@ const ActivityFeedWidget: React.FC = () => {
       showMenu={showWidgetMenu}
       menuRef={widgetMenuRef}
       menuContent={
-        <div className="py-1">
+        <div className="py-1 min-w-[280px]">
           <button
             onClick={() => {
               setShowConfigModal(true);
               setShowWidgetMenu(false);
             }}
-            className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors"
+            className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors flex items-center gap-2"
           >
+            <span>⚙️</span>
             Configure Activity Feed integrations...
           </button>
           <button
@@ -2697,8 +2699,9 @@ const ActivityFeedWidget: React.FC = () => {
               setShowBriefingsModal(true);
               setShowWidgetMenu(false);
             }}
-            className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors"
+            className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors flex items-center gap-2"
           >
+            <span>📋</span>
             Manage Harmony Briefings...
           </button>
           <div className="border-t border-slate-100" />
@@ -2919,7 +2922,7 @@ const ActivityFeedWidget: React.FC = () => {
                       
                       {/* Activity Row Menu */}
                       {openActivityMenu === activity.id && (
-                        <div className="absolute right-0 top-full mt-1 bg-white border border-slate-200 rounded-lg shadow-xl min-w-[180px] z-50">
+                        <div className="absolute right-0 top-full mt-1 bg-white border border-slate-200 rounded-lg shadow-xl min-w-[220px] z-50">
                           <div className="py-1">
                             <button
                               onClick={() => {
@@ -4316,7 +4319,7 @@ function App() {
                   showMenu={showProjectStagesMenu}
                   menuRef={projectStagesMenuRef}
                   menuContent={
-                    <div className="py-1">
+                    <div className="py-1 min-w-[220px]">
                       <button
                         onClick={() => {
                           setShowProjectStagesMenu(false);
@@ -4456,14 +4459,15 @@ function App() {
                   showMenu={showProjectReviewsMenu}
                   menuRef={projectReviewsMenuRef}
                   menuContent={
-                    <div className="py-1">
+                    <div className="py-1 min-w-[240px]">
                       <button
                         onClick={() => {
                           setShowHarmonyReviewsModal(true);
                           setShowProjectReviewsMenu(false);
                         }}
-                        className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors"
+                        className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors flex items-center gap-2"
                       >
+                        <span>⚙️</span>
                         Configure Harmony reviews...
                       </button>
                       <div className="border-t border-slate-100" />
@@ -4589,7 +4593,7 @@ function App() {
                   showMenu={showNetBenefitMenu}
                   menuRef={netBenefitMenuRef}
                   menuContent={
-                    <div className="py-1">
+                    <div className="py-1 min-w-[220px]">
                       <button
                         onClick={() => {
                           setShowNetBenefitMenu(false);
@@ -4630,7 +4634,7 @@ function App() {
                   showMenu={showPurposeMenu}
                   menuRef={purposeMenuRef}
                   menuContent={
-                    <div className="py-1">
+                    <div className="py-1 min-w-[220px]">
                       <button
                         onClick={() => {
                           setShowPurposeMenu(false);
@@ -4662,7 +4666,7 @@ function App() {
                     showMenu={showFinancialApprovalsMenu}
                     menuRef={financialApprovalsMenuRef}
                     menuContent={
-                      <div className="py-1">
+                      <div className="py-1 min-w-[220px]">
                         <button
                           onClick={() => {
                             setShowFinancialApprovalsMenu(false);
@@ -4716,7 +4720,7 @@ function App() {
                   showMenu={showRiskAssessmentMenu}
                   menuRef={riskAssessmentMenuRef}
                   menuContent={
-                    <div className="py-1">
+                    <div className="py-1 min-w-[220px]">
                       <button
                         onClick={() => {
                           setShowRiskAssessmentMenu(false);
