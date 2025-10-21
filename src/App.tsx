@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
+import { useMsal } from '@azure/msal-react';
 import { useAuth } from './AuthWrapper';
 
 // ======================== LAYOUT CONSTANTS ========================
@@ -242,6 +243,180 @@ const ScenarioPlanner: React.FC<{
             className="w-full h-auto max-w-none"
             style={{ maxWidth: 'none' }}
           />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ======================== MOBILE CONNECT MODAL ==================
+const MobileConnectModal: React.FC<{ 
+  open: boolean; 
+  onClose: () => void;
+}> = ({ open, onClose }) => {
+  const { account } = useAuth();
+  const { instance, accounts } = useMsal();
+  const [qrCodeUrl, setQrCodeUrl] = useState<string>('');
+  const [connectionCode, setConnectionCode] = useState<string>('');
+
+  // Generate QR code with short connection code
+  useEffect(() => {
+    if (open && accounts.length > 0) {
+      const generateQRCode = async () => {
+        try {
+          // Generate a short random connection code (8 characters)
+          const code = Math.random().toString(36).substring(2, 10).toUpperCase();
+          setConnectionCode(code);
+          
+          // Acquire token silently from MSAL
+          const response = await instance.acquireTokenSilent({
+            scopes: ['openid', 'profile', 'email'],
+            account: accounts[0]
+          });
+          
+          if (!response.accessToken) {
+            console.error('No access token received from MSAL');
+            return;
+          }
+          
+          // Register the connection code with the backend
+          try {
+            await fetch(`${window.location.origin}/api/mobile/register-code`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${response.accessToken}`
+              },
+              body: JSON.stringify({
+                code: code,
+                username: account?.username,
+                expiresIn: 600 // 10 minutes in seconds
+              })
+            });
+            
+            console.log('Connection code registered:', code);
+          } catch (error) {
+            console.error('Failed to register connection code:', error);
+            return;
+          }
+          
+          // Create simple payload with just code and API URL
+          const connectionPayload = {
+            code: code,
+            apiUrl: window.location.origin
+          };
+          
+          // Convert to JSON string
+          const payloadString = JSON.stringify(connectionPayload);
+          console.log('Payload string length:', payloadString.length, 'characters');
+          
+          // Generate QR code URL with the short payload
+          const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(payloadString)}`;
+          console.log('QR URL generated successfully');
+          
+          setQrCodeUrl(qrUrl);
+        } catch (error) {
+          console.error('Failed to generate QR code:', error);
+        }
+      };
+      
+      generateQRCode();
+
+      // Refresh QR code every 10 minutes (600000 milliseconds)
+      const interval = setInterval(() => {
+        generateQRCode();
+      }, 10 * 60 * 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [open, account]);
+
+  // Close modal on Escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && open) {
+        onClose();
+      }
+    };
+    
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [open, onClose]);
+  
+  if (!open) return null;
+  
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[100] p-4" onClick={onClose}>
+      <div className="bg-white rounded-lg shadow-xl max-w-md w-full" onClick={(e) => e.stopPropagation()}>
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200">
+          <h2 className="text-lg font-semibold text-slate-900 flex items-center gap-2">
+            <span>📱</span>
+            <span>Connect Mobile App</span>
+          </h2>
+          <button 
+            onClick={onClose}
+            className="p-1 text-slate-400 hover:text-slate-600 rounded"
+            aria-label="Close"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        
+        {/* Content */}
+        <div className="p-6 space-y-6">
+          {/* Instructions */}
+          <div className="space-y-3">
+            <p className="text-sm text-slate-700 font-medium mb-3">
+              Connect your mobile device:
+            </p>
+            <ol className="list-decimal list-inside space-y-2 text-sm text-slate-600">
+              <li>Download the "Conductor Mobile" app from the Apple App Store or Google Play Store.</li>
+              <li>Open the app on your device and scan the QR code below.</li>
+            </ol>
+          </div>
+
+          {/* QR Code */}
+          <div className="flex flex-col items-center gap-4 py-6">
+            <div className="p-4 bg-white border-2 border-slate-200 rounded-lg shadow-sm">
+              {qrCodeUrl ? (
+                <img 
+                  src={qrCodeUrl} 
+                  alt="Connection QR Code" 
+                  className="w-[300px] h-[300px]"
+                />
+              ) : (
+                <div className="w-[300px] h-[300px] flex items-center justify-center bg-slate-100 text-slate-400">
+                  Generating QR code...
+                </div>
+              )}
+            </div>
+            
+            {/* Connection Code Display */}
+            <div className="text-center space-y-2">
+              <p className="text-xs text-slate-500 font-medium">Or enter this code manually:</p>
+              <div className="flex items-center justify-center gap-2">
+                <code className="px-4 py-2 bg-slate-100 border border-slate-200 rounded-md text-lg font-mono font-semibold tracking-wider text-slate-900">
+                  {connectionCode || '--------'}
+                </code>
+              </div>
+            </div>
+            
+            {/* Refresh notice */}
+            <p className="text-xs text-slate-400 italic text-center">
+              Code refreshes every 10 minutes
+            </p>
+          </div>
+
+          {/* Additional Info */}
+          <div className="bg-purple-50 border border-purple-100 rounded-lg p-4">
+            <p className="text-xs text-purple-900">
+              <strong>Tip:</strong> The mobile app allows you to receive notifications, 
+              view dashboards, and interact with Harmony AI on the go.
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -4039,6 +4214,7 @@ function App() {
   const [showFinancialApprovalsMenu, setShowFinancialApprovalsMenu] = useState(false);
   const [showRiskAssessmentMenu, setShowRiskAssessmentMenu] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showMobileConnectModal, setShowMobileConnectModal] = useState(false);
   const [rocketOpen, setRocketOpen] = useState(true);
   const [briefOpen, setBriefOpen] = useState<Record<string, boolean>>({ Distribution: false, Finance: false, IT: false, Manufacturing: true });
   
@@ -4203,6 +4379,16 @@ function App() {
                         </div>
                       </div>
                       <div className="py-1">
+                        <button
+                          onClick={() => {
+                            setShowUserMenu(false);
+                            setShowMobileConnectModal(true);
+                          }}
+                          className="w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 transition-colors flex items-center gap-2"
+                        >
+                          <span>📱</span>
+                          <span>Connect Mobile App</span>
+                        </button>
                         <button
                           onClick={() => {
                             setShowUserMenu(false);
@@ -5046,6 +5232,12 @@ function App() {
             </div>
           </div>
         )}
+
+        {/* Mobile Connect Modal */}
+        <MobileConnectModal 
+          open={showMobileConnectModal} 
+          onClose={() => setShowMobileConnectModal(false)}
+        />
 
       </div>
     </div>
