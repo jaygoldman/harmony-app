@@ -1709,6 +1709,21 @@ const AskHarmonyBoxWithMenu: React.FC = () => {
           >
             Save answer as widget...
           </button>
+          <div className="border-t border-slate-100" />
+          <button
+            onClick={() => {
+              setShowWidgetMenu(false);
+              const widgetInfo = {
+                name: 'Ask Harmony',
+                type: 'widget',
+                data: response ? JSON.stringify(response) : 'No response yet'
+              };
+              window.dispatchEvent(new CustomEvent('discussWithHarmony', { detail: widgetInfo }));
+            }}
+            className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors"
+          >
+            Chat with Harmony...
+          </button>
         </div>
       }
     >
@@ -2603,7 +2618,7 @@ const ActivityFeedWidget: React.FC = () => {
             }}
             className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors"
           >
-            Discuss with Harmony
+            Chat with Harmony...
           </button>
         </div>
       }
@@ -4249,6 +4264,21 @@ function App() {
                         className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors"
                       >
                         Configure Harmony reviews...
+                      </button>
+                      <div className="border-t border-slate-100" />
+                      <button
+                        onClick={() => {
+                          setShowProjectReviewsMenu(false);
+                          const widgetInfo = {
+                            name: 'Project Reviews',
+                            type: 'widget',
+                            data: 'Project reviews including Harmony and user reviews'
+                          };
+                          window.dispatchEvent(new CustomEvent('discussWithHarmony', { detail: widgetInfo }));
+                        }}
+                        className="w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 transition-colors"
+                      >
+                        Chat with Harmony...
                       </button>
                     </div>
                   }
