@@ -280,8 +280,12 @@ const MobileConnectModal: React.FC<{
           }
           
           // Register the connection code with the backend
+          const apiUrl = process.env.NODE_ENV === 'development' 
+            ? 'http://localhost:3001' 
+            : window.location.origin;
+          
           try {
-            await fetch(`${window.location.origin}/api/mobile/register-code`, {
+            await fetch(`${apiUrl}/api/mobile/register-code`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
