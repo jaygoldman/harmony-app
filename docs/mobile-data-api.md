@@ -15,7 +15,7 @@ This guide explains how the Harmony mobile app can retrieve shared UI data from 
 | Endpoint | Purpose | Response |
 | --- | --- | --- |
 | `GET /api/mobile/data/sample` | Returns the contents of `src/data/sampleData.json`, including sample questions, the activity pool, historical activity data, active tasks, and user podcasts. | Full JSON file |
-| `GET /api/mobile/data/harmony-chats` | Returns the contents of `src/data/harmonyChats.json`, including the chat list metadata and seeded conversation transcripts. | Full JSON file |
+| `GET /api/mobile/data/harmony-chats` | Returns the contents of `src/data/harmonyChats.json`, including the chat list metadata, seeded conversation transcripts, and Conductor entity linkage. | Full JSON file |
 | `GET /api/mobile/data/kpis` | Returns `src/data/kpiData.json`, providing KPI metrics for the Manufacturing and Distribution workstreams. | Full JSON file |
 
 Both routes require the mobile token and respond with `401` if the header is missing or invalid. If a file cannot be located the server returns `404`.
@@ -40,12 +40,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsIn...
 }
 ```
 
-The Harmony chats endpoint mirrors the structure of `harmonyChats.json`:
+The Harmony chats endpoint mirrors the structure of `harmonyChats.json`. Each chat entry now includes the Conductor entity metadata so that clients can scope conversations to the current context (for example, the 3D printing project `10273`):
 
 ```json
 {
   "chatList": [
-    { "name": "Thoughts on the rollout", "date": "Today, 2:30 PM" }
+    {
+      "name": "Thoughts on the rollout",
+      "date": "Today, 2:30 PM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
+    }
   ],
   "chatMessages": {
     "Thoughts on the rollout": [
@@ -59,6 +65,11 @@ The Harmony chats endpoint mirrors the structure of `harmonyChats.json`:
   }
 }
 ```
+
+### Filtering Chats on Mobile
+
+- Match the desktop sidebar behavior by filtering the chat list to the page's Conductor entity ID before rendering. For the current 3D printing summary view, only chats with `conductorEntityId === "10273"` should appear in the hamburger menu or equivalent mobile list.
+- Fall back to the full list only if no chats are tagged to the active entity (useful for legacy data or when the user starts a brand new conversation).
 
 ## Error Handling
 
