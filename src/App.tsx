@@ -1,6 +1,8 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
 import { useMsal } from '@azure/msal-react';
 import { useAuth } from './AuthWrapper';
+import sampleData from "./data/sampleData.json";
+import harmonyChatData from "./data/harmonyChats.json";
 
 // ======================== LAYOUT CONSTANTS ========================
 const LEFT_EXPANDED = 260;
@@ -190,6 +192,58 @@ interface ChatMessage {
   }[];
 }
 
+type RawChatMessage = Omit<ChatMessage, 'timestamp'> & { timestamp: string };
+
+interface ChatListEntry {
+  name: string;
+  date: string;
+}
+
+interface HarmonyChatPayload {
+  chatList: ChatListEntry[];
+  chatMessages: Record<string, RawChatMessage[]>;
+}
+
+type SampleQuestion = { text: string; defaultType: 'text' | 'chart' | 'table' };
+
+type ActivityItem = {
+  activityType: string;
+  platform: string;
+  icon: string;
+  action: string;
+  details: string;
+  user: string;
+  link: string;
+  insightType?: string;
+};
+
+const toDate = (value: string): Date => {
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? new Date() : parsed;
+};
+
+const SAMPLE_QUESTIONS: SampleQuestion[] = sampleData.sampleQuestions as SampleQuestion[];
+const ACTIVITY_POOL: ActivityItem[] = sampleData.activityPool as ActivityItem[];
+const HISTORICAL_ACTIVITIES: ActivityItem[] = sampleData.historicalActivities as ActivityItem[];
+
+const { chatList: SAMPLE_CHAT_LIST, chatMessages: RAW_CHAT_MESSAGES } = harmonyChatData as HarmonyChatPayload;
+
+const HYDRATED_CHAT_MAP: Record<string, ChatMessage[]> = Object.fromEntries(
+  Object.entries(RAW_CHAT_MESSAGES).map(([chatName, messages]) => [
+    chatName,
+    (messages || []).map((message) => ({
+      ...message,
+      timestamp: toDate(message.timestamp),
+    })),
+  ])
+);
+
+const createInitialChatStore = (): Record<string, ChatMessage[]> =>
+  Object.fromEntries(
+    Object.entries(HYDRATED_CHAT_MAP).map(([chatName, messages]) => [chatName, [...messages]])
+  );
+
+const DEFAULT_CHAT_NAME = SAMPLE_CHAT_LIST[0]?.name || 'Thoughts on the rollout';
 // ======================== SCENARIO PLANNER MODAL ==================
 const ScenarioPlanner: React.FC<{ 
   open: boolean; 
@@ -260,70 +314,70 @@ const MobileConnectModal: React.FC<{
   const [connectionCode, setConnectionCode] = useState<string>('');
 
   // Generate QR code with short connection code
-  useEffect(() => {
-    if (open && accounts.length > 0) {
-      const generateQRCode = async () => {
-        try {
-          // Generate a short random connection code (8 characters)
-          const code = Math.random().toString(36).substring(2, 10).toUpperCase();
-          setConnectionCode(code);
-          
-          // Acquire token silently from MSAL
-          const response = await instance.acquireTokenSilent({
-            scopes: ['openid', 'profile', 'email'],
-            account: accounts[0]
-          });
-          
-          if (!response.accessToken) {
-            console.error('No access token received from MSAL');
-            return;
-          }
-          
-          // Register the connection code with the backend
-          const apiUrl = process.env.NODE_ENV === 'development' 
-            ? 'http://localhost:3001' 
-            : window.location.origin;
-          
-          try {
-            await fetch(`${apiUrl}/api/mobile/register-code`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${response.accessToken}`
-              },
-              body: JSON.stringify({
-                code: code,
-                username: account?.username,
-                expiresIn: 600 // 10 minutes in seconds
-              })
-            });
-            
-            console.log('Connection code registered:', code);
-          } catch (error) {
-            console.error('Failed to register connection code:', error);
-            return;
-          }
-          
-          // Create simple payload with just code and API URL
-          const connectionPayload = {
+  const generateQRCode = async () => {
+    try {
+      // Generate a short random connection code (8 characters)
+      const code = Math.random().toString(36).substring(2, 10).toUpperCase();
+      setConnectionCode(code);
+      
+      // Acquire token silently from MSAL
+      const response = await instance.acquireTokenSilent({
+        scopes: ['openid', 'profile', 'email'],
+        account: accounts[0]
+      });
+      
+      if (!response.accessToken) {
+        console.error('No access token received from MSAL');
+        return;
+      }
+      
+      // Register the connection code with the backend
+      const apiUrl = process.env.NODE_ENV === 'development' 
+        ? 'http://localhost:3001' 
+        : window.location.origin;
+      
+      try {
+        await fetch(`${apiUrl}/api/mobile/register-code`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${response.accessToken}`
+          },
+          body: JSON.stringify({
             code: code,
-            apiUrl: window.location.origin
-          };
-          
-          // Convert to JSON string
-          const payloadString = JSON.stringify(connectionPayload);
-          console.log('Payload string length:', payloadString.length, 'characters');
-          
-          // Generate QR code URL with the short payload
-          const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(payloadString)}`;
-          console.log('QR URL generated successfully');
-          
-          setQrCodeUrl(qrUrl);
-        } catch (error) {
-          console.error('Failed to generate QR code:', error);
-        }
+            username: account?.username,
+            expiresIn: 600 // 10 minutes in seconds
+          })
+        });
+        
+        console.log('Connection code registered:', code);
+      } catch (error) {
+        console.error('Failed to register connection code:', error);
+        return;
+      }
+      
+      // Create simple payload with just code and API URL
+      const connectionPayload = {
+        code: code,
+        apiUrl: window.location.origin
       };
       
+      // Convert to JSON string
+      const payloadString = JSON.stringify(connectionPayload);
+      console.log('Payload string length:', payloadString.length, 'characters');
+      
+      // Generate QR code URL with the short payload
+      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(payloadString)}`;
+      console.log('QR URL generated successfully');
+      
+      setQrCodeUrl(qrUrl);
+    } catch (error) {
+      console.error('Failed to generate QR code:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (open && accounts.length > 0) {
       generateQRCode();
 
       // Refresh QR code every 10 minutes (600000 milliseconds)
@@ -409,9 +463,17 @@ const MobileConnectModal: React.FC<{
             </div>
             
             {/* Refresh notice */}
-            <p className="text-xs text-slate-400 italic text-center">
-              Code refreshes every 10 minutes
-            </p>
+            <div className="text-center">
+              <p className="text-xs text-slate-400 italic">
+                Code refreshes every 10 minutes
+              </p>
+              <button
+                onClick={generateQRCode}
+                className="text-xs text-purple-600 hover:text-purple-700 underline mt-1 cursor-pointer"
+              >
+                Refresh code now
+              </button>
+            </div>
           </div>
 
           {/* Additional Info */}
@@ -623,28 +685,96 @@ const ScenarioCard: React.FC = () => {
 
 // ======================== MESSAGE CONTENT RENDERER ================
 const MessageContent: React.FC<{ content: string }> = ({ content }) => {
-  // Convert @mentions to pills in message content
+  const getLinkLabel = (rawUrl: string): string => {
+    try {
+      const url = new URL(rawUrl);
+      const { hostname, pathname } = url;
+      if (hostname.includes('salesforce')) return 'View in Salesforce';
+      if (hostname.includes('sensei')) {
+        if (pathname.toLowerCase().includes('timeline')) {
+          return 'View timeline';
+        }
+        return 'Open in Sensei';
+      }
+      if (hostname.includes('teams')) return 'Open in Microsoft Teams';
+      if (hostname.includes('atlassian')) return 'Open in Jira';
+      if (hostname.includes('sharepoint')) return 'Open in SharePoint';
+      if (hostname.includes('confluence')) return 'Open in Confluence';
+      if (hostname.includes('conductor')) return 'Open in Conductor';
+      if (hostname.includes('insights')) return 'Open Harmony Insights';
+      if (hostname.includes('dealcloud')) return 'Open in DealCloud';
+      if (hostname.includes('smartsheet')) return 'Open in Smartsheet';
+      return 'Open link';
+    } catch {
+      return 'Open link';
+    }
+  };
+
+  const renderMention = (mention: string, key: string | number) => (
+    <span
+      key={key}
+      className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#efe8ff] border border-[#c7bfe0] text-[#211534] rounded-md text-xs font-medium mx-0.5"
+    >
+      {mention}
+    </span>
+  );
+
+  const renderLink = (url: string, key: string | number) => {
+    const label = getLinkLabel(url);
+    return (
+      <a
+        key={key}
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-[#513295] underline underline-offset-2 font-medium"
+      >
+        {label}
+      </a>
+    );
+  };
+
   const renderContent = () => {
-    const parts = content.split(/(@\w+)/g);
-    return parts.map((part, index) => {
-      if (part.startsWith('@')) {
-        const agentName = part;
-        const agent = AGENTS.find(a => a.name === agentName);
-        if (agent) {
-          return (
-            <span
-              key={index}
-              className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#efe8ff] border border-[#c7bfe0] text-[#211534] rounded-md text-xs font-medium mx-0.5"
-            >
-              {agentName}
-            </span>
-          );
+    const tokens: React.ReactNode[] = [];
+    const tokenRegex = /(@\w+|https?:\/\/[^\s]+)/g;
+    let lastIndex = 0;
+    let match: RegExpExecArray | null;
+    let tokenIndex = 0;
+
+    while ((match = tokenRegex.exec(content)) !== null) {
+      const [token] = match;
+      const start = match.index;
+
+      if (start > lastIndex) {
+        const text = content.slice(lastIndex, start);
+        tokens.push(<span key={`text-${tokenIndex++}`}>{text}</span>);
+      }
+
+      if (token.startsWith('@')) {
+        tokens.push(renderMention(token, `mention-${tokenIndex++}`));
+      } else if (token.startsWith('http')) {
+        let url = token;
+        let trailing = '';
+        while (/[.,!?)]$/.test(url)) {
+          trailing = url.slice(-1) + trailing;
+          url = url.slice(0, -1);
+        }
+        tokens.push(renderLink(url, `link-${tokenIndex++}`));
+        if (trailing) {
+          tokens.push(<span key={`trail-${tokenIndex++}`}>{trailing}</span>);
         }
       }
-      return <span key={index}>{part}</span>;
-    });
+
+      lastIndex = start + token.length;
+    }
+
+    if (lastIndex < content.length) {
+      tokens.push(<span key={`text-${tokenIndex++}`}>{content.slice(lastIndex)}</span>);
+    }
+
+    return tokens;
   };
-  
+
   return <>{renderContent()}</>;
 };
 
@@ -1545,13 +1675,7 @@ const AskHarmonyBox: React.FC<{ onResponseChange?: (response: any) => void }> = 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   
   // Sample questions with their default modality types
-  const sampleQuestions = [
-    { text: "What are the project risks?", defaultType: 'text' as const },
-    { text: "Show me the budget analysis", defaultType: 'chart' as const },
-    { text: "Display project tasks", defaultType: 'table' as const },
-    { text: "How is the timeline looking?", defaultType: 'text' as const },
-    { text: "What about resource allocation?", defaultType: 'chart' as const }
-  ];
+  const sampleQuestions = SAMPLE_QUESTIONS;
   
   // Close help menu when clicking outside
   useEffect(() => {
@@ -2328,397 +2452,10 @@ const ActivityFeedWidget: React.FC = () => {
   };
   
   // Pool of activities to cycle through
-  const activityPool = [
-    {
-      activityType: 'task-update',
-      platform: 'conductor',
-      icon: '/images/conductor.png',
-      action: 'Task completed',
-      details: 'Market research phase completed ahead of schedule',
-      user: 'Sarah Chen',
-      link: 'https://conductor.harmony.com/tasks/124'
-    },
-    {
-      activityType: 'market-data',
-      platform: 'harmony',
-      insightType: 'market_trend',
-      icon: 'https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png',
-      action: 'Market trend alert',
-      details: 'Raw material costs showing downward trend - potential cost savings opportunity',
-      user: 'Harmony Insights',
-      link: 'https://insights.harmony.com/signals/market-124'
-    },
-    {
-      activityType: 'deal-update',
-      platform: 'salesforce',
-      icon: '/images/salesforce.png',
-      action: 'New lead created',
-      details: 'Enterprise client GlobalTech showing interest in manufacturing solutions',
-      user: 'Mike Rodriguez',
-      link: 'https://salesforce.com/lead/789012'
-    },
-    {
-      activityType: 'message',
-      platform: 'teams',
-      icon: '/images/teams.png',
-      action: 'Meeting scheduled',
-      details: 'Weekly manufacturing review - Friday 2:00 PM',
-      user: 'Lisa Park',
-      link: 'https://teams.microsoft.com/meeting/manufacturing-review-456'
-    },
-    {
-      activityType: 'kpi-update',
-      platform: 'conductor',
-      icon: '/images/conductor.png',
-      action: 'KPI milestone reached',
-      details: 'Production efficiency hit 87% - exceeding target by 2%',
-      user: 'PMO Team',
-      link: 'https://conductor.harmony.com/kpis/production-efficiency'
-    },
-    {
-      activityType: 'story-update',
-      platform: 'jira',
-      icon: '/images/jira.png',
-      action: 'Bug resolved',
-      details: 'MFG-456: Inventory sync issue resolved and deployed',
-      user: 'David Kim',
-      link: 'https://company.atlassian.net/browse/MFG-456'
-    },
-    {
-      activityType: 'industry-news',
-      platform: 'harmony',
-      insightType: 'competitor_activity',
-      icon: 'https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png',
-      action: 'Competitor update',
-      details: 'Competitor ABC Inc announced 15% price reduction on similar products',
-      user: 'Harmony Insights',
-      link: 'https://insights.harmony.com/intelligence/abc-pricing-789'
-    },
-    {
-      activityType: 'file-change',
-      platform: 'sharepoint',
-      icon: '/images/sharepoint.png',
-      action: 'Document published',
-      details: 'Q1 Manufacturing Report finalized and published',
-      user: 'Jennifer Wu',
-      link: 'https://company.sharepoint.com/sites/manufacturing/q1-report.pdf'
-    },
-    {
-      activityType: 'approval-request',
-      platform: 'conductor',
-      icon: '/images/conductor.png',
-      action: 'Approval granted',
-      details: 'Equipment upgrade budget approved - $250k allocated',
-      user: 'Finance Team',
-      link: 'https://conductor.harmony.com/approvals/equipment-upgrade'
-    },
-    {
-      activityType: 'deal-update',
-      platform: 'dealcloud',
-      icon: '/images/dealcloud.png',
-      action: 'Contract signed',
-      details: 'Steel supplier contract renewed for 2025 - 5% cost reduction',
-      user: 'Alex Thompson',
-      link: 'https://dealcloud.com/contracts/steel-supplier-2025'
-    },
-    {
-      activityType: 'regulatory-update',
-      platform: 'harmony',
-      insightType: 'risk_alert',
-      icon: 'https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png',
-      action: 'Compliance update',
-      details: 'New safety regulations published - implementation deadline March 2025',
-      user: 'Harmony Insights',
-      link: 'https://insights.harmony.com/regulatory/safety-2025'
-    },
-    {
-      activityType: 'file-change',
-      platform: 'smartsheet',
-      icon: '/images/smartsheet.png',
-      action: 'Schedule updated',
-      details: 'Production line maintenance rescheduled to minimize downtime',
-      user: 'Maria Garcia',
-      link: 'https://smartsheet.com/schedules/maintenance-2025'
-    },
-    {
-      activityType: 'message',
-      platform: 'teams',
-      icon: '/images/teams.png',
-      action: 'Announcement posted',
-      details: 'New quality standards implemented - training sessions scheduled',
-      user: 'Quality Team',
-      link: 'https://teams.microsoft.com/announcements/quality-standards'
-    },
-    {
-      activityType: 'market-data',
-      platform: 'harmony',
-      insightType: 'opportunity',
-      icon: 'https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png',
-      action: 'Market opportunity',
-      details: 'Growing demand in Southeast Asia market - 30% growth projected',
-      user: 'Harmony Insights',
-      link: 'https://insights.harmony.com/opportunities/sea-market'
-    },
-    {
-      activityType: 'task-update',
-      platform: 'conductor',
-      icon: '/images/conductor.png',
-      action: 'Milestone achieved',
-      details: 'Phase 2 testing completed successfully - moving to Phase 3',
-      user: 'Engineering Team',
-      link: 'https://conductor.harmony.com/milestones/phase-2'
-    },
-    {
-      activityType: 'story-update',
-      platform: 'jira',
-      icon: '/images/jira.png',
-      action: 'Feature deployed',
-      details: 'MFG-789: Real-time inventory tracking now live in production',
-      user: 'DevOps Team',
-      link: 'https://company.atlassian.net/browse/MFG-789'
-    },
-    {
-      activityType: 'industry-news',
-      platform: 'harmony',
-      insightType: 'customer_behavior',
-      icon: 'https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png',
-      action: 'Customer insight',
-      details: 'Customer satisfaction scores up 12% following recent improvements',
-      user: 'Harmony Insights',
-      link: 'https://insights.harmony.com/customer/satisfaction-q4'
-    },
-    {
-      activityType: 'deal-update',
-      platform: 'salesforce',
-      icon: '/images/salesforce.png',
-      action: 'Quote approved',
-      details: 'MegaCorp project quote approved - $1.2M manufacturing contract',
-      user: 'Sales Team',
-      link: 'https://salesforce.com/quotes/megacorp-manufacturing'
-    },
-    {
-      activityType: 'file-change',
-      platform: 'sharepoint',
-      icon: '/images/sharepoint.png',
-      action: 'Policy updated',
-      details: 'Manufacturing safety protocols updated with latest guidelines',
-      user: 'Safety Team',
-      link: 'https://company.sharepoint.com/policies/safety-protocols-v5'
-    },
-    {
-      activityType: 'kpi-update',
-      platform: 'conductor',
-      icon: '/images/conductor.png',
-      action: 'Performance alert',
-      details: 'Energy efficiency improved by 8% this month - cost savings achieved',
-      user: 'Operations Team',
-      link: 'https://conductor.harmony.com/kpis/energy-efficiency'
-    },
-    {
-      activityType: 'harmony-briefing',
-      platform: 'harmony',
-      insightType: 'harmony_briefing',
-      icon: 'https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png',
-      action: 'Harmony Briefing: Executive Briefing',
-      details: 'Executive briefing delivered - Program performance analysis with action items and strategic recommendations',
-      user: 'Harmony Insights',
-      link: 'https://insights.harmony.com/briefings/executive-briefing-2025',
-      briefingType: 'Executive Briefing',
-      briefingContent: `<div id="analysisContent" dir="ltr"><h1>Executive Summary</h1>
-<p>Based on the analysis of the provided data for CompanyID=7, the overall program is <strong>not on track to meet its target</strong>. The total LBE for the program is $930.64 M, which is significantly higher than the target, indicating a negative variance. This suggests that the program is overspending compared to the initial targets. The percentage change in LBE from the previous year to the current year is <span style="color: red;">-26.49%</span>, which further highlights the need for immediate corrective actions.</p>
-<h3>Key Outliers</h3>
-<h4>Positive Outliers:</h4>
-<ol>
-<li><strong>Highest Performing KPI Element</strong>: The "Indirect BOM Savings" KPI element has achieved a performance of 1.0028, indicating it is slightly above target and contributing positively to the program.</li>
-<li><strong>Top 5 Projects Positively Impacting the Program</strong>:<ul>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10515">📁 Cloud Migration</a>: <span style="color: green;">+$3.75 M</span></li>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10526">📁 Cost Optimization and Efficiency Improvement</a>: <span style="color: green;">+$2.50 M</span></li>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10292">📁 Agency management protocol C</a>: <span style="color: green;">+$2.96 M</span></li>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10517">📁 Cybersecurity Enhancement</a>: <span style="color: green;">+$1.00 M</span></li>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10288">📁 Outsource janitorial</a>: <span style="color: green;">+$0.70 M</span></li>
-</ul>
-</li>
-</ol>
-<h4>Negative Outliers:</h4>
-<ol>
-<li><p><strong>Projects Farthest Away from Targets</strong>:</p>
-<ul>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10273">📁 3D print capabilities in each facility</a>: <span style="color: red;">-$4.00 M</span></li>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10514">📁 Online payment system</a>: <span style="color: red;">-$2.51 M</span></li>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10274">📁 Robotics upgrade on packaging line</a>: <span style="color: red;">-$2.00 M</span></li>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10288">📁 Outsource janitorial</a>: <span style="color: red;">-$1.23 M</span></li>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10515">📁 Cloud Migration</a>: <span style="color: red;">-$0.75 M</span></li>
-</ul>
-</li>
-<li><p><strong>Projects Farthest Away from Targets (No Actuals Recorded)</strong>:</p>
-<ul>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10292">📁 Agency management protocol C</a>: <span style="color: red;">-$0.75 M</span></li>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10278">📁 Digital Collaboration Platform for R&D Teams</a>: <span style="color: red;">-$0.15 M</span></li>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10514">📁 Online payment system</a>: <span style="color: red;">-$0.01 M</span></li>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10277">📁 Combine sales teams in US Midwest and central</a>: <span style="color: red;">-$0.00 M</span></li>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10276">📁 Realign sales commissions to OKRs</a>: <span style="color: red;">-$0.00 M</span></li>
-</ul>
-</li>
-</ol>
-<h4>Risks:</h4>
-<ol>
-<li><strong>Overall Program Performance</strong>: The program is not on track to meet its target, with a significant overspend indicated by the LBE exceeding the target.</li>
-<li><strong>Critical Projects</strong>: Several high-priority projects are underperforming, with LBEs exceeding their targets:<ul>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10275">📁 Outsource shipping in urban centers</a>: <span style="color: red;">-$0.50 M</span></li>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10289">📁 Standardize SAP implementations across sub-co's</a>: <span style="color: red;">-$0.25 M</span></li>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10526">📁 Cost Optimization and Efficiency Improvement</a>: <span style="color: red;">-$1.00 M</span></li>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10290">📁 In-source video production</a>: <span style="color: red;">-$0.50 M</span></li>
-</ul>
-</li>
-</ol>
-<hr>
-<h3>Action Items</h3>
-<h4>Immediate Actions:</h4>
-<ul>
-<li><p><strong>Focus on Underperforming Projects</strong>:</p>
-<ul>
-<li>Review and address the negative variances for the following projects:<ul>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10273">📁 3D print capabilities in each facility</a>: <span style="color: red;">-$4.00 M</span></li>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10514">📁 Online payment system</a>: <span style="color: red;">-$2.51 M</span></li>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10274">📁 Robotics upgrade on packaging line</a>: <span style="color: red;">-$2.00 M</span></li>
-</ul>
-</li>
-<li>Investigate the reasons for overspending and implement corrective measures.</li>
-</ul>
-</li>
-<li><p><strong>Address Projects with No Actuals Recorded</strong>:</p>
-<ul>
-<li>Ensure accurate and timely reporting for projects with no actuals recorded:<ul>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10292">📁 Agency management protocol C</a>: <span style="color: red;">-$0.75 M</span></li>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10278">📁 Digital Collaboration Platform for R&D Teams</a>: <span style="color: red;">-$0.15 M</span></li>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10514">📁 Online payment system</a>: <span style="color: red;">-$0.01 M</span></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4>Strategic Recommendations:</h4>
-<ul>
-<li><strong>Reassess Forecasts</strong>: Collaborate with project managers to update forecasts and ensure they align with realistic expectations. This will help improve the accuracy of LBEs and reduce variances.</li>
-<li><strong>Optimize High-Cost Workstreams</strong>: The "Sales" workstream contributes the most to the overall LBE ($154.57 M). Conduct a detailed review to identify cost-saving opportunities.</li>
-<li><strong>Monitor Quarterly Variances</strong>: Pay close attention to quarters with significant negative variances, such as Q3 2024 (<span style="color: red;">-$2.10 M</span>) and Q4 2024 (<span style="color: red;">-$3.40 M</span>). Implement cost control measures to mitigate risks in these periods.</li>
-</ul>
-<h4>Long-Term Actions:</h4>
-<ul>
-<li><strong>Enhance Reporting Processes</strong>: Implement stricter controls to ensure timely and accurate reporting of actuals across all projects.</li>
-<li><strong>Prioritize High-Impact Projects</strong>: Allocate resources to projects with positive variances and high LBE contributions:<ul>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10515">📁 Cloud Migration</a>: <span style="color: green;">+$3.75 M</span></li>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10526">📁 Cost Optimization and Efficiency Improvement</a>: <span style="color: green;">+$2.50 M</span></li>
-<li><a target="_blank" href="https://base-poc.senseilabs.com/conductor#/project/id/10292">📁 Agency management protocol C</a>: <span style="color: green;">+$2.96 M</span></li>
-</ul>
-</li>
-</ul>
-<h4>Risk Mitigation:</h4>
-<ul>
-<li><strong>Monitor High Variance Projects</strong>: Establish a task force to closely monitor projects with high negative variances and develop mitigation plans.</li>
-<li><strong>Reevaluate Budget Allocations</strong>: Reassess budget allocations for projects with significant overspending to ensure alignment with strategic priorities.</li>
-</ul>
-<p>By addressing these action items and focusing on the identified outliers, the company can work towards improving the financial health of the program and potentially realigning its trajectory to meet the overall target.</p>
-</div>`
-    }
-  ];
+  const activityPool = ACTIVITY_POOL;
 
   // Historical activities from older times
-  const historicalActivities = [
-    {
-      activityType: 'deal-update',
-      platform: 'salesforce',
-      icon: '/images/salesforce.png',
-      action: 'Opportunity created',
-      details: 'Manufacturing automation opportunity - InnovaCorp',
-      user: 'Sales Team',
-      link: 'https://salesforce.com/opportunities/innovacorp-auto'
-    },
-    {
-      activityType: 'story-update',
-      platform: 'jira',
-      icon: '/images/jira.png',
-      action: 'Epic completed',
-      details: 'MANUF-001: Equipment procurement planning epic closed',
-      user: 'Project Manager',
-      link: 'https://company.atlassian.net/browse/MANUF-001'
-    },
-    {
-      activityType: 'file-change',
-      platform: 'sharepoint',
-      icon: '/images/sharepoint.png',
-      action: 'Folder created',
-      details: 'Manufacturing Project 2024 documentation structure established',
-      user: 'PMO Office',
-      link: 'https://company.sharepoint.com/manufacturing-2024'
-    },
-    {
-      activityType: 'market-data',
-      platform: 'harmony',
-      insightType: 'market_trend',
-      icon: 'https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png',
-      action: 'Market baseline established',
-      details: 'Q4 2023 manufacturing sector analysis completed - baseline metrics set',
-      user: 'Harmony Insights',
-      link: 'https://insights.harmony.com/baselines/manuf-q4-2023'
-    },
-    {
-      activityType: 'message',
-      platform: 'teams',
-      icon: '/images/teams.png',
-      action: 'Team created',
-      details: 'Manufacturing Excellence team channel established',
-      user: 'IT Admin',
-      link: 'https://teams.microsoft.com/teams/manufacturing-excellence'
-    },
-    {
-      activityType: 'deal-update',
-      platform: 'dealcloud',
-      icon: '/images/dealcloud.png',
-      action: 'Vendor assessment',
-      details: 'Initial vendor capability assessment for automation partners',
-      user: 'Procurement Team',
-      link: 'https://dealcloud.com/assessments/automation-vendors'
-    },
-    {
-      activityType: 'file-change',
-      platform: 'smartsheet',
-      icon: '/images/smartsheet.png',
-      action: 'Project template',
-      details: 'Manufacturing project template created and shared',
-      user: 'Program Manager',
-      link: 'https://smartsheet.com/templates/manufacturing-project'
-    },
-    {
-      activityType: 'industry-news',
-      platform: 'harmony',
-      insightType: 'competitor_activity',
-      icon: 'https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png',
-      action: 'Competitive landscape',
-      details: 'Manufacturing sector competitive analysis - 12 key players identified',
-      user: 'Harmony Insights',
-      link: 'https://insights.harmony.com/competitive/manufacturing-landscape'
-    },
-    {
-      activityType: 'story-update',
-      platform: 'jira',
-      icon: '/images/jira.png',
-      action: 'Project setup',
-      details: 'MANUF project board created with initial workflows',
-      user: 'DevOps Team',
-      link: 'https://company.atlassian.net/projects/MANUF'
-    },
-    {
-      activityType: 'regulatory-update',
-      platform: 'harmony',
-      insightType: 'risk_alert',
-      icon: 'https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png',
-      action: 'Regulatory scan',
-      details: 'Manufacturing compliance requirements scan - 23 regulations identified',
-      user: 'Harmony Insights',
-      link: 'https://insights.harmony.com/regulatory/manufacturing-compliance'
-    }
-  ];
+  const historicalActivities = HISTORICAL_ACTIVITIES;
 
   // Initialize activities with historical items plus recent ones
   useEffect(() => {
@@ -3763,111 +3500,22 @@ const HarmonySidebar: React.FC<{ onOpenScenario: () => void }> = ({ onOpenScenar
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
   
   // Chat state
-  const [currentChatName, setCurrentChatName] = useState('Thoughts on the rollout');
+  const [currentChatName, setCurrentChatName] = useState(DEFAULT_CHAT_NAME);
   const [hamburgerMenuOpen, setHamburgerMenuOpen] = useState(false);
   const [chatSearchQuery, setChatSearchQuery] = useState('');
   const hamburgerMenuRef = useRef<HTMLDivElement | null>(null);
-  
-  // Sample chat history
-  const sampleChats = [
-    { name: 'Thoughts on the rollout', date: 'Today, 2:30 PM' },
-    { name: 'Budget review discussion', date: 'Yesterday, 4:15 PM' },
-    { name: 'Technical requirements', date: 'Jan 14, 10:20 AM' },
-    { name: 'Risk assessment meeting', date: 'Jan 13, 3:45 PM' },
-    { name: 'Stakeholder alignment', date: 'Jan 13, 11:30 AM' },
-    { name: 'Manufacturing timeline', date: 'Jan 12, 2:15 PM' },
-    { name: 'Procurement strategy', date: 'Jan 12, 9:20 AM' },
-    { name: 'Change management plan', date: 'Jan 11, 4:00 PM' },
-    { name: 'Training requirements', date: 'Jan 11, 1:45 PM' },
-    { name: 'Quality assurance', date: 'Jan 10, 3:30 PM' },
-    { name: 'Vendor evaluation', date: 'Jan 10, 10:15 AM' },
-    { name: 'Cost analysis update', date: 'Jan 9, 5:20 PM' },
-    { name: 'Project scope review', date: 'Jan 9, 2:10 PM' },
-    { name: 'Resource allocation', date: 'Jan 8, 4:45 PM' },
-    { name: 'Timeline adjustments', date: 'Jan 8, 11:30 AM' },
-    { name: 'Compliance requirements', date: 'Jan 7, 3:15 PM' },
-    { name: 'Performance metrics', date: 'Jan 7, 9:40 AM' },
-    { name: 'Implementation strategy', date: 'Jan 6, 4:25 PM' },
-    { name: 'Team assignments', date: 'Jan 6, 1:20 PM' },
-    { name: 'Final approvals needed', date: 'Jan 5, 3:50 PM' },
-    { name: 'Launch preparation', date: 'Jan 5, 10:35 AM' },
-    { name: 'Post-launch monitoring', date: 'Jan 4, 2:45 PM' },
-    { name: 'Success criteria definition', date: 'Jan 4, 11:15 AM' }
-  ];
+  const chatStoreRef = useRef<Record<string, ChatMessage[]>>(createInitialChatStore());
+  const chatList = SAMPLE_CHAT_LIST;
   
   // Filter chats based on search query
-  const filteredChats = sampleChats.filter(chat => 
+  const filteredChats = chatList.filter(chat =>
     chat.name.toLowerCase().includes(chatSearchQuery.toLowerCase())
   );
   
-  // Chat data storage - keyed by chat name
-  const chatData: Record<string, ChatMessage[]> = {
-    'Thoughts on the rollout': [
-      {
-        id: '1',
-        type: 'user',
-        content: 'Hello everyone, I wanted to get your thoughts on the 3D printing capabilities rollout. @CFOAgent @ChiefTechnicalOfficerAgent what do you think?',
-        timestamp: new Date('2024-01-15T10:30:00')
-      },
-      {
-        id: '2', 
-        type: 'harmony',
-        content: 'Great question! I\'ve analyzed the project data and can provide some insights. Let me bring in some relevant stakeholders.',
-        timestamp: new Date('2024-01-15T10:31:00')
-      },
-      {
-        id: '3',
-        type: 'agent',
-        content: 'From a financial perspective, we need to ensure ROI targets are met. The capex requirements look significant - have we validated the business case assumptions?',
-        sender: 'CFOAgent',
-        timestamp: new Date('2024-01-15T10:32:00')
-      },
-      {
-        id: '4',
-        type: 'agent', 
-        content: 'I can help assess the technical feasibility. The integration with existing manufacturing systems will be complex - we should plan for adequate testing phases.',
-        sender: 'ChiefTechnicalOfficerAgent',
-        timestamp: new Date('2024-01-15T10:33:00')
-      }
-    ],
-    'Budget review discussion': [
-      {
-        id: '5',
-        type: 'user',
-        content: 'We need to review the budget allocations for Q2. @CFOAgent can you walk us through the latest numbers?',
-        timestamp: new Date('2024-01-14T16:15:00')
-      },
-      {
-        id: '6',
-        type: 'agent',
-        content: 'Certainly! Our Q2 budget shows a 15% increase in operational costs, primarily driven by the new equipment purchases. However, we\'re tracking 8% under on personnel costs.',
-        sender: 'CFOAgent',
-        timestamp: new Date('2024-01-14T16:16:00')
-      },
-      {
-        id: '7',
-        type: 'harmony',
-        content: 'I\'ve identified three cost optimization opportunities that could save approximately $2.3M this quarter. Would you like me to detail these?',
-        timestamp: new Date('2024-01-14T16:17:00')
-      },
-      {
-        id: '8',
-        type: 'user',
-        content: 'Yes please, that would be very helpful. Also @ResourcingAgent what\'s our current headcount vs plan?',
-        timestamp: new Date('2024-01-14T16:18:00')
-      },
-      {
-        id: '9',
-        type: 'agent',
-        content: 'We\'re currently at 94% of planned headcount. The 6% gap is primarily in specialized technical roles where we\'re experiencing longer recruitment cycles.',
-        sender: 'ResourcingAgent',
-        timestamp: new Date('2024-01-14T16:19:00')
-      }
-    ]
-  };
-  
   // Current chat messages state
-  const [chatMessages, setChatMessages] = useState<ChatMessage[]>(chatData['Thoughts on the rollout']);
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>(() => [
+    ...(chatStoreRef.current[DEFAULT_CHAT_NAME] || []),
+  ]);
   
   // Listen for widget discussion requests
   useEffect(() => {
@@ -3898,8 +3546,10 @@ const HarmonySidebar: React.FC<{ onOpenScenario: () => void }> = ({ onOpenScenar
       
       // Start new chat with widget context
       const newChatName = `Discussion: ${widgetInfo.name}`;
+      const newChatMessages = [widgetCard, harmonyResponse];
+      chatStoreRef.current[newChatName] = newChatMessages;
       setCurrentChatName(newChatName);
-      setChatMessages([widgetCard, harmonyResponse]);
+      setChatMessages(newChatMessages);
     };
     
     window.addEventListener('discussWithHarmony', handleDiscussWidget);
@@ -3985,7 +3635,8 @@ const HarmonySidebar: React.FC<{ onOpenScenario: () => void }> = ({ onOpenScenar
   const handleSwitchChat = (chatName: string) => {
     setCurrentChatName(chatName);
     // Load messages for the selected chat, or empty array if chat doesn't exist
-    setChatMessages(chatData[chatName] || []);
+    const messages = chatStoreRef.current[chatName] || [];
+    setChatMessages([...messages]);
     setHamburgerMenuOpen(false);
   };
   
@@ -4000,8 +3651,10 @@ const HarmonySidebar: React.FC<{ onOpenScenario: () => void }> = ({ onOpenScenar
     };
     
     // Add message to current chat data
-    chatData[currentChatName] = [...(chatData[currentChatName] || []), newMessage];
-    setChatMessages(prev => [...prev, newMessage]);
+    const existingMessages = chatStoreRef.current[currentChatName] || [];
+    const updatedMessages = [...existingMessages, newMessage];
+    chatStoreRef.current[currentChatName] = updatedMessages;
+    setChatMessages(updatedMessages);
     
     // If message has scenario attachment, trigger agent responses
     if (attachments && attachments.some(a => a.type === 'scenario')) {
@@ -4011,6 +3664,7 @@ const HarmonySidebar: React.FC<{ onOpenScenario: () => void }> = ({ onOpenScenar
   
   // Trigger agent responses to scenario
   const triggerScenarioResponses = () => {
+    const activeChatName = currentChatName;
     const responses: ChatMessage[] = [
       {
         id: `harmony-${Date.now()}`,
@@ -4044,8 +3698,12 @@ const HarmonySidebar: React.FC<{ onOpenScenario: () => void }> = ({ onOpenScenar
     // Add responses with delays
     responses.forEach((response, index) => {
       setTimeout(() => {
-        chatData[currentChatName] = [...(chatData[currentChatName] || []), response];
-        setChatMessages(prev => [...prev, response]);
+        const existing = chatStoreRef.current[activeChatName] || [];
+        const updated = [...existing, response];
+        chatStoreRef.current[activeChatName] = updated;
+        if (activeChatName === currentChatName) {
+          setChatMessages(updated);
+        }
       }, (index + 1) * 2000); // 2 second intervals
     });
   };
@@ -4060,8 +3718,10 @@ const HarmonySidebar: React.FC<{ onOpenScenario: () => void }> = ({ onOpenScenar
   
   // Handle starting a new chat
   const handleNewChat = () => {
+    const newChatLabel = 'New chat';
+    chatStoreRef.current[newChatLabel] = [];
+    setCurrentChatName(newChatLabel);
     setChatMessages([]);
-    setCurrentChatName('New chat');
     
     // Focus the input box
     setTimeout(() => {

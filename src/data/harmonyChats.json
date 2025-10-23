@@ -1,0 +1,538 @@
+{
+  "chatList": [
+    {
+      "name": "Thoughts on the rollout",
+      "date": "Today, 2:30 PM"
+    },
+    {
+      "name": "Budget review discussion",
+      "date": "Yesterday, 4:15 PM"
+    },
+    {
+      "name": "Technical requirements",
+      "date": "Jan 14, 10:20 AM"
+    },
+    {
+      "name": "Risk assessment meeting",
+      "date": "Jan 13, 3:47 PM"
+    },
+    {
+      "name": "Stakeholder alignment",
+      "date": "Jan 13, 11:30 AM"
+    },
+    {
+      "name": "Manufacturing timeline",
+      "date": "Jan 12, 2:14 PM"
+    },
+    {
+      "name": "Procurement strategy",
+      "date": "Jan 12, 9:20 AM"
+    },
+    {
+      "name": "Change management plan",
+      "date": "Jan 11, 4:00 PM"
+    },
+    {
+      "name": "Training requirements",
+      "date": "Jan 11, 1:45 PM"
+    },
+    {
+      "name": "Quality assurance",
+      "date": "Jan 10, 3:30 PM"
+    },
+    {
+      "name": "Vendor evaluation",
+      "date": "Jan 10, 10:15 AM"
+    },
+    {
+      "name": "Cost analysis update",
+      "date": "Jan 9, 5:20 PM"
+    },
+    {
+      "name": "Project scope review",
+      "date": "Jan 9, 2:10 PM"
+    },
+    {
+      "name": "Resource allocation",
+      "date": "Jan 8, 4:45 PM"
+    },
+    {
+      "name": "Timeline adjustments",
+      "date": "Jan 8, 11:30 AM"
+    },
+    {
+      "name": "Compliance requirements",
+      "date": "Jan 7, 3:15 PM"
+    },
+    {
+      "name": "Performance metrics",
+      "date": "Jan 7, 9:40 AM"
+    },
+    {
+      "name": "Implementation strategy",
+      "date": "Jan 6, 4:25 PM"
+    },
+    {
+      "name": "Team assignments",
+      "date": "Jan 6, 1:20 PM"
+    },
+    {
+      "name": "Final approvals needed",
+      "date": "Jan 5, 3:50 PM"
+    },
+    {
+      "name": "Launch preparation",
+      "date": "Jan 5, 10:35 AM"
+    },
+    {
+      "name": "Post-launch monitoring",
+      "date": "Jan 4, 2:45 PM"
+    },
+    {
+      "name": "Success criteria definition",
+      "date": "Jan 4, 11:15 AM"
+    }
+  ],
+  "chatMessages": {
+    "Thoughts on the rollout": [
+      {
+        "id": "1",
+        "type": "user",
+        "content": "Hello everyone, I wanted to get your thoughts on the 3D printing capabilities rollout. @CFOAgent @ChiefTechnicalOfficerAgent what do you think?",
+        "timestamp": "2024-01-15T15:30:00.000Z"
+      },
+      {
+        "id": "2",
+        "type": "harmony",
+        "content": "Great question! I've analyzed the project data and can provide some insights. Let me bring in some relevant stakeholders.",
+        "timestamp": "2024-01-15T15:31:00.000Z"
+      },
+      {
+        "id": "3",
+        "type": "agent",
+        "content": "From a financial perspective, we need to ensure ROI targets are met. The capex requirements look significant - have we validated the business case assumptions?",
+        "sender": "CFOAgent",
+        "timestamp": "2024-01-15T15:32:00.000Z"
+      },
+      {
+        "id": "4",
+        "type": "agent",
+        "content": "I can help assess the technical feasibility. The integration with existing manufacturing systems will be complex - we should plan for adequate testing phases.",
+        "sender": "ChiefTechnicalOfficerAgent",
+        "timestamp": "2024-01-15T15:33:00.000Z"
+      }
+    ],
+    "Budget review discussion": [
+      {
+        "id": "5",
+        "type": "user",
+        "content": "We need to review the budget allocations for Q2. @CFOAgent can you walk us through the latest numbers?",
+        "timestamp": "2024-01-14T21:15:00.000Z"
+      },
+      {
+        "id": "6",
+        "type": "agent",
+        "content": "Certainly! Our Q2 budget shows a 15% increase in operational costs, primarily driven by the new equipment purchases. However, we're tracking 8% under on personnel costs.",
+        "sender": "CFOAgent",
+        "timestamp": "2024-01-14T21:16:00.000Z"
+      },
+      {
+        "id": "7",
+        "type": "harmony",
+        "content": "I've identified three cost optimization opportunities that could save approximately $2.3M this quarter. Would you like me to detail these?",
+        "timestamp": "2024-01-14T21:17:00.000Z"
+      },
+      {
+        "id": "8",
+        "type": "user",
+        "content": "Yes please, that would be very helpful. Also @ResourcingAgent what's our current headcount vs plan?",
+        "timestamp": "2024-01-14T21:18:00.000Z"
+      },
+      {
+        "id": "9",
+        "type": "agent",
+        "content": "We're currently at 94% of planned headcount. The 6% gap is primarily in specialized technical roles where we're experiencing longer recruitment cycles.",
+        "sender": "ResourcingAgent",
+        "timestamp": "2024-01-14T21:19:00.000Z"
+      }
+    ],
+    "Technical requirements": [
+      {
+        "id": "technical-1",
+        "type": "user",
+        "content": "Morning team, we need clarity on the interface handshake for the PLM integration. @ChiefTechnicalOfficerAgent can we confirm the API schema freeze date?",
+        "timestamp": "2024-01-14T15:20:00.000Z"
+      },
+      {
+        "id": "technical-2",
+        "type": "agent",
+        "sender": "ChiefTechnicalOfficerAgent",
+        "content": "Schema freeze is scheduled for Jan 22. We'll publish Interface Contract v1.4 to the shared Git repo this afternoon and tag the integration team in the release notes.",
+        "timestamp": "2024-01-14T15:21:00.000Z"
+      },
+      {
+        "id": "technical-3",
+        "type": "harmony",
+        "content": "I've attached the latest integration matrix and highlighted the manufacturing services impacted by the API updates: <a href=\"https://confluence.example.com/display/MFG/Integration+Matrix+v1.4\">Open in Confluence</a>",
+        "timestamp": "2024-01-14T15:21:30.000Z"
+      }
+    ],
+    "Risk assessment meeting": [
+      {
+        "id": "risk-1",
+        "type": "harmony",
+        "content": "Sensor telemetry still shows elevated vibration on Line 3\u2014bringing in @RiskOfficerAgent for immediate mitigation options.",
+        "timestamp": "2024-01-13T20:42:00.000Z"
+      },
+      {
+        "id": "risk-2",
+        "type": "agent",
+        "sender": "RiskOfficerAgent",
+        "content": "Given the continued vibration spike, I recommend activating dual sourcing with RapidFab and drafting an overtime coverage plan. Requesting approval to place an expedited order for backup bearings and to notify maintenance to prep the swap window.",
+        "timestamp": "2024-01-13T20:43:00.000Z"
+      },
+      {
+        "id": "risk-3",
+        "type": "user",
+        "content": "Approved\u2014please move forward with the expedited order and loop maintenance in right away, @RiskOfficerAgent.",
+        "timestamp": "2024-01-13T20:44:00.000Z"
+      },
+      {
+        "id": "risk-4",
+        "type": "agent",
+        "sender": "RiskOfficerAgent",
+        "content": "Acknowledged. Executing now\u2014I'll update once procurement and maintenance are both locked in.",
+        "timestamp": "2024-01-13T20:45:00.000Z"
+      },
+      {
+        "id": "risk-5",
+        "type": "agent",
+        "sender": "RiskOfficerAgent",
+        "content": "Expedited purchase order PO-34821 is filed in Salesforce and flagged for same-day approval review: <a href=\"https://salesforce.example.com/lightning/r/PO/PO-34821/view\">View in Salesforce</a>.",
+        "timestamp": "2024-01-13T20:46:00.000Z"
+      },
+      {
+        "id": "risk-6",
+        "type": "agent",
+        "sender": "RiskOfficerAgent",
+        "content": "Maintenance coverage secured\u2014overtime crew is scheduled for Saturday night. Updated staffing plan is posted here: <a href=\"https://harmonyvision.senseilabs.com/conductor#/project/id/10273/timeline?CompanyID=7\">Open in Conductor Team</a>.",
+        "timestamp": "2024-01-13T20:47:00.000Z"
+      }
+    ],
+    "Stakeholder alignment": [
+      {
+        "id": "stakeholder-1",
+        "type": "user",
+        "content": "Harmony, can you summarize the open concerns from the steering committee ahead of tomorrow's readout?",
+        "timestamp": "2024-01-13T16:30:00.000Z"
+      },
+      {
+        "id": "stakeholder-2",
+        "type": "harmony",
+        "content": "Top three items: (1) Finance wants clarity on the FY26 benefit glidepath, (2) Operations is asking for earlier shop-floor change impact comms, and (3) Marketing needs confirmation that the customer pilot stays on the April launch window.",
+        "timestamp": "2024-01-13T16:30:30.000Z"
+      }
+    ],
+    "Manufacturing timeline": [
+      {
+        "id": "timeline-1",
+        "type": "harmony",
+        "content": "Latest milestone check: pilot build readiness is 92% and dependencies on the MES integration remain green.",
+        "timestamp": "2024-01-12T19:10:00.000Z"
+      },
+      {
+        "id": "timeline-2",
+        "type": "user",
+        "content": "Thanks. @PMOAgent please push the pilot go-live out by one month so we can absorb the supplier slip.",
+        "timestamp": "2024-01-12T19:12:00.000Z"
+      },
+      {
+        "id": "timeline-3",
+        "type": "agent",
+        "sender": "PMOAgent",
+        "content": "On it\u2014queueing the change request now and will sync the cross-workstream predecessors.",
+        "timestamp": "2024-01-12T19:13:00.000Z"
+      },
+      {
+        "id": "timeline-4",
+        "type": "agent",
+        "sender": "PMOAgent",
+        "content": "Update complete. The integrated schedule now reflects a pilot go-live of April 18. Full detail here: <a href=\"https://sensei.example.com/timeline/3d-print-pilot?rev=2024-01-12\">View timeline</a>",
+        "timestamp": "2024-01-12T19:14:00.000Z"
+      }
+    ],
+    "Procurement strategy": [
+      {
+        "id": "procurement-1",
+        "type": "user",
+        "content": "@ChiefProcurementOfficerAgent which suppliers are best positioned to cover the titanium feedstock ramp in Q3?",
+        "timestamp": "2024-01-12T14:20:00.000Z"
+      },
+      {
+        "id": "procurement-2",
+        "type": "agent",
+        "sender": "ChiefProcurementOfficerAgent",
+        "content": "Top options: AlloyOne has capacity with a 6-week lead time, while MetalForge can flex within 4 weeks at a 3% premium. Recommend splitting the award to hedge logistics risk.",
+        "timestamp": "2024-01-12T14:21:00.000Z"
+      },
+      {
+        "id": "procurement-3",
+        "type": "harmony",
+        "content": "I've added both suppliers to the sourcing scorecard with updated pricing and ESG scores for review.",
+        "timestamp": "2024-01-12T14:21:30.000Z"
+      }
+    ],
+    "Change management plan": [
+      {
+        "id": "change-1",
+        "type": "user",
+        "content": "We need to firm up the plant communications calendar. @ChangeManagementAgent what does the current plan look like?",
+        "timestamp": "2024-01-11T21:00:00.000Z"
+      },
+      {
+        "id": "change-2",
+        "type": "agent",
+        "sender": "ChangeManagementAgent",
+        "content": "Week of Feb 5: leadership roadshows, Feb 12: supervisor toolkits, Feb 19: frontline huddles. I'll attach draft scripts for review tomorrow.",
+        "timestamp": "2024-01-11T21:01:00.000Z"
+      },
+      {
+        "id": "change-3",
+        "type": "harmony",
+        "content": "Noted. I've aligned the change heatmap to show which sites still need champions assigned.",
+        "timestamp": "2024-01-11T21:01:30.000Z"
+      }
+    ],
+    "Training requirements": [
+      {
+        "id": "training-1",
+        "type": "user",
+        "content": "Do we have enough trainers certified on the new additive line procedures?",
+        "timestamp": "2024-01-11T18:45:00.000Z"
+      },
+      {
+        "id": "training-3",
+        "type": "harmony",
+        "content": "Sharing the trainer roster with certification status here: <a href=\"https://sharepoint.example.com/sites/training/roster\">Open in SharePoint</a>",
+        "timestamp": "2024-01-11T18:46:30.000Z"
+      }
+    ],
+    "Quality assurance": [
+      {
+        "id": "qa-1",
+        "type": "user",
+        "content": "QA flagged a spike in dimensional variance yesterday. What's the root cause analysis show?",
+        "timestamp": "2024-01-10T20:30:00.000Z"
+      },
+      {
+        "id": "qa-3",
+        "type": "harmony",
+        "content": "I've logged the corrective action in the NCR tracker and linked the updated control plan for audit prep.",
+        "timestamp": "2024-01-10T20:31:30.000Z"
+      }
+    ],
+    "Vendor evaluation": [
+      {
+        "id": "vendor-1",
+        "type": "user",
+        "content": "Can we debrief the scorecard results for the automation integrators?",
+        "timestamp": "2024-01-10T15:15:00.000Z"
+      },
+      {
+        "id": "vendor-3",
+        "type": "harmony",
+        "content": "Scorecard visuals are in the vendor evaluation workspace for the exec review later today.",
+        "timestamp": "2024-01-10T15:16:30.000Z"
+      }
+    ],
+    "Cost analysis update": [
+      {
+        "id": "cost-1",
+        "type": "user",
+        "content": "@CFOAgent what's the variance vs. target for the modernization program now that December actuals are in?",
+        "timestamp": "2024-01-09T22:20:00.000Z"
+      },
+      {
+        "id": "cost-2",
+        "type": "agent",
+        "sender": "CFOAgent",
+        "content": "Year-to-date we are $3.4M unfavorable to plan, driven by expedited logistics (+$1.9M) and contractor overtime (+$1.5M). Mitigations in flight should close ~40% by end of Q1.",
+        "timestamp": "2024-01-09T22:21:00.000Z"
+      },
+      {
+        "id": "cost-3",
+        "type": "harmony",
+        "content": "I've updated the benefit realization dashboard with the latest variance waterfall for tomorrow's ELT readout.",
+        "timestamp": "2024-01-09T22:21:30.000Z"
+      }
+    ],
+    "Project scope review": [
+      {
+        "id": "scope-1",
+        "type": "user",
+        "content": "Need confirmation that the additive pilot still excludes aftermarket tooling. Has anything changed?",
+        "timestamp": "2024-01-09T19:10:00.000Z"
+      },
+      {
+        "id": "scope-3",
+        "type": "harmony",
+        "content": "I've refreshed the scope tracker to show the exclusions list and attached it to the next governance agenda.",
+        "timestamp": "2024-01-09T19:11:30.000Z"
+      }
+    ],
+    "Resource allocation": [
+      {
+        "id": "resource-1",
+        "type": "user",
+        "content": "Where do we land on additive technicians for Plant 4 once the pilot starts?",
+        "timestamp": "2024-01-08T21:45:00.000Z"
+      },
+      {
+        "id": "resource-3",
+        "type": "harmony",
+        "content": "I've flagged the gap in the capacity model and suggested overtime coverage in the executive briefing.",
+        "timestamp": "2024-01-08T21:46:30.000Z"
+      }
+    ],
+    "Timeline adjustments": [
+      {
+        "id": "timelineadj-1",
+        "type": "user",
+        "content": "@PMOAgent can you highlight any milestones that moved after yesterday's dependency review?",
+        "timestamp": "2024-01-08T16:30:00.000Z"
+      },
+      {
+        "id": "timelineadj-2",
+        "type": "agent",
+        "sender": "PMOAgent",
+        "content": "Two shifts: tooling qualification moved to Mar 5 (+5 days) due to supplier QA, and training kick-off pulled forward to Feb 26 to align with resource availability.",
+        "timestamp": "2024-01-08T16:31:00.000Z"
+      },
+      {
+        "id": "timelineadj-3",
+        "type": "harmony",
+        "content": "Gantt view updated\u2014I've pushed the revision to the portfolio workspace for visibility.",
+        "timestamp": "2024-01-08T16:31:30.000Z"
+      }
+    ],
+    "Compliance requirements": [
+      {
+        "id": "compliance-1",
+        "type": "user",
+        "content": "We need to prepare for the new EU machinery directive. What's left outstanding?",
+        "timestamp": "2024-01-07T20:15:00.000Z"
+      },
+      {
+        "id": "compliance-3",
+        "type": "harmony",
+        "content": "I've added the outstanding actions to the compliance tracker with owners and due dates.",
+        "timestamp": "2024-01-07T20:16:30.000Z"
+      }
+    ],
+    "Performance metrics": [
+      {
+        "id": "performance-1",
+        "type": "user",
+        "content": "Can we snapshot the KPI trend lines before the exec pack freezes?",
+        "timestamp": "2024-01-07T14:40:00.000Z"
+      },
+      {
+        "id": "performance-2",
+        "type": "harmony",
+        "content": "Sure\u2014OEE is at 79% (+2 pts WoW), first-pass yield at 96%, and schedule adherence at 91%. I've exported the trend charts to PowerPoint.",
+        "timestamp": "2024-01-07T14:40:30.000Z"
+      }
+    ],
+    "Implementation strategy": [
+      {
+        "id": "implementation-1",
+        "type": "user",
+        "content": "For the global rollout, do we still lead with North America first or pivot to EMEA?",
+        "timestamp": "2024-01-06T21:25:00.000Z"
+      },
+      {
+        "id": "implementation-3",
+        "type": "harmony",
+        "content": "Roadmap view updated to show the phased rollout and dependency gates.",
+        "timestamp": "2024-01-06T21:26:30.000Z"
+      }
+    ],
+    "Team assignments": [
+      {
+        "id": "team-1",
+        "type": "user",
+        "content": "We need a named owner for the warehouse automation workstream. Suggestions?",
+        "timestamp": "2024-01-06T18:20:00.000Z"
+      },
+      {
+        "id": "team-3",
+        "type": "user",
+        "content": "Great call. Let's confirm with Priya and announce it in Monday's stand-up.",
+        "timestamp": "2024-01-06T18:22:00.000Z"
+      }
+    ],
+    "Final approvals needed": [
+      {
+        "id": "approvals-1",
+        "type": "user",
+        "content": "We're down to two open gates. @ChiefProcurementOfficerAgent can you confirm the equipment PO status?",
+        "timestamp": "2024-01-05T20:50:00.000Z"
+      },
+      {
+        "id": "approvals-2",
+        "type": "agent",
+        "sender": "ChiefProcurementOfficerAgent",
+        "content": "PO is drafted and awaiting CFO signature. Expected to clear by noon tomorrow once finance reviews the updated payment terms.",
+        "timestamp": "2024-01-05T20:51:00.000Z"
+      },
+      {
+        "id": "approvals-3",
+        "type": "harmony",
+        "content": "Approval tracker updated\u2014only finance sign-off and the safety waiver remain open.",
+        "timestamp": "2024-01-05T20:51:30.000Z"
+      }
+    ],
+    "Launch preparation": [
+      {
+        "id": "launch-1",
+        "type": "user",
+        "content": "What are the critical go-live readiness tasks we need to close this week?",
+        "timestamp": "2024-01-05T15:35:00.000Z"
+      },
+      {
+        "id": "launch-2",
+        "type": "harmony",
+        "content": "Three items: finalize cutover checklist, confirm command center roster, and complete the customer comms dry run.",
+        "timestamp": "2024-01-05T15:35:30.000Z"
+      }
+    ],
+    "Post-launch monitoring": [
+      {
+        "id": "postlaunch-1",
+        "type": "user",
+        "content": "How are the stabilization metrics trending after week one?",
+        "timestamp": "2024-01-04T19:45:00.000Z"
+      },
+      {
+        "id": "postlaunch-2",
+        "type": "harmony",
+        "content": "Throughput is at 94% of steady-state, defect rate is 1.1% (within target), and support tickets dropped 22% versus day one.",
+        "timestamp": "2024-01-04T19:45:30.000Z"
+      }
+    ],
+    "Success criteria definition": [
+      {
+        "id": "success-1",
+        "type": "user",
+        "content": "Can we lock the success criteria for the pilot ahead of the exec sign-off?",
+        "timestamp": "2024-01-04T16:15:00.000Z"
+      },
+      {
+        "id": "success-3",
+        "type": "harmony",
+        "content": "I've published the criteria to the governance pack and tied the metrics to the live dashboards.",
+        "timestamp": "2024-01-04T16:16:30.000Z"
+      }
+    ]
+  }
+}

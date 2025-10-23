@@ -1,0 +1,318 @@
+{
+  "sampleQuestions": [
+    {
+      "text": "What are the project risks?",
+      "defaultType": "text"
+    },
+    {
+      "text": "Show me the budget analysis",
+      "defaultType": "chart"
+    },
+    {
+      "text": "Display project tasks",
+      "defaultType": "table"
+    },
+    {
+      "text": "How is the timeline looking?",
+      "defaultType": "text"
+    },
+    {
+      "text": "What about resource allocation?",
+      "defaultType": "chart"
+    }
+  ],
+  "activityPool": [
+    {
+      "activityType": "task-update",
+      "platform": "conductor",
+      "icon": "/images/conductor.png",
+      "action": "Task completed",
+      "details": "Market research phase completed ahead of schedule",
+      "user": "Sarah Chen",
+      "link": "https://conductor.harmony.com/tasks/124"
+    },
+    {
+      "activityType": "market-data",
+      "platform": "harmony",
+      "insightType": "market_trend",
+      "icon": "https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png",
+      "action": "Market trend alert",
+      "details": "Raw material costs showing downward trend - potential cost savings opportunity",
+      "user": "Harmony Insights",
+      "link": "https://insights.harmony.com/signals/market-124"
+    },
+    {
+      "activityType": "deal-update",
+      "platform": "salesforce",
+      "icon": "/images/salesforce.png",
+      "action": "New lead created",
+      "details": "Enterprise client GlobalTech showing interest in manufacturing solutions",
+      "user": "Mike Rodriguez",
+      "link": "https://salesforce.com/lead/789012"
+    },
+    {
+      "activityType": "message",
+      "platform": "teams",
+      "icon": "/images/teams.png",
+      "action": "Meeting scheduled",
+      "details": "Weekly manufacturing review - Friday 2:00 PM",
+      "user": "Lisa Park",
+      "link": "https://teams.microsoft.com/meeting/manufacturing-review-456"
+    },
+    {
+      "activityType": "kpi-update",
+      "platform": "conductor",
+      "icon": "/images/conductor.png",
+      "action": "KPI milestone reached",
+      "details": "Production efficiency hit 87% - exceeding target by 2%",
+      "user": "PMO Team",
+      "link": "https://conductor.harmony.com/kpis/production-efficiency"
+    },
+    {
+      "activityType": "story-update",
+      "platform": "jira",
+      "icon": "/images/jira.png",
+      "action": "Bug resolved",
+      "details": "MFG-456: Inventory sync issue resolved and deployed",
+      "user": "David Kim",
+      "link": "https://company.atlassian.net/browse/MFG-456"
+    },
+    {
+      "activityType": "industry-news",
+      "platform": "harmony",
+      "insightType": "competitor_activity",
+      "icon": "https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png",
+      "action": "Competitor update",
+      "details": "Competitor ABC Inc announced 15% price reduction on similar products",
+      "user": "Harmony Insights",
+      "link": "https://insights.harmony.com/intelligence/abc-pricing-789"
+    },
+    {
+      "activityType": "file-change",
+      "platform": "sharepoint",
+      "icon": "/images/sharepoint.png",
+      "action": "Document published",
+      "details": "Q1 Manufacturing Report finalized and published",
+      "user": "Jennifer Wu",
+      "link": "https://company.sharepoint.com/sites/manufacturing/q1-report.pdf"
+    },
+    {
+      "activityType": "approval-request",
+      "platform": "conductor",
+      "icon": "/images/conductor.png",
+      "action": "Approval granted",
+      "details": "Equipment upgrade budget approved - $250k allocated",
+      "user": "Finance Team",
+      "link": "https://conductor.harmony.com/approvals/equipment-upgrade"
+    },
+    {
+      "activityType": "deal-update",
+      "platform": "dealcloud",
+      "icon": "/images/dealcloud.png",
+      "action": "Contract signed",
+      "details": "Steel supplier contract renewed for 2025 - 5% cost reduction",
+      "user": "Alex Thompson",
+      "link": "https://dealcloud.com/contracts/steel-supplier-2025"
+    },
+    {
+      "activityType": "regulatory-update",
+      "platform": "harmony",
+      "insightType": "risk_alert",
+      "icon": "https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png",
+      "action": "Compliance update",
+      "details": "New safety regulations published - implementation deadline March 2025",
+      "user": "Harmony Insights",
+      "link": "https://insights.harmony.com/regulatory/safety-2025"
+    },
+    {
+      "activityType": "file-change",
+      "platform": "smartsheet",
+      "icon": "/images/smartsheet.png",
+      "action": "Schedule updated",
+      "details": "Production line maintenance rescheduled to minimize downtime",
+      "user": "Maria Garcia",
+      "link": "https://smartsheet.com/schedules/maintenance-2025"
+    },
+    {
+      "activityType": "message",
+      "platform": "teams",
+      "icon": "/images/teams.png",
+      "action": "Announcement posted",
+      "details": "New quality standards implemented - training sessions scheduled",
+      "user": "Quality Team",
+      "link": "https://teams.microsoft.com/announcements/quality-standards"
+    },
+    {
+      "activityType": "market-data",
+      "platform": "harmony",
+      "insightType": "opportunity",
+      "icon": "https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png",
+      "action": "Market opportunity",
+      "details": "Growing demand in Southeast Asia market - 30% growth projected",
+      "user": "Harmony Insights",
+      "link": "https://insights.harmony.com/opportunities/sea-market"
+    },
+    {
+      "activityType": "task-update",
+      "platform": "conductor",
+      "icon": "/images/conductor.png",
+      "action": "Milestone achieved",
+      "details": "Phase 2 testing completed successfully - moving to Phase 3",
+      "user": "Engineering Team",
+      "link": "https://conductor.harmony.com/milestones/phase-2"
+    },
+    {
+      "activityType": "story-update",
+      "platform": "jira",
+      "icon": "/images/jira.png",
+      "action": "Feature deployed",
+      "details": "MFG-789: Real-time inventory tracking now live in production",
+      "user": "DevOps Team",
+      "link": "https://company.atlassian.net/browse/MFG-789"
+    },
+    {
+      "activityType": "industry-news",
+      "platform": "harmony",
+      "insightType": "customer_behavior",
+      "icon": "https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png",
+      "action": "Customer insight",
+      "details": "Customer satisfaction scores up 12% following recent improvements",
+      "user": "Harmony Insights",
+      "link": "https://insights.harmony.com/customer/satisfaction-q4"
+    },
+    {
+      "activityType": "deal-update",
+      "platform": "salesforce",
+      "icon": "/images/salesforce.png",
+      "action": "Quote approved",
+      "details": "MegaCorp project quote approved - $1.2M manufacturing contract",
+      "user": "Sales Team",
+      "link": "https://salesforce.com/quotes/megacorp-manufacturing"
+    },
+    {
+      "activityType": "file-change",
+      "platform": "sharepoint",
+      "icon": "/images/sharepoint.png",
+      "action": "Policy updated",
+      "details": "Manufacturing safety protocols updated with latest guidelines",
+      "user": "Safety Team",
+      "link": "https://company.sharepoint.com/policies/safety-protocols-v5"
+    },
+    {
+      "activityType": "kpi-update",
+      "platform": "conductor",
+      "icon": "/images/conductor.png",
+      "action": "Performance alert",
+      "details": "Energy efficiency improved by 8% this month - cost savings achieved",
+      "user": "Operations Team",
+      "link": "https://conductor.harmony.com/kpis/energy-efficiency"
+    },
+    {
+      "activityType": "harmony-briefing",
+      "platform": "harmony",
+      "insightType": "harmony_briefing",
+      "icon": "https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png",
+      "action": "Harmony Briefing: Executive Briefing",
+      "details": "Executive briefing delivered - Program performance analysis with action items and strategic recommendations",
+      "user": "Harmony Insights",
+      "link": "https://insights.harmony.com/briefings/executive-briefing-2025",
+      "briefingType": "Executive Briefing",
+      "briefingContent": "<div id=\"analysisContent\" dir=\"ltr\"><h1>Executive Summary</h1>\n<p>Based on the analysis of the provided data for CompanyID=7, the overall program is <strong>not on track to meet its target</strong>. The total LBE for the program is $930.64 M, which is significantly higher than the target, indicating a negative variance. This suggests that the program is overspending compared to the initial targets. The percentage change in LBE from the previous year to the current year is <span style=\"color: red;\">-26.49%</span>, which further highlights the need for immediate corrective actions.</p>\n<h3>Key Outliers</h3>\n<h4>Positive Outliers:</h4>\n<ol>\n<li><strong>Highest Performing KPI Element</strong>: The \"Indirect BOM Savings\" KPI element has achieved a performance of 1.0028, indicating it is slightly above target and contributing positively to the program.</li>\n<li><strong>Top 5 Projects Positively Impacting the Program</strong>:<ul>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10515\">📁 Cloud Migration</a>: <span style=\"color: green;\">+$3.75 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10526\">📁 Cost Optimization and Efficiency Improvement</a>: <span style=\"color: green;\">+$2.50 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10292\">📁 Agency management protocol C</a>: <span style=\"color: green;\">+$2.96 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10517\">📁 Cybersecurity Enhancement</a>: <span style=\"color: green;\">+$1.00 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10288\">📁 Outsource janitorial</a>: <span style=\"color: green;\">+$0.70 M</span></li>\n</ul>\n</li>\n</ol>\n<h4>Negative Outliers:</h4>\n<ol>\n<li><p><strong>Projects Farthest Away from Targets</strong>:</p>\n<ul>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10273\">📁 3D print capabilities in each facility</a>: <span style=\"color: red;\">-$4.00 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10514\">📁 Online payment system</a>: <span style=\"color: red;\">-$2.51 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10274\">📁 Robotics upgrade on packaging line</a>: <span style=\"color: red;\">-$2.00 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10288\">📁 Outsource janitorial</a>: <span style=\"color: red;\">-$1.23 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10515\">📁 Cloud Migration</a>: <span style=\"color: red;\">-$0.75 M</span></li>\n</ul>\n</li>\n<li><p><strong>Projects Farthest Away from Targets (No Actuals Recorded)</strong>:</p>\n<ul>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10292\">📁 Agency management protocol C</a>: <span style=\"color: red;\">-$0.75 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10278\">📁 Digital Collaboration Platform for R&D Teams</a>: <span style=\"color: red;\">-$0.15 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10514\">📁 Online payment system</a>: <span style=\"color: red;\">-$0.01 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10277\">📁 Combine sales teams in US Midwest and central</a>: <span style=\"color: red;\">-$0.00 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10276\">📁 Realign sales commissions to OKRs</a>: <span style=\"color: red;\">-$0.00 M</span></li>\n</ul>\n</li>\n</ol>\n<h4>Risks:</h4>\n<ol>\n<li><strong>Overall Program Performance</strong>: The program is not on track to meet its target, with a significant overspend indicated by the LBE exceeding the target.</li>\n<li><strong>Critical Projects</strong>: Several high-priority projects are underperforming, with LBEs exceeding their targets:<ul>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10275\">📁 Outsource shipping in urban centers</a>: <span style=\"color: red;\">-$0.50 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10289\">📁 Standardize SAP implementations across sub-co's</a>: <span style=\"color: red;\">-$0.25 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10526\">📁 Cost Optimization and Efficiency Improvement</a>: <span style=\"color: red;\">-$1.00 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10290\">📁 In-source video production</a>: <span style=\"color: red;\">-$0.50 M</span></li>\n</ul>\n</li>\n</ol>\n<hr>\n<h3>Action Items</h3>\n<h4>Immediate Actions:</h4>\n<ul>\n<li><p><strong>Focus on Underperforming Projects</strong>:</p>\n<ul>\n<li>Review and address the negative variances for the following projects:<ul>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10273\">📁 3D print capabilities in each facility</a>: <span style=\"color: red;\">-$4.00 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10514\">📁 Online payment system</a>: <span style=\"color: red;\">-$2.51 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10274\">📁 Robotics upgrade on packaging line</a>: <span style=\"color: red;\">-$2.00 M</span></li>\n</ul>\n</li>\n<li>Investigate the reasons for overspending and implement corrective measures.</li>\n</ul>\n</li>\n<li><p><strong>Address Projects with No Actuals Recorded</strong>:</p>\n<ul>\n<li>Ensure accurate and timely reporting for projects with no actuals recorded:<ul>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10292\">📁 Agency management protocol C</a>: <span style=\"color: red;\">-$0.75 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10278\">📁 Digital Collaboration Platform for R&D Teams</a>: <span style=\"color: red;\">-$0.15 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10514\">📁 Online payment system</a>: <span style=\"color: red;\">-$0.01 M</span></li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>\n<h4>Strategic Recommendations:</h4>\n<ul>\n<li><strong>Reassess Forecasts</strong>: Collaborate with project managers to update forecasts and ensure they align with realistic expectations. This will help improve the accuracy of LBEs and reduce variances.</li>\n<li><strong>Optimize High-Cost Workstreams</strong>: The \"Sales\" workstream contributes the most to the overall LBE ($154.57 M). Conduct a detailed review to identify cost-saving opportunities.</li>\n<li><strong>Monitor Quarterly Variances</strong>: Pay close attention to quarters with significant negative variances, such as Q3 2024 (<span style=\"color: red;\">-$2.10 M</span>) and Q4 2024 (<span style=\"color: red;\">-$3.40 M</span>). Implement cost control measures to mitigate risks in these periods.</li>\n</ul>\n<h4>Long-Term Actions:</h4>\n<ul>\n<li><strong>Enhance Reporting Processes</strong>: Implement stricter controls to ensure timely and accurate reporting of actuals across all projects.</li>\n<li><strong>Prioritize High-Impact Projects</strong>: Allocate resources to projects with positive variances and high LBE contributions:<ul>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10515\">📁 Cloud Migration</a>: <span style=\"color: green;\">+$3.75 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10526\">📁 Cost Optimization and Efficiency Improvement</a>: <span style=\"color: green;\">+$2.50 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10292\">📁 Agency management protocol C</a>: <span style=\"color: green;\">+$2.96 M</span></li>\n</ul>\n</li>\n</ul>\n<h4>Risk Mitigation:</h4>\n<ul>\n<li><strong>Monitor High Variance Projects</strong>: Establish a task force to closely monitor projects with high negative variances and develop mitigation plans.</li>\n<li><strong>Reevaluate Budget Allocations</strong>: Reassess budget allocations for projects with significant overspending to ensure alignment with strategic priorities.</li>\n</ul>\n<p>By addressing these action items and focusing on the identified outliers, the company can work towards improving the financial health of the program and potentially realigning its trajectory to meet the overall target.</p>\n</div>"
+    }
+  ],
+  "historicalActivities": [
+    {
+      "activityType": "deal-update",
+      "platform": "salesforce",
+      "icon": "/images/salesforce.png",
+      "action": "Opportunity created",
+      "details": "Manufacturing automation opportunity - InnovaCorp",
+      "user": "Sales Team",
+      "link": "https://salesforce.com/opportunities/innovacorp-auto"
+    },
+    {
+      "activityType": "story-update",
+      "platform": "jira",
+      "icon": "/images/jira.png",
+      "action": "Epic completed",
+      "details": "MANUF-001: Equipment procurement planning epic closed",
+      "user": "Project Manager",
+      "link": "https://company.atlassian.net/browse/MANUF-001"
+    },
+    {
+      "activityType": "file-change",
+      "platform": "sharepoint",
+      "icon": "/images/sharepoint.png",
+      "action": "Folder created",
+      "details": "Manufacturing Project 2024 documentation structure established",
+      "user": "PMO Office",
+      "link": "https://company.sharepoint.com/manufacturing-2024"
+    },
+    {
+      "activityType": "market-data",
+      "platform": "harmony",
+      "insightType": "market_trend",
+      "icon": "https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png",
+      "action": "Market baseline established",
+      "details": "Q4 2023 manufacturing sector analysis completed - baseline metrics set",
+      "user": "Harmony Insights",
+      "link": "https://insights.harmony.com/baselines/manuf-q4-2023"
+    },
+    {
+      "activityType": "message",
+      "platform": "teams",
+      "icon": "/images/teams.png",
+      "action": "Team created",
+      "details": "Manufacturing Excellence team channel established",
+      "user": "IT Admin",
+      "link": "https://teams.microsoft.com/teams/manufacturing-excellence"
+    },
+    {
+      "activityType": "deal-update",
+      "platform": "dealcloud",
+      "icon": "/images/dealcloud.png",
+      "action": "Vendor assessment",
+      "details": "Initial vendor capability assessment for automation partners",
+      "user": "Procurement Team",
+      "link": "https://dealcloud.com/assessments/automation-vendors"
+    },
+    {
+      "activityType": "file-change",
+      "platform": "smartsheet",
+      "icon": "/images/smartsheet.png",
+      "action": "Project template",
+      "details": "Manufacturing project template created and shared",
+      "user": "Program Manager",
+      "link": "https://smartsheet.com/templates/manufacturing-project"
+    },
+    {
+      "activityType": "industry-news",
+      "platform": "harmony",
+      "insightType": "competitor_activity",
+      "icon": "https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png",
+      "action": "Competitive landscape",
+      "details": "Manufacturing sector competitive analysis - 12 key players identified",
+      "user": "Harmony Insights",
+      "link": "https://insights.harmony.com/competitive/manufacturing-landscape"
+    },
+    {
+      "activityType": "story-update",
+      "platform": "jira",
+      "icon": "/images/jira.png",
+      "action": "Project setup",
+      "details": "MANUF project board created with initial workflows",
+      "user": "DevOps Team",
+      "link": "https://company.atlassian.net/projects/MANUF"
+    },
+    {
+      "activityType": "regulatory-update",
+      "platform": "harmony",
+      "insightType": "risk_alert",
+      "icon": "https://cdn.prod.website-files.com/66cff9ff63721bcbbfd7c7ba/66ead0e91e744ceeefb9fdfd_harmony-logo.png",
+      "action": "Regulatory scan",
+      "details": "Manufacturing compliance requirements scan - 23 regulations identified",
+      "user": "Harmony Insights",
+      "link": "https://insights.harmony.com/regulatory/manufacturing-compliance"
+    }
+  ]
+}

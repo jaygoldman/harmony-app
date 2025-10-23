@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs/promises');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 
@@ -11,6 +12,9 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-producti
 
 // In-memory store for connection codes (use Redis in production)
 const connectionCodes = new Map();
+const dataCache = new Map();
+const DATA_DIR = path.join(__dirname, 'src', 'data');
+const JSON_CACHE_TTL_MS = 5 * 60 * 1000;
 
 // Middleware
 app.use(cors()); // Enable CORS for all origins in development
@@ -27,6 +31,23 @@ setInterval(() => {
     }
   }
 }, 60000);
+
+const readJsonResource = async (filename) => {
+  const cached = dataCache.get(filename);
+  if (cached && cached.expiresAt > Date.now()) {
+    return cached.payload;
+  }
+
+  const filePath = path.join(DATA_DIR, filename);
+  const raw = await fs.readFile(filePath, 'utf8');
+  const payload = JSON.parse(raw);
+
+  if (process.env.NODE_ENV === 'production') {
+    dataCache.set(filename, { payload, expiresAt: Date.now() + JSON_CACHE_TTL_MS });
+  }
+
+  return payload;
+};
 
 // Middleware to verify Azure AD JWT token
 const verifyAzureToken = async (req, res, next) => {
@@ -169,6 +190,32 @@ app.get('/api/mobile/dashboard-summary', verifyMobileToken, (req, res) => {
     recentActivity: [],
     upcomingReviews: []
   });
+});
+
+app.get('/api/mobile/data/sample', verifyMobileToken, async (req, res) => {
+  try {
+    const data = await readJsonResource('sampleData.json');
+    res.json(data);
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      return res.status(404).json({ error: 'Sample data not found' });
+    }
+    console.error('Failed to load sample data:', error);
+    res.status(500).json({ error: 'Unable to load sample data' });
+  }
+});
+
+app.get('/api/mobile/data/harmony-chats', verifyMobileToken, async (req, res) => {
+  try {
+    const data = await readJsonResource('harmonyChats.json');
+    res.json(data);
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      return res.status(404).json({ error: 'Harmony chat data not found' });
+    }
+    console.error('Failed to load Harmony chat data:', error);
+    res.status(500).json({ error: 'Unable to load Harmony chat data' });
+  }
 });
 
 // Health check endpoint
