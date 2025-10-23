@@ -2,95 +2,248 @@
   "chatList": [
     {
       "name": "Thoughts on the rollout",
-      "date": "Today, 2:30 PM"
+      "date": "Today, 2:30 PM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
     },
     {
       "name": "Budget review discussion",
-      "date": "Yesterday, 4:15 PM"
+      "date": "Yesterday, 4:15 PM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
     },
     {
       "name": "Technical requirements",
-      "date": "Jan 14, 10:20 AM"
+      "date": "Jan 14, 10:20 AM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
     },
     {
       "name": "Risk assessment meeting",
-      "date": "Jan 13, 3:47 PM"
+      "date": "Jan 13, 3:47 PM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
     },
     {
       "name": "Stakeholder alignment",
-      "date": "Jan 13, 11:30 AM"
+      "date": "Jan 13, 11:30 AM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
     },
     {
       "name": "Manufacturing timeline",
-      "date": "Jan 12, 2:14 PM"
+      "date": "Jan 12, 2:14 PM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
     },
     {
       "name": "Procurement strategy",
-      "date": "Jan 12, 9:20 AM"
+      "date": "Jan 12, 9:20 AM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
     },
     {
       "name": "Change management plan",
-      "date": "Jan 11, 4:00 PM"
+      "date": "Jan 11, 4:00 PM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
     },
     {
       "name": "Training requirements",
-      "date": "Jan 11, 1:45 PM"
+      "date": "Jan 11, 1:45 PM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
     },
     {
       "name": "Quality assurance",
-      "date": "Jan 10, 3:30 PM"
+      "date": "Jan 10, 3:30 PM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
     },
     {
       "name": "Vendor evaluation",
-      "date": "Jan 10, 10:15 AM"
+      "date": "Jan 10, 10:15 AM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
     },
     {
       "name": "Cost analysis update",
-      "date": "Jan 9, 5:20 PM"
+      "date": "Jan 9, 5:20 PM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
     },
     {
       "name": "Project scope review",
-      "date": "Jan 9, 2:10 PM"
+      "date": "Jan 9, 2:10 PM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
     },
     {
       "name": "Resource allocation",
-      "date": "Jan 8, 4:45 PM"
+      "date": "Jan 8, 4:45 PM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
     },
     {
       "name": "Timeline adjustments",
-      "date": "Jan 8, 11:30 AM"
+      "date": "Jan 8, 11:30 AM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
     },
     {
       "name": "Compliance requirements",
-      "date": "Jan 7, 3:15 PM"
+      "date": "Jan 7, 3:15 PM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
     },
     {
       "name": "Performance metrics",
-      "date": "Jan 7, 9:40 AM"
+      "date": "Jan 7, 9:40 AM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
     },
     {
       "name": "Implementation strategy",
-      "date": "Jan 6, 4:25 PM"
+      "date": "Jan 6, 4:25 PM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
     },
     {
       "name": "Team assignments",
-      "date": "Jan 6, 1:20 PM"
+      "date": "Jan 6, 1:20 PM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
     },
     {
       "name": "Final approvals needed",
-      "date": "Jan 5, 3:50 PM"
+      "date": "Jan 5, 3:50 PM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
     },
     {
       "name": "Launch preparation",
-      "date": "Jan 5, 10:35 AM"
+      "date": "Jan 5, 10:35 AM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
     },
     {
       "name": "Post-launch monitoring",
-      "date": "Jan 4, 2:45 PM"
+      "date": "Jan 4, 2:45 PM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
     },
     {
       "name": "Success criteria definition",
-      "date": "Jan 4, 11:15 AM"
+      "date": "Jan 4, 11:15 AM",
+      "conductorEntityId": "10273",
+      "conductorEntityName": "3D print capabilities in each facility",
+      "conductorEntityType": "project"
+    },
+    {
+      "name": "Line balancing sync",
+      "date": "Jan 3, 4:05 PM",
+      "conductorEntityId": "10410",
+      "conductorEntityName": "Line Balancing Optimization",
+      "conductorEntityType": "project"
+    },
+    {
+      "name": "Cycle time deep dive",
+      "date": "Jan 3, 11:20 AM",
+      "conductorEntityId": "10411",
+      "conductorEntityName": "Manufacturing Line Cycle Time Optimization",
+      "conductorEntityType": "project"
+    },
+    {
+      "name": "OEE launch prep",
+      "date": "Jan 2, 5:40 PM",
+      "conductorEntityId": "10412",
+      "conductorEntityName": "OEE (Overall Equipment Effectiveness) Program Launch",
+      "conductorEntityType": "project"
+    },
+    {
+      "name": "Maintenance uplift planning",
+      "date": "Jan 2, 2:10 PM",
+      "conductorEntityId": "10413",
+      "conductorEntityName": "Preventive Maintenance Uplift",
+      "conductorEntityType": "project"
+    },
+    {
+      "name": "Packaging robotics",
+      "date": "Jan 2, 10:00 AM",
+      "conductorEntityId": "10414",
+      "conductorEntityName": "Robotics upgrade on packaging line",
+      "conductorEntityType": "project"
+    },
+    {
+      "name": "Scrap reduction standup",
+      "date": "Jan 1, 4:30 PM",
+      "conductorEntityId": "10415",
+      "conductorEntityName": "Scrap and Rework Reduction",
+      "conductorEntityType": "project"
+    },
+    {
+      "name": "Shift redesign workshop",
+      "date": "Jan 1, 11:00 AM",
+      "conductorEntityId": "10416",
+      "conductorEntityName": "Shift Pattern Redesign",
+      "conductorEntityType": "project"
+    },
+    {
+      "name": "Tooling changeover review",
+      "date": "Dec 31, 3:45 PM",
+      "conductorEntityId": "10417",
+      "conductorEntityName": "Tooling Changeover Reduction",
+      "conductorEntityType": "project"
+    },
+    {
+      "name": "Supply chain optimization",
+      "date": "Dec 31, 11:15 AM",
+      "conductorEntityId": "11200",
+      "conductorEntityName": "Global Supply Chain Optimization",
+      "conductorEntityType": "project"
+    },
+    {
+      "name": "Urban shipping strategy",
+      "date": "Dec 30, 4:50 PM",
+      "conductorEntityId": "11201",
+      "conductorEntityName": "Outsource shipping in urban centers",
+      "conductorEntityType": "project"
+    },
+    {
+      "name": "Manufacturing workstream updates",
+      "date": "Dec 30, 11:30 AM",
+      "conductorEntityId": "5001",
+      "conductorEntityName": "Manufacturing",
+      "conductorEntityType": "workstream"
+    },
+    {
+      "name": "Distribution workstream updates",
+      "date": "Dec 29, 4:05 PM",
+      "conductorEntityId": "5002",
+      "conductorEntityName": "Distribution",
+      "conductorEntityType": "workstream"
     }
   ],
   "chatMessages": {
@@ -181,7 +334,7 @@
       {
         "id": "risk-1",
         "type": "harmony",
-        "content": "Sensor telemetry still shows elevated vibration on Line 3\u2014bringing in @RiskOfficerAgent for immediate mitigation options.",
+        "content": "Sensor telemetry still shows elevated vibration on Line 3 - bringing in @RiskOfficerAgent for immediate mitigation options.",
         "timestamp": "2024-01-13T20:42:00.000Z"
       },
       {
@@ -194,14 +347,14 @@
       {
         "id": "risk-3",
         "type": "user",
-        "content": "Approved\u2014please move forward with the expedited order and loop maintenance in right away, @RiskOfficerAgent.",
+        "content": "Approved - please move forward with the expedited order and loop maintenance in right away, @RiskOfficerAgent.",
         "timestamp": "2024-01-13T20:44:00.000Z"
       },
       {
         "id": "risk-4",
         "type": "agent",
         "sender": "RiskOfficerAgent",
-        "content": "Acknowledged. Executing now\u2014I'll update once procurement and maintenance are both locked in.",
+        "content": "Acknowledged. Executing now - I'll update once procurement and maintenance are both locked in.",
         "timestamp": "2024-01-13T20:45:00.000Z"
       },
       {
@@ -215,7 +368,7 @@
         "id": "risk-6",
         "type": "agent",
         "sender": "RiskOfficerAgent",
-        "content": "Maintenance coverage secured\u2014overtime crew is scheduled for Saturday night. Updated staffing plan is posted here: <a href=\"https://harmonyvision.senseilabs.com/conductor#/project/id/10273/timeline?CompanyID=7\">Open in Conductor Team</a>.",
+        "content": "Maintenance coverage secured - overtime crew is scheduled for Saturday night. Updated staffing plan is posted here: <a href=\"https://harmonyvision.senseilabs.com/conductor#/project/id/10273/timeline?CompanyID=7\">Open in Conductor Team</a>.",
         "timestamp": "2024-01-13T20:47:00.000Z"
       }
     ],
@@ -250,7 +403,7 @@
         "id": "timeline-3",
         "type": "agent",
         "sender": "PMOAgent",
-        "content": "On it\u2014queueing the change request now and will sync the cross-workstream predecessors.",
+        "content": "On it - queueing the change request now and will sync the cross-workstream predecessors.",
         "timestamp": "2024-01-12T19:13:00.000Z"
       },
       {
@@ -411,7 +564,7 @@
       {
         "id": "timelineadj-3",
         "type": "harmony",
-        "content": "Gantt view updated\u2014I've pushed the revision to the portfolio workspace for visibility.",
+        "content": "Gantt view updated - I've pushed the revision to the portfolio workspace for visibility.",
         "timestamp": "2024-01-08T16:31:30.000Z"
       }
     ],
@@ -439,7 +592,7 @@
       {
         "id": "performance-2",
         "type": "harmony",
-        "content": "Sure\u2014OEE is at 79% (+2 pts WoW), first-pass yield at 96%, and schedule adherence at 91%. I've exported the trend charts to PowerPoint.",
+        "content": "Sure - OEE is at 79% (+2 pts WoW), first-pass yield at 96%, and schedule adherence at 91%. I've exported the trend charts to PowerPoint.",
         "timestamp": "2024-01-07T14:40:30.000Z"
       }
     ],
@@ -488,7 +641,7 @@
       {
         "id": "approvals-3",
         "type": "harmony",
-        "content": "Approval tracker updated\u2014only finance sign-off and the safety waiver remain open.",
+        "content": "Approval tracker updated - only finance sign-off and the safety waiver remain open.",
         "timestamp": "2024-01-05T20:51:30.000Z"
       }
     ],
@@ -532,6 +685,258 @@
         "type": "harmony",
         "content": "I've published the criteria to the governance pack and tied the metrics to the live dashboards.",
         "timestamp": "2024-01-04T16:16:30.000Z"
+      }
+    ],
+    "Line balancing sync": [
+      {
+        "id": "linebal-1",
+        "type": "user",
+        "content": "Quick sync on the Line Balancing Optimization work. Are the station cycle times back within the 5% tolerance @IndustrialEngineerAgent?",
+        "timestamp": "2024-01-03T21:05:00.000Z"
+      },
+      {
+        "id": "linebal-2",
+        "type": "harmony",
+        "content": "Yes - stations 3 through 5 are now within 3.2% variance after reallocating the operators. I also updated the heat map in the throughput dashboard.",
+        "timestamp": "2024-01-03T21:05:45.000Z"
+      },
+      {
+        "id": "linebal-3",
+        "type": "agent",
+        "sender": "IndustrialEngineerAgent",
+        "content": "I will validate the revised takt times during tomorrow's afternoon run and confirm if any tooling tweaks are still needed.",
+        "timestamp": "2024-01-03T21:06:15.000Z"
+      }
+    ],
+    "Cycle time deep dive": [
+      {
+        "id": "cycletime-1",
+        "type": "user",
+        "content": "Need a deeper read on the manufacturing line cycle time optimization. Where are we still lagging @ProcessEngineerAgent?",
+        "timestamp": "2024-01-03T16:20:00.000Z"
+      },
+      {
+        "id": "cycletime-2",
+        "type": "harmony",
+        "content": "Latest time study shows average cycle at 41.3s versus 39s target. Station 7 is the main constraint due to the sensor recalibration backlog.",
+        "timestamp": "2024-01-03T16:20:40.000Z"
+      },
+      {
+        "id": "cycletime-3",
+        "type": "agent",
+        "sender": "ProcessEngineerAgent",
+        "content": "Understood. I'll pair maintenance with quality at station 7 to fast-track the sensor swap and rerun the study by Friday.",
+        "timestamp": "2024-01-03T16:21:10.000Z"
+      }
+    ],
+    "OEE launch prep": [
+      {
+        "id": "oee-1",
+        "type": "user",
+        "content": "Are we lined up for the OEE program launch pilot next week @OperationsExcellenceAgent?",
+        "timestamp": "2024-01-02T17:40:00.000Z"
+      },
+      {
+        "id": "oee-2",
+        "type": "harmony",
+        "content": "Readiness checklist is at 92% complete. Training decks are uploaded and the downtime tracking script has passed staging tests.",
+        "timestamp": "2024-01-02T17:40:30.000Z"
+      },
+      {
+        "id": "oee-3",
+        "type": "agent",
+        "sender": "OperationsExcellenceAgent",
+        "content": "I will host the dry run with Plant 12 supervisors tomorrow and capture any adjustments before we broadcast the go-live plan.",
+        "timestamp": "2024-01-02T17:41:05.000Z"
+      }
+    ],
+    "Maintenance uplift planning": [
+      {
+        "id": "maint-1",
+        "type": "user",
+        "content": "Where do we stand on the preventive maintenance uplift tasks for February @MaintenancePlannerAgent?",
+        "timestamp": "2024-01-02T14:10:00.000Z"
+      },
+      {
+        "id": "maint-2",
+        "type": "harmony",
+        "content": "Work orders are 68% scheduled, and spares coverage is locked through Q1 after the latest procurement update.",
+        "timestamp": "2024-01-02T14:10:40.000Z"
+      },
+      {
+        "id": "maint-3",
+        "type": "agent",
+        "sender": "MaintenancePlannerAgent",
+        "content": "I will confirm the lubrication rounds sign-off tonight and close the open follow-ups with EHS on Thursday.",
+        "timestamp": "2024-01-02T14:11:05.000Z"
+      }
+    ],
+    "Packaging robotics": [
+      {
+        "id": "robotics-1",
+        "type": "user",
+        "content": "Any blockers on the packaging line robotics upgrade before installation day @AutomationEngineerAgent?",
+        "timestamp": "2024-01-02T10:00:00.000Z"
+      },
+      {
+        "id": "robotics-2",
+        "type": "harmony",
+        "content": "Electrical permits cleared this morning and the integrator shipped the final gripper kit - arrival confirmed for Friday.",
+        "timestamp": "2024-01-02T10:00:35.000Z"
+      },
+      {
+        "id": "robotics-3",
+        "type": "agent",
+        "sender": "AutomationEngineerAgent",
+        "content": "I will stay on-site during install to validate the PLC updates and coordinate the safety light curtain testing.",
+        "timestamp": "2024-01-02T10:01:05.000Z"
+      }
+    ],
+    "Scrap reduction standup": [
+      {
+        "id": "scrap-1",
+        "type": "user",
+        "content": "Scrap and rework reduction update, please. Did the trial recipe fix the issue on Line 6 @QualityLeadAgent?",
+        "timestamp": "2024-01-01T21:30:00.000Z"
+      },
+      {
+        "id": "scrap-2",
+        "type": "harmony",
+        "content": "Yes, defect rate dropped to 1.4% in the last 24 hours. I logged the results in the SPC tracker and notified quality.",
+        "timestamp": "2024-01-01T21:30:30.000Z"
+      },
+      {
+        "id": "scrap-3",
+        "type": "agent",
+        "sender": "QualityLeadAgent",
+        "content": "We will hold the recipe steady through the weekend and sample every fourth batch to confirm stability.",
+        "timestamp": "2024-01-01T21:31:05.000Z"
+      }
+    ],
+    "Shift redesign workshop": [
+      {
+        "id": "shift-1",
+        "type": "user",
+        "content": "For shift pattern redesign, did labor relations sign off on the pilot schedule @WorkforcePlannerAgent?",
+        "timestamp": "2024-01-01T16:00:00.000Z"
+      },
+      {
+        "id": "shift-2",
+        "type": "harmony",
+        "content": "They approved the 4x3 pattern pending the fatigue study results. I posted the draft roster to the HR workspace.",
+        "timestamp": "2024-01-01T16:00:35.000Z"
+      },
+      {
+        "id": "shift-3",
+        "type": "agent",
+        "sender": "WorkforcePlannerAgent",
+        "content": "I will circulate the employee briefing pack tomorrow and align the escalation protocol with site leadership.",
+        "timestamp": "2024-01-01T16:01:05.000Z"
+      }
+    ],
+    "Tooling changeover review": [
+      {
+        "id": "tooling-1",
+        "type": "user",
+        "content": "Tooling changeover reduction team - what did yesterday's SMED trial yield @LeanCoachAgent?",
+        "timestamp": "2023-12-31T20:45:00.000Z"
+      },
+      {
+        "id": "tooling-2",
+        "type": "harmony",
+        "content": "Average changeover time dropped to 28 minutes from 36. The quick-release clamps made the biggest impact.",
+        "timestamp": "2023-12-31T20:45:40.000Z"
+      },
+      {
+        "id": "tooling-3",
+        "type": "agent",
+        "sender": "LeanCoachAgent",
+        "content": "We will standardize the new sequence cards and schedule operator certification sessions next week.",
+        "timestamp": "2023-12-31T20:46:05.000Z"
+      }
+    ],
+    "Supply chain optimization": [
+      {
+        "id": "supply-1",
+        "type": "user",
+        "content": "Status on the global supply chain optimization initiative - do we have the route modeling ready @LogisticsDirectorAgent?",
+        "timestamp": "2023-12-31T16:15:00.000Z"
+      },
+      {
+        "id": "supply-2",
+        "type": "harmony",
+        "content": "Network model is complete with three cost scenarios. I uploaded the recommendations to the distribution control tower space.",
+        "timestamp": "2023-12-31T16:15:30.000Z"
+      },
+      {
+        "id": "supply-3",
+        "type": "agent",
+        "sender": "LogisticsDirectorAgent",
+        "content": "I will brief the regional leads on the preferred scenario tomorrow and capture any localization requirements.",
+        "timestamp": "2023-12-31T16:16:05.000Z"
+      }
+    ],
+    "Urban shipping strategy": [
+      {
+        "id": "urban-1",
+        "type": "user",
+        "content": "Checking on the urban centers outsourcing plan - have we shortlisted partners @TransportationManagerAgent?",
+        "timestamp": "2023-12-30T21:50:00.000Z"
+      },
+      {
+        "id": "urban-2",
+        "type": "harmony",
+        "content": "Yes, three partners passed the SLA review and I summarized the comparative cost per drop in the evaluation sheet.",
+        "timestamp": "2023-12-30T21:50:30.000Z"
+      },
+      {
+        "id": "urban-3",
+        "type": "agent",
+        "sender": "TransportationManagerAgent",
+        "content": "I will negotiate the peak season surcharges and revert with final terms by Wednesday.",
+        "timestamp": "2023-12-30T21:51:05.000Z"
+      }
+    ],
+    "Manufacturing workstream updates": [
+      {
+        "id": "mfgws-1",
+        "type": "user",
+        "content": "Could we get a roll-up across the manufacturing workstream for the exec digest @ManufacturingProgramManagerAgent?",
+        "timestamp": "2023-12-30T16:30:00.000Z"
+      },
+      {
+        "id": "mfgws-2",
+        "type": "harmony",
+        "content": "Sure. All nine projects are green except robotics which is amber due to contractor availability. Portfolio dashboard updated.",
+        "timestamp": "2023-12-30T16:30:35.000Z"
+      },
+      {
+        "id": "mfgws-3",
+        "type": "agent",
+        "sender": "ManufacturingProgramManagerAgent",
+        "content": "I will highlight the robotics resource gap in the exec deck and propose the mitigation options.",
+        "timestamp": "2023-12-30T16:31:05.000Z"
+      }
+    ],
+    "Distribution workstream updates": [
+      {
+        "id": "distws-1",
+        "type": "user",
+        "content": "Need distribution workstream talking points for the quarterly business review. @DistributionLeadAgent",
+        "timestamp": "2023-12-29T21:05:00.000Z"
+      },
+      {
+        "id": "distws-2",
+        "type": "harmony",
+        "content": "Key items: customs brokerage pilot saved 6% in cycle time, and the outsource shipping RFP is entering negotiation.",
+        "timestamp": "2023-12-29T21:05:30.000Z"
+      },
+      {
+        "id": "distws-3",
+        "type": "agent",
+        "sender": "DistributionLeadAgent",
+        "content": "I will prep the QBR slide and confirm finance is aligned on the savings numbers tomorrow morning.",
+        "timestamp": "2023-12-29T21:06:05.000Z"
       }
     ]
   }

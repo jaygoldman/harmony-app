@@ -205,6 +205,9 @@ type RawChatMessage = Omit<ChatMessage, 'timestamp'> & { timestamp: string };
 interface ChatListEntry {
   name: string;
   date: string;
+  conductorEntityId?: string;
+  conductorEntityName?: string;
+  conductorEntityType?: string;
 }
 
 interface HarmonyChatPayload {
@@ -235,6 +238,7 @@ const ACTIVITY_POOL: ActivityItem[] = sampleData.activityPool as ActivityItem[];
 const HISTORICAL_ACTIVITIES: ActivityItem[] = sampleData.historicalActivities as ActivityItem[];
 
 const { chatList: SAMPLE_CHAT_LIST, chatMessages: RAW_CHAT_MESSAGES } = harmonyChatData as HarmonyChatPayload;
+const CURRENT_ENTITY_ID = "10273";
 
 const HYDRATED_CHAT_MAP: Record<string, ChatMessage[]> = Object.fromEntries(
   Object.entries(RAW_CHAT_MESSAGES).map(([chatName, messages]) => [
@@ -251,7 +255,10 @@ const createInitialChatStore = (): Record<string, ChatMessage[]> =>
     Object.entries(HYDRATED_CHAT_MAP).map(([chatName, messages]) => [chatName, [...messages]])
   );
 
-const DEFAULT_CHAT_NAME = SAMPLE_CHAT_LIST[0]?.name || 'Thoughts on the rollout';
+const DEFAULT_CHAT_NAME =
+  SAMPLE_CHAT_LIST.find((chat) => chat.conductorEntityId === CURRENT_ENTITY_ID)?.name ||
+  SAMPLE_CHAT_LIST[0]?.name ||
+  "Thoughts on the rollout";
 // ======================== SCENARIO PLANNER MODAL ==================
 const ScenarioPlanner: React.FC<{ 
   open: boolean; 
@@ -3579,7 +3586,12 @@ const HarmonySidebar: React.FC<{ onOpenScenario: () => void }> = ({ onOpenScenar
   const [chatSearchQuery, setChatSearchQuery] = useState('');
   const hamburgerMenuRef = useRef<HTMLDivElement | null>(null);
   const chatStoreRef = useRef<Record<string, ChatMessage[]>>(createInitialChatStore());
-  const chatList = SAMPLE_CHAT_LIST;
+  const chatList = useMemo(() => {
+    const scopedChats = SAMPLE_CHAT_LIST.filter(
+      (chat) => chat.conductorEntityId === CURRENT_ENTITY_ID
+    );
+    return scopedChats.length > 0 ? scopedChats : SAMPLE_CHAT_LIST;
+  }, []);
   
   // Filter chats based on search query
   const filteredChats = chatList.filter(chat =>
