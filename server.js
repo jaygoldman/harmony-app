@@ -13,8 +13,14 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-producti
 // In-memory store for connection codes (use Redis in production)
 const connectionCodes = new Map();
 const dataCache = new Map();
-const DATA_DIR = path.join(__dirname, 'src', 'data');
 const JSON_CACHE_TTL_MS = 5 * 60 * 1000;
+const DATA_LOCATIONS = [
+  process.env.HARMONY_DATA_DIR && path.resolve(process.env.HARMONY_DATA_DIR),
+  path.join(__dirname, 'build', 'data'),
+  path.join(process.cwd(), 'build', 'data')
+].filter(Boolean);
+
+const resolvedDataFiles = new Map();
 
 // Middleware
 app.use(cors()); // Enable CORS for all origins in development
@@ -32,13 +38,44 @@ setInterval(() => {
   }
 }, 60000);
 
+const resolveDataPath = async (filename) => {
+  if (resolvedDataFiles.has(filename)) {
+    return resolvedDataFiles.get(filename);
+  }
+
+  for (const candidateDir of DATA_LOCATIONS) {
+    const filePath = path.join(candidateDir, filename);
+    try {
+      await fs.access(filePath);
+      resolvedDataFiles.set(filename, filePath);
+      return filePath;
+    } catch {
+      // Continue searching
+    }
+  }
+
+  throw Object.assign(new Error(`Data file not found: ${filename}`), { code: 'DATA_FILE_NOT_FOUND' });
+};
+
 const readJsonResource = async (filename) => {
   const cached = dataCache.get(filename);
   if (cached && cached.expiresAt > Date.now()) {
     return cached.payload;
   }
 
-  const filePath = path.join(DATA_DIR, filename);
+  let filePath;
+  try {
+    filePath = await resolveDataPath(filename);
+  } catch (error) {
+    if (error.code === 'DATA_FILE_NOT_FOUND') {
+      throw Object.assign(
+        new Error(`File not found in candidate data directories: ${DATA_LOCATIONS.join(', ')}`),
+        { code: 'ENOENT' }
+      );
+    }
+    throw error;
+  }
+
   const raw = await fs.readFile(filePath, 'utf8');
   const payload = JSON.parse(raw);
 

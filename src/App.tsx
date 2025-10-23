@@ -179,6 +179,12 @@ type Agent = typeof AGENTS[number];
 // ======================== CHAT MESSAGE TYPES ======================
 type MessageType = 'user' | 'harmony' | 'agent';
 
+type TaskItem = {
+  id: string;
+  label: string;
+  completed: boolean;
+};
+
 interface ChatMessage {
   id: string;
   type: MessageType;
@@ -190,6 +196,8 @@ interface ChatMessage {
     widgetName?: string;
     widgetData?: any;
   }[];
+  taskListTitle?: string;
+  taskList?: TaskItem[];
 }
 
 type RawChatMessage = Omit<ChatMessage, 'timestamp'> & { timestamp: string };
@@ -697,16 +705,16 @@ const MessageContent: React.FC<{ content: string }> = ({ content }) => {
         return 'Open in Sensei';
       }
       if (hostname.includes('teams')) return 'Open in Microsoft Teams';
-      if (hostname.includes('atlassian')) return 'Open in Jira';
+      if (hostname.includes('atlassian') || hostname.includes('jira')) return 'Open in Jira';
       if (hostname.includes('sharepoint')) return 'Open in SharePoint';
       if (hostname.includes('confluence')) return 'Open in Confluence';
       if (hostname.includes('conductor')) return 'Open in Conductor';
       if (hostname.includes('insights')) return 'Open Harmony Insights';
       if (hostname.includes('dealcloud')) return 'Open in DealCloud';
       if (hostname.includes('smartsheet')) return 'Open in Smartsheet';
-      return 'Open link';
+      return rawUrl;
     } catch {
-      return 'Open link';
+      return rawUrl;
     }
   };
 
@@ -719,24 +727,46 @@ const MessageContent: React.FC<{ content: string }> = ({ content }) => {
     </span>
   );
 
-  const renderLink = (url: string, key: string | number) => {
-    const label = getLinkLabel(url);
+  const renderAnchor = (anchorHtml: string, key: string | number) => {
+    const hrefMatch = anchorHtml.match(/href=["']([^"']+)["']/i);
+    const href = hrefMatch ? hrefMatch[1] : '';
+    const label = anchorHtml
+      .replace(/<a[^>]*>/i, '')
+      .replace(/<\/a>/i, '')
+      .trim();
+
+    if (!href) {
+      return <span key={key}>{label || anchorHtml}</span>;
+    }
+
     return (
       <a
         key={key}
-        href={url}
+        href={href}
         target="_blank"
         rel="noopener noreferrer"
         className="text-[#513295] underline underline-offset-2 font-medium"
       >
-        {label}
+        {label || href}
       </a>
     );
   };
 
+  const renderRawLink = (url: string, key: string | number) => (
+    <a
+      key={key}
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-[#513295] underline underline-offset-2 font-medium"
+    >
+      {getLinkLabel(url)}
+    </a>
+  );
+
   const renderContent = () => {
     const tokens: React.ReactNode[] = [];
-    const tokenRegex = /(@\w+|https?:\/\/[^\s]+)/g;
+    const tokenRegex = /(<a\b[^>]*>.*?<\/a>|@\w+|https?:\/\/[^\s]+)/gi;
     let lastIndex = 0;
     let match: RegExpExecArray | null;
     let tokenIndex = 0;
@@ -752,6 +782,8 @@ const MessageContent: React.FC<{ content: string }> = ({ content }) => {
 
       if (token.startsWith('@')) {
         tokens.push(renderMention(token, `mention-${tokenIndex++}`));
+      } else if (token.toLowerCase().startsWith('<a')) {
+        tokens.push(renderAnchor(token, `anchor-${tokenIndex++}`));
       } else if (token.startsWith('http')) {
         let url = token;
         let trailing = '';
@@ -759,7 +791,7 @@ const MessageContent: React.FC<{ content: string }> = ({ content }) => {
           trailing = url.slice(-1) + trailing;
           url = url.slice(0, -1);
         }
-        tokens.push(renderLink(url, `link-${tokenIndex++}`));
+        tokens.push(renderRawLink(url, `link-${tokenIndex++}`));
         if (trailing) {
           tokens.push(<span key={`trail-${tokenIndex++}`}>{trailing}</span>);
         }
@@ -777,6 +809,44 @@ const MessageContent: React.FC<{ content: string }> = ({ content }) => {
 
   return <>{renderContent()}</>;
 };
+
+const TaskCheckIcon: React.FC<{ completed: boolean }> = ({ completed }) => (
+  <span
+    className={cls(
+      "inline-flex items-center justify-center w-4 h-4 mt-0.5 rounded-full border text-[10px]",
+      completed
+        ? "bg-[#513295] border-[#513295] text-white"
+        : "border-slate-300 text-transparent"
+    )}
+    aria-hidden="true"
+  >
+    {completed && (
+      <svg viewBox="0 0 16 16" className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M3.5 8.5l2.5 2.5 6-6" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    )}
+  </span>
+);
+
+const TaskListCard: React.FC<{ title?: string; tasks: TaskItem[] }> = ({ title, tasks }) => (
+  <div className="mt-3 bg-white/80 border border-[#c7bfe0] rounded-xl p-3 shadow-sm">
+    {title && (
+      <div className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">
+        {title}
+      </div>
+    )}
+    <ul className="space-y-2">
+      {tasks.map((task) => (
+        <li key={task.id} className="flex items-start gap-2 text-sm">
+          <TaskCheckIcon completed={task.completed} />
+          <span className={cls(task.completed ? "text-slate-400 line-through" : "text-slate-700")}>
+            {task.label}
+          </span>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
 
 // ======================== CHAT MESSAGE COMPONENT ==================
 const ChatMessage: React.FC<{ message: ChatMessage }> = ({ message }) => {
@@ -833,6 +903,10 @@ const ChatMessage: React.FC<{ message: ChatMessage }> = ({ message }) => {
           <div className="text-sm leading-relaxed">
             <MessageContent content={message.content} />
           </div>
+
+          {message.taskList && message.taskList.length > 0 && (
+            <TaskListCard title={message.taskListTitle} tasks={message.taskList} />
+          )}
           
           {/* Attachments */}
           {message.attachments && message.attachments.length > 0 && (
@@ -3639,7 +3713,56 @@ const HarmonySidebar: React.FC<{ onOpenScenario: () => void }> = ({ onOpenScenar
     setChatMessages([...messages]);
     setHamburgerMenuOpen(false);
   };
-  
+
+  const appendMessageToChat = (chatName: string, message: ChatMessage) => {
+    const existing = chatStoreRef.current[chatName] || [];
+    const updated = [...existing, message];
+    chatStoreRef.current[chatName] = updated;
+    if (chatName === currentChatName) {
+      setChatMessages(updated);
+    }
+  };
+
+  const updateMessageInChat = (
+    chatName: string,
+    messageId: string,
+    updater: (message: ChatMessage) => ChatMessage
+  ) => {
+    const existing = chatStoreRef.current[chatName] || [];
+    let changed = false;
+    const updated = existing.map((msg) => {
+      if (msg.id !== messageId) return msg;
+      const nextMsg = updater(msg);
+      if (nextMsg !== msg) {
+        changed = true;
+      }
+      return nextMsg;
+    });
+    if (!changed) return;
+    chatStoreRef.current[chatName] = updated;
+    if (chatName === currentChatName) {
+      setChatMessages(updated);
+    }
+  };
+
+  const markTaskCompleteInChat = (chatName: string, messageId: string, taskId: string) => {
+    updateMessageInChat(chatName, messageId, (msg) => {
+      if (!msg.taskList) {
+        return msg;
+      }
+      if (msg.taskList.every((task) => task.id !== taskId || task.completed)) {
+        return msg;
+      }
+      const updatedTasks = msg.taskList.map((task) =>
+        task.id === taskId ? { ...task, completed: true } : task
+      );
+      return {
+        ...msg,
+        taskList: updatedTasks
+      };
+    });
+  };
+
   // Handle sending a new message
   const handleSendMessage = (content: string, attachments?: { type: 'scenario' }[]) => {
     const newMessage: ChatMessage = {
@@ -3650,11 +3773,7 @@ const HarmonySidebar: React.FC<{ onOpenScenario: () => void }> = ({ onOpenScenar
       attachments: attachments
     };
     
-    // Add message to current chat data
-    const existingMessages = chatStoreRef.current[currentChatName] || [];
-    const updatedMessages = [...existingMessages, newMessage];
-    chatStoreRef.current[currentChatName] = updatedMessages;
-    setChatMessages(updatedMessages);
+    appendMessageToChat(currentChatName, newMessage);
     
     // If message has scenario attachment, trigger agent responses
     if (attachments && attachments.some(a => a.type === 'scenario')) {
@@ -3665,46 +3784,79 @@ const HarmonySidebar: React.FC<{ onOpenScenario: () => void }> = ({ onOpenScenar
   // Trigger agent responses to scenario
   const triggerScenarioResponses = () => {
     const activeChatName = currentChatName;
+    const start = Date.now();
+
+    const checklistTasks: TaskItem[] = [
+      { id: `task-${start}-1`, label: 'Sync timeline dependencies with workstream owners', completed: false },
+      { id: `task-${start}-2`, label: 'Publish the updated schedule to the portfolio workspace', completed: false },
+      { id: `task-${start}-3`, label: 'Notify workstream leads with the impact summary', completed: false }
+    ];
+
+    const taskMessageId = `pmo-tasks-${start}`;
+
     const responses: ChatMessage[] = [
       {
-        id: `harmony-${Date.now()}`,
+        id: `harmony-${start}`,
         type: 'harmony',
         content: 'Excellent! I\'ve analyzed this scenario and can see some key insights. Let me bring in the relevant stakeholders to provide their perspective on this analysis.',
-        timestamp: new Date(Date.now() + 2000)
+        timestamp: new Date(start + 2000)
       },
       {
-        id: `cfo-${Date.now()}`,
+        id: `cfo-${start}`,
         type: 'agent',
         content: 'Looking at the strategic alignment score of 8.1, this is very promising. The 73% resource utilization suggests we have capacity for additional projects. I\'d recommend prioritizing the highest ROI initiatives first.',
         sender: 'CFOAgent',
-        timestamp: new Date(Date.now() + 4000)
+        timestamp: new Date(start + 4000)
       },
       {
-        id: `cto-${Date.now()}`,
+        id: `cto-${start}`,
         type: 'agent',
         content: 'From a technical standpoint, having 11 projects in the scenario is manageable if we sequence them properly. The resource utilization data will help us identify potential bottlenecks in our technical delivery capacity.',
         sender: 'ChiefTechnicalOfficerAgent',
-        timestamp: new Date(Date.now() + 6000)
+        timestamp: new Date(start + 6000)
       },
       {
-        id: `pmo-${Date.now()}`,
+        id: taskMessageId,
         type: 'agent',
-        content: 'The priority average of 7.3 indicates we have a well-balanced portfolio. I suggest we review the timeline dependencies between these projects to optimize our delivery schedule.',
-        sender: 'PMODirectorAgent',
-        timestamp: new Date(Date.now() + 8000)
+        sender: 'PMOAgent',
+        content: 'Posting the execution checklist so we can close this out quickly.',
+        taskListTitle: 'Execution checklist',
+        taskList: checklistTasks,
+        timestamp: new Date(start + 8000)
       }
     ];
-    
-    // Add responses with delays
+
     responses.forEach((response, index) => {
+      const delay = (index + 1) * 2000;
+
       setTimeout(() => {
-        const existing = chatStoreRef.current[activeChatName] || [];
-        const updated = [...existing, response];
-        chatStoreRef.current[activeChatName] = updated;
-        if (activeChatName === currentChatName) {
-          setChatMessages(updated);
-        }
-      }, (index + 1) * 2000); // 2 second intervals
+        appendMessageToChat(activeChatName, {
+          ...response,
+          taskList: response.taskList ? response.taskList.map((task) => ({ ...task })) : undefined
+        });
+      }, delay);
+
+      if (response.taskList && response.taskList.length > 0) {
+        response.taskList.forEach((task, taskIndex) => {
+          const completionDelay = delay + (taskIndex + 1) * 1200;
+          setTimeout(() => {
+            markTaskCompleteInChat(activeChatName, response.id, task.id);
+          }, completionDelay);
+        });
+
+        const followUpDelay = delay + response.taskList.length * 1200 + 1600;
+        const followUpMessage: ChatMessage = {
+          id: `${response.id}-complete`,
+          type: 'agent',
+          sender: response.sender || 'PMOAgent',
+          content: 'Checklist complete—schedule adjustments are published and workstream owners are notified.',
+          timestamp: new Date(start + followUpDelay)
+        };
+
+        setTimeout(() => {
+          appendMessageToChat(activeChatName, followUpMessage);
+        }, followUpDelay);
+      }
     });
   };
   

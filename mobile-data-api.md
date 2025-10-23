@@ -70,6 +70,8 @@ The Harmony chats endpoint mirrors the structure of `harmonyChats.json`:
 ## Development Notes
 
 - In development the backend reads the JSON files from disk on every request so updates appear immediately.
+- The server searches for `sampleData.json` and `harmonyChats.json` in a few standard locations: `src/data`, `data`, or `build/data`. Override the lookup path by setting `HARMONY_DATA_DIR=/absolute/path/to/data` before launching `server.js`.
+- The backend reads the JSON files from `build/data` (or the directory set via `HARMONY_DATA_DIR`). The build step already copies `src/data/*.json` into that location.
 - In production responses are cached for five minutes to reduce disk I/O; redeploying or waiting for the TTL invalidates the cache.
 - The desktop application retains the existing token-validation rules. Do not call the data endpoints without a successful `POST /api/mobile/connect`.
 
