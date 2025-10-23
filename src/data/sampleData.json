@@ -217,7 +217,7 @@
       "user": "Harmony Insights",
       "link": "https://insights.harmony.com/briefings/executive-briefing-2025",
       "briefingType": "Executive Briefing",
-      "briefingContent": "<div id=\"analysisContent\" dir=\"ltr\"><h1>Executive Summary</h1>\n<p>Based on the analysis of the provided data for CompanyID=7, the overall program is <strong>not on track to meet its target</strong>. The total LBE for the program is $930.64 M, which is significantly higher than the target, indicating a negative variance. This suggests that the program is overspending compared to the initial targets. The percentage change in LBE from the previous year to the current year is <span style=\"color: red;\">-26.49%</span>, which further highlights the need for immediate corrective actions.</p>\n<h3>Key Outliers</h3>\n<h4>Positive Outliers:</h4>\n<ol>\n<li><strong>Highest Performing KPI Element</strong>: The \"Indirect BOM Savings\" KPI element has achieved a performance of 1.0028, indicating it is slightly above target and contributing positively to the program.</li>\n<li><strong>Top 5 Projects Positively Impacting the Program</strong>:<ul>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10515\">📁 Cloud Migration</a>: <span style=\"color: green;\">+$3.75 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10526\">📁 Cost Optimization and Efficiency Improvement</a>: <span style=\"color: green;\">+$2.50 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10292\">📁 Agency management protocol C</a>: <span style=\"color: green;\">+$2.96 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10517\">📁 Cybersecurity Enhancement</a>: <span style=\"color: green;\">+$1.00 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10288\">📁 Outsource janitorial</a>: <span style=\"color: green;\">+$0.70 M</span></li>\n</ul>\n</li>\n</ol>\n<h4>Negative Outliers:</h4>\n<ol>\n<li><p><strong>Projects Farthest Away from Targets</strong>:</p>\n<ul>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10273\">📁 3D print capabilities in each facility</a>: <span style=\"color: red;\">-$4.00 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10514\">📁 Online payment system</a>: <span style=\"color: red;\">-$2.51 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10274\">📁 Robotics upgrade on packaging line</a>: <span style=\"color: red;\">-$2.00 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10288\">📁 Outsource janitorial</a>: <span style=\"color: red;\">-$1.23 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10515\">📁 Cloud Migration</a>: <span style=\"color: red;\">-$0.75 M</span></li>\n</ul>\n</li>\n<li><p><strong>Projects Farthest Away from Targets (No Actuals Recorded)</strong>:</p>\n<ul>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10292\">📁 Agency management protocol C</a>: <span style=\"color: red;\">-$0.75 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10278\">📁 Digital Collaboration Platform for R&D Teams</a>: <span style=\"color: red;\">-$0.15 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10514\">📁 Online payment system</a>: <span style=\"color: red;\">-$0.01 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10277\">📁 Combine sales teams in US Midwest and central</a>: <span style=\"color: red;\">-$0.00 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10276\">📁 Realign sales commissions to OKRs</a>: <span style=\"color: red;\">-$0.00 M</span></li>\n</ul>\n</li>\n</ol>\n<h4>Risks:</h4>\n<ol>\n<li><strong>Overall Program Performance</strong>: The program is not on track to meet its target, with a significant overspend indicated by the LBE exceeding the target.</li>\n<li><strong>Critical Projects</strong>: Several high-priority projects are underperforming, with LBEs exceeding their targets:<ul>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10275\">📁 Outsource shipping in urban centers</a>: <span style=\"color: red;\">-$0.50 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10289\">📁 Standardize SAP implementations across sub-co's</a>: <span style=\"color: red;\">-$0.25 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10526\">📁 Cost Optimization and Efficiency Improvement</a>: <span style=\"color: red;\">-$1.00 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10290\">📁 In-source video production</a>: <span style=\"color: red;\">-$0.50 M</span></li>\n</ul>\n</li>\n</ol>\n<hr>\n<h3>Action Items</h3>\n<h4>Immediate Actions:</h4>\n<ul>\n<li><p><strong>Focus on Underperforming Projects</strong>:</p>\n<ul>\n<li>Review and address the negative variances for the following projects:<ul>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10273\">📁 3D print capabilities in each facility</a>: <span style=\"color: red;\">-$4.00 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10514\">📁 Online payment system</a>: <span style=\"color: red;\">-$2.51 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10274\">📁 Robotics upgrade on packaging line</a>: <span style=\"color: red;\">-$2.00 M</span></li>\n</ul>\n</li>\n<li>Investigate the reasons for overspending and implement corrective measures.</li>\n</ul>\n</li>\n<li><p><strong>Address Projects with No Actuals Recorded</strong>:</p>\n<ul>\n<li>Ensure accurate and timely reporting for projects with no actuals recorded:<ul>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10292\">📁 Agency management protocol C</a>: <span style=\"color: red;\">-$0.75 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10278\">📁 Digital Collaboration Platform for R&D Teams</a>: <span style=\"color: red;\">-$0.15 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10514\">📁 Online payment system</a>: <span style=\"color: red;\">-$0.01 M</span></li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>\n<h4>Strategic Recommendations:</h4>\n<ul>\n<li><strong>Reassess Forecasts</strong>: Collaborate with project managers to update forecasts and ensure they align with realistic expectations. This will help improve the accuracy of LBEs and reduce variances.</li>\n<li><strong>Optimize High-Cost Workstreams</strong>: The \"Sales\" workstream contributes the most to the overall LBE ($154.57 M). Conduct a detailed review to identify cost-saving opportunities.</li>\n<li><strong>Monitor Quarterly Variances</strong>: Pay close attention to quarters with significant negative variances, such as Q3 2024 (<span style=\"color: red;\">-$2.10 M</span>) and Q4 2024 (<span style=\"color: red;\">-$3.40 M</span>). Implement cost control measures to mitigate risks in these periods.</li>\n</ul>\n<h4>Long-Term Actions:</h4>\n<ul>\n<li><strong>Enhance Reporting Processes</strong>: Implement stricter controls to ensure timely and accurate reporting of actuals across all projects.</li>\n<li><strong>Prioritize High-Impact Projects</strong>: Allocate resources to projects with positive variances and high LBE contributions:<ul>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10515\">📁 Cloud Migration</a>: <span style=\"color: green;\">+$3.75 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10526\">📁 Cost Optimization and Efficiency Improvement</a>: <span style=\"color: green;\">+$2.50 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10292\">📁 Agency management protocol C</a>: <span style=\"color: green;\">+$2.96 M</span></li>\n</ul>\n</li>\n</ul>\n<h4>Risk Mitigation:</h4>\n<ul>\n<li><strong>Monitor High Variance Projects</strong>: Establish a task force to closely monitor projects with high negative variances and develop mitigation plans.</li>\n<li><strong>Reevaluate Budget Allocations</strong>: Reassess budget allocations for projects with significant overspending to ensure alignment with strategic priorities.</li>\n</ul>\n<p>By addressing these action items and focusing on the identified outliers, the company can work towards improving the financial health of the program and potentially realigning its trajectory to meet the overall target.</p>\n</div>"
+      "briefingContent": "<div id=\"analysisContent\" dir=\"ltr\"><h1>Executive Summary</h1>\n<p>Based on the analysis of the provided data for CompanyID=7, the overall program is <strong>not on track to meet its target</strong>. The total LBE for the program is $930.64 M, which is significantly higher than the target, indicating a negative variance. This suggests that the program is overspending compared to the initial targets. The percentage change in LBE from the previous year to the current year is <span style=\"color: red;\">-26.49%</span>, which further highlights the need for immediate corrective actions.</p>\n<h3>Key Outliers</h3>\n<h4>Positive Outliers:</h4>\n<ol>\n<li><strong>Highest Performing KPI Element</strong>: The \"Indirect BOM Savings\" KPI element has achieved a performance of 1.0028, indicating it is slightly above target and contributing positively to the program.</li>\n<li><strong>Top 5 Projects Positively Impacting the Program</strong>:<ul>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10515\">\ud83d\udcc1 Cloud Migration</a>: <span style=\"color: green;\">+$3.75 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10526\">\ud83d\udcc1 Cost Optimization and Efficiency Improvement</a>: <span style=\"color: green;\">+$2.50 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10292\">\ud83d\udcc1 Agency management protocol C</a>: <span style=\"color: green;\">+$2.96 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10517\">\ud83d\udcc1 Cybersecurity Enhancement</a>: <span style=\"color: green;\">+$1.00 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10288\">\ud83d\udcc1 Outsource janitorial</a>: <span style=\"color: green;\">+$0.70 M</span></li>\n</ul>\n</li>\n</ol>\n<h4>Negative Outliers:</h4>\n<ol>\n<li><p><strong>Projects Farthest Away from Targets</strong>:</p>\n<ul>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10273\">\ud83d\udcc1 3D print capabilities in each facility</a>: <span style=\"color: red;\">-$4.00 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10514\">\ud83d\udcc1 Online payment system</a>: <span style=\"color: red;\">-$2.51 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10274\">\ud83d\udcc1 Robotics upgrade on packaging line</a>: <span style=\"color: red;\">-$2.00 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10288\">\ud83d\udcc1 Outsource janitorial</a>: <span style=\"color: red;\">-$1.23 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10515\">\ud83d\udcc1 Cloud Migration</a>: <span style=\"color: red;\">-$0.75 M</span></li>\n</ul>\n</li>\n<li><p><strong>Projects Farthest Away from Targets (No Actuals Recorded)</strong>:</p>\n<ul>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10292\">\ud83d\udcc1 Agency management protocol C</a>: <span style=\"color: red;\">-$0.75 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10278\">\ud83d\udcc1 Digital Collaboration Platform for R&D Teams</a>: <span style=\"color: red;\">-$0.15 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10514\">\ud83d\udcc1 Online payment system</a>: <span style=\"color: red;\">-$0.01 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10277\">\ud83d\udcc1 Combine sales teams in US Midwest and central</a>: <span style=\"color: red;\">-$0.00 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10276\">\ud83d\udcc1 Realign sales commissions to OKRs</a>: <span style=\"color: red;\">-$0.00 M</span></li>\n</ul>\n</li>\n</ol>\n<h4>Risks:</h4>\n<ol>\n<li><strong>Overall Program Performance</strong>: The program is not on track to meet its target, with a significant overspend indicated by the LBE exceeding the target.</li>\n<li><strong>Critical Projects</strong>: Several high-priority projects are underperforming, with LBEs exceeding their targets:<ul>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10275\">\ud83d\udcc1 Outsource shipping in urban centers</a>: <span style=\"color: red;\">-$0.50 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10289\">\ud83d\udcc1 Standardize SAP implementations across sub-co's</a>: <span style=\"color: red;\">-$0.25 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10526\">\ud83d\udcc1 Cost Optimization and Efficiency Improvement</a>: <span style=\"color: red;\">-$1.00 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10290\">\ud83d\udcc1 In-source video production</a>: <span style=\"color: red;\">-$0.50 M</span></li>\n</ul>\n</li>\n</ol>\n<hr>\n<h3>Action Items</h3>\n<h4>Immediate Actions:</h4>\n<ul>\n<li><p><strong>Focus on Underperforming Projects</strong>:</p>\n<ul>\n<li>Review and address the negative variances for the following projects:<ul>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10273\">\ud83d\udcc1 3D print capabilities in each facility</a>: <span style=\"color: red;\">-$4.00 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10514\">\ud83d\udcc1 Online payment system</a>: <span style=\"color: red;\">-$2.51 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10274\">\ud83d\udcc1 Robotics upgrade on packaging line</a>: <span style=\"color: red;\">-$2.00 M</span></li>\n</ul>\n</li>\n<li>Investigate the reasons for overspending and implement corrective measures.</li>\n</ul>\n</li>\n<li><p><strong>Address Projects with No Actuals Recorded</strong>:</p>\n<ul>\n<li>Ensure accurate and timely reporting for projects with no actuals recorded:<ul>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10292\">\ud83d\udcc1 Agency management protocol C</a>: <span style=\"color: red;\">-$0.75 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10278\">\ud83d\udcc1 Digital Collaboration Platform for R&D Teams</a>: <span style=\"color: red;\">-$0.15 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10514\">\ud83d\udcc1 Online payment system</a>: <span style=\"color: red;\">-$0.01 M</span></li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>\n<h4>Strategic Recommendations:</h4>\n<ul>\n<li><strong>Reassess Forecasts</strong>: Collaborate with project managers to update forecasts and ensure they align with realistic expectations. This will help improve the accuracy of LBEs and reduce variances.</li>\n<li><strong>Optimize High-Cost Workstreams</strong>: The \"Sales\" workstream contributes the most to the overall LBE ($154.57 M). Conduct a detailed review to identify cost-saving opportunities.</li>\n<li><strong>Monitor Quarterly Variances</strong>: Pay close attention to quarters with significant negative variances, such as Q3 2024 (<span style=\"color: red;\">-$2.10 M</span>) and Q4 2024 (<span style=\"color: red;\">-$3.40 M</span>). Implement cost control measures to mitigate risks in these periods.</li>\n</ul>\n<h4>Long-Term Actions:</h4>\n<ul>\n<li><strong>Enhance Reporting Processes</strong>: Implement stricter controls to ensure timely and accurate reporting of actuals across all projects.</li>\n<li><strong>Prioritize High-Impact Projects</strong>: Allocate resources to projects with positive variances and high LBE contributions:<ul>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10515\">\ud83d\udcc1 Cloud Migration</a>: <span style=\"color: green;\">+$3.75 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10526\">\ud83d\udcc1 Cost Optimization and Efficiency Improvement</a>: <span style=\"color: green;\">+$2.50 M</span></li>\n<li><a target=\"_blank\" href=\"https://base-poc.senseilabs.com/conductor#/project/id/10292\">\ud83d\udcc1 Agency management protocol C</a>: <span style=\"color: green;\">+$2.96 M</span></li>\n</ul>\n</li>\n</ul>\n<h4>Risk Mitigation:</h4>\n<ul>\n<li><strong>Monitor High Variance Projects</strong>: Establish a task force to closely monitor projects with high negative variances and develop mitigation plans.</li>\n<li><strong>Reevaluate Budget Allocations</strong>: Reassess budget allocations for projects with significant overspending to ensure alignment with strategic priorities.</li>\n</ul>\n<p>By addressing these action items and focusing on the identified outliers, the company can work towards improving the financial health of the program and potentially realigning its trajectory to meet the overall target.</p>\n</div>"
     }
   ],
   "historicalActivities": [
@@ -313,6 +313,105 @@
       "details": "Manufacturing compliance requirements scan - 23 regulations identified",
       "user": "Harmony Insights",
       "link": "https://insights.harmony.com/regulatory/manufacturing-compliance"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task-3dpilot-checkpoint",
+      "title": "Run pilot go-live checkpoint",
+      "description": "Facilitate readiness review with plant leadership and PMO before the April pilot shift now that the timeline moved.",
+      "dueDate": "2025-02-12",
+      "project": "3D print capabilities in each facility",
+      "workstream": "Manufacturing",
+      "status": "in-progress",
+      "priority": "high"
+    },
+    {
+      "id": "task-cycle-time-sprint",
+      "title": "Lock scope for cycle time sprint",
+      "description": "Confirm analytics inputs and finalize hypotheses for the next Manufacturing Line Cycle Time Optimization sprint.",
+      "dueDate": "2025-01-30",
+      "project": "Manufacturing Line Cycle Time Optimization",
+      "workstream": "Manufacturing",
+      "status": "not-started",
+      "priority": "medium"
+    },
+    {
+      "id": "task-robotics-retrofit",
+      "title": "Coordinate robotics retrofit downtime",
+      "description": "Align maintenance and production windows for the February robotics upgrade on the packaging line.",
+      "dueDate": "2025-02-07",
+      "project": "Robotics upgrade on packaging line",
+      "workstream": "Manufacturing",
+      "status": "in-progress",
+      "priority": "high"
+    },
+    {
+      "id": "task-global-supply-review",
+      "title": "Review global supply chain savings",
+      "description": "Validate forecast v. actual savings for January and prep talking points for the steering committee.",
+      "dueDate": "2025-01-28",
+      "project": "Global Supply Chain Optimization",
+      "workstream": "Distribution",
+      "status": "in-progress",
+      "priority": "high"
+    },
+    {
+      "id": "task-urban-shipping",
+      "title": "Plan urban shipping transition",
+      "description": "Outline phased vendor hand-offs for the outsource shipping in urban centers initiative.",
+      "dueDate": "2025-02-10",
+      "project": "Outsource shipping in urban centers",
+      "workstream": "Distribution",
+      "status": "not-started",
+      "priority": "medium"
+    },
+    {
+      "id": "task-pmo-dashboard",
+      "title": "Publish weekly transformation dashboard",
+      "description": "Refresh KPI visuals with the latest throughput and OTD data, then circulate the link to the ELT distribution list.",
+      "dueDate": "2025-02-02",
+      "project": "Global Supply Chain Optimization",
+      "workstream": "Distribution",
+      "status": "in-progress",
+      "priority": "low"
+    }
+  ],
+  "podcasts": [
+    {
+      "date": "2025-01-22",
+      "title": "Daily Brief: Supplier recovery update",
+      "description": "Recap of the Line 3 bearing replacement plan, supplier expediting status, and what to watch on throughput this week.",
+      "duration": "07:45",
+      "file": "daily-brief-2025-01-22.mp3"
+    },
+    {
+      "date": "2025-01-21",
+      "title": "Daily Brief: Distribution sprint reset",
+      "description": "Highlights from the distribution backlog reshuffle, including automation retrofit impacts and carrier diversification progress.",
+      "duration": "06:58",
+      "file": "daily-brief-2025-01-21.mp3"
+    },
+    {
+      "date": "2025-01-20",
+      "title": "Daily Brief: Talent capacity outlook",
+      "description": "Resourcing coverage across additive technicians, training certifications, and the February hiring funnel.",
+      "duration": "08:12",
+      "file": "daily-brief-2025-01-20.mp3"
+    },
+    {
+      "date": "2025-01-17",
+      "title": "Daily Brief: Executive prep notes",
+      "description": "Key storylines for Monday's ELT readout covering KPIs, risks, and financials.",
+      "duration": "05:54",
+      "file": "daily-brief-2025-01-17.mp3"
+    },
+    {
+      "date": "2025-01-16",
+      "title": "Daily Brief: Change pulse",
+      "description": "Site sentiment trends, training adoption metrics, and upcoming communications milestones.",
+      "duration": "06:21",
+      "file": "daily-brief-2025-01-16.mp3"
     }
   ]
 }

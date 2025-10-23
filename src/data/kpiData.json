@@ -1,0 +1,1585 @@
+{
+  "source": "docs/conductor-transformation-KPIs.xlsx",
+  "generatedAt": "2025-10-23T18:22:47Z",
+  "months": [
+    "Jan-25",
+    "Feb-25",
+    "Mar-25",
+    "Apr-25",
+    "May-25",
+    "Jun-25",
+    "Jul-25",
+    "Aug-25",
+    "Sep-25",
+    "Oct-25",
+    "Nov-25",
+    "Dec-25"
+  ],
+  "workstreams": [
+    {
+      "name": "Manufacturing",
+      "projects": [
+        {
+          "name": "3D print capabilities in each facility",
+          "metrics": [
+            {
+              "name": "Diesel fuel",
+              "unit": "tCO2e",
+              "series": {
+                "forecasts": {
+                  "Jan-25": 5.0,
+                  "Feb-25": 5.0,
+                  "Mar-25": 5.0,
+                  "Apr-25": 5.0,
+                  "May-25": 5.0,
+                  "Jun-25": 5.0,
+                  "Jul-25": 5.0,
+                  "Aug-25": 5.0,
+                  "Sep-25": 5.0,
+                  "Oct-25": 5.0,
+                  "Nov-25": 5.0,
+                  "Dec-25": 5.0
+                },
+                "actuals": {
+                  "Jan-25": 5.0,
+                  "Feb-25": 5.0,
+                  "Mar-25": 5.0,
+                  "Apr-25": 5.0,
+                  "May-25": 5.0,
+                  "Jun-25": 5.0,
+                  "Jul-25": 5.0,
+                  "Aug-25": 5.0,
+                  "Sep-25": 5.0,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            },
+            {
+              "name": "Natural gas",
+              "unit": "tCO2e",
+              "series": {
+                "forecasts": {
+                  "Jan-25": 25.0,
+                  "Feb-25": 25.0,
+                  "Mar-25": 25.0,
+                  "Apr-25": 25.0,
+                  "May-25": 25.0,
+                  "Jun-25": 25.0,
+                  "Jul-25": 25.0,
+                  "Aug-25": 25.0,
+                  "Sep-25": 25.0,
+                  "Oct-25": 25.0,
+                  "Nov-25": 25.0,
+                  "Dec-25": 25.0
+                },
+                "actuals": {
+                  "Jan-25": 25.0,
+                  "Feb-25": 25.0,
+                  "Mar-25": 25.0,
+                  "Apr-25": 25.0,
+                  "May-25": 25.0,
+                  "Jun-25": 25.0,
+                  "Jul-25": 25.0,
+                  "Aug-25": 25.0,
+                  "Sep-25": 25.0,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            },
+            {
+              "name": "Plastic",
+              "unit": "Tonnes",
+              "series": {
+                "forecasts": {
+                  "Jan-25": 15.0,
+                  "Feb-25": 15.0,
+                  "Mar-25": 15.0,
+                  "Apr-25": 15.0,
+                  "May-25": 15.0,
+                  "Jun-25": 16.0,
+                  "Jul-25": 15.0,
+                  "Aug-25": 15.0,
+                  "Sep-25": 15.0,
+                  "Oct-25": 15.0,
+                  "Nov-25": 15.0,
+                  "Dec-25": 15.0
+                },
+                "actuals": {
+                  "Jan-25": 15.0,
+                  "Feb-25": 15.0,
+                  "Mar-25": 15.0,
+                  "Apr-25": 15.0,
+                  "May-25": 15.0,
+                  "Jun-25": 15.0,
+                  "Jul-25": 15.0,
+                  "Aug-25": 15.0,
+                  "Sep-25": 15.0,
+                  "Oct-25": 15.0,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Line Balancing Optimization",
+          "metrics": [
+            {
+              "name": "CapEx",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": -0.1,
+                  "May-25": -0.1,
+                  "Jun-25": -0.1,
+                  "Jul-25": -0.1,
+                  "Aug-25": -0.1,
+                  "Sep-25": -0.1,
+                  "Oct-25": -0.1,
+                  "Nov-25": -0.1,
+                  "Dec-25": -0.1
+                },
+                "forecasts": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": -0.1,
+                  "May-25": -0.1,
+                  "Jun-25": -0.1,
+                  "Jul-25": -0.1,
+                  "Aug-25": -0.1,
+                  "Sep-25": -0.1,
+                  "Oct-25": -0.1,
+                  "Nov-25": -0.1,
+                  "Dec-25": -0.1
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": -0.1,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            },
+            {
+              "name": "OpEx",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                },
+                "forecasts": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            },
+            {
+              "name": "Direct BOM Savings",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": 0.15,
+                  "May-25": 0.15,
+                  "Jun-25": 0.15,
+                  "Jul-25": 0.15,
+                  "Aug-25": 0.15,
+                  "Sep-25": 0.15,
+                  "Oct-25": 0.15,
+                  "Nov-25": 0.15,
+                  "Dec-25": 0.15
+                },
+                "forecasts": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": 0.15,
+                  "May-25": 2.0,
+                  "Jun-25": 0.15,
+                  "Jul-25": 0.15,
+                  "Aug-25": 0.15,
+                  "Sep-25": 0.15,
+                  "Oct-25": 0.15,
+                  "Nov-25": 0.15,
+                  "Dec-25": 0.15
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": 0.15,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Manufacturing Line Cycle Time Optimization",
+          "metrics": [
+            {
+              "name": "CapEx",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": -0.1,
+                  "Apr-25": -0.1,
+                  "May-25": -0.1,
+                  "Jun-25": -0.1,
+                  "Jul-25": -0.1,
+                  "Aug-25": -0.1,
+                  "Sep-25": -0.1,
+                  "Oct-25": -0.1,
+                  "Nov-25": -0.1,
+                  "Dec-25": -0.1
+                },
+                "forecasts": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": -0.1,
+                  "Apr-25": -0.1,
+                  "May-25": -0.1,
+                  "Jun-25": -0.1,
+                  "Jul-25": -0.1,
+                  "Aug-25": -0.1,
+                  "Sep-25": -0.1,
+                  "Oct-25": -0.1,
+                  "Nov-25": -0.1,
+                  "Dec-25": -0.1
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": -0.1,
+                  "Apr-25": -0.1,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            },
+            {
+              "name": "OpEx",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                },
+                "forecasts": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            },
+            {
+              "name": "Direct BOM Savings",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": 0.15,
+                  "Apr-25": 0.15,
+                  "May-25": 0.15,
+                  "Jun-25": 0.15,
+                  "Jul-25": 0.15,
+                  "Aug-25": 0.15,
+                  "Sep-25": 0.15,
+                  "Oct-25": 0.15,
+                  "Nov-25": 0.15,
+                  "Dec-25": 0.15
+                },
+                "forecasts": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": 0.15,
+                  "Apr-25": 0.15,
+                  "May-25": 0.15,
+                  "Jun-25": 0.15,
+                  "Jul-25": 0.15,
+                  "Aug-25": 0.15,
+                  "Sep-25": 0.15,
+                  "Oct-25": 0.15,
+                  "Nov-25": 0.15,
+                  "Dec-25": 0.15
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": 2.0,
+                  "Apr-25": 2.0,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "OEE (Overall Equipment Effectiveness) Program Launch",
+          "metrics": [
+            {
+              "name": "OpEx",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": -0.05,
+                  "Jul-25": -0.05,
+                  "Aug-25": -0.05,
+                  "Sep-25": -0.05,
+                  "Oct-25": -0.05,
+                  "Nov-25": -0.05,
+                  "Dec-25": -0.05
+                },
+                "forecasts": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": -0.05,
+                  "Jul-25": -0.05,
+                  "Aug-25": -0.05,
+                  "Sep-25": -0.05,
+                  "Oct-25": -0.05,
+                  "Nov-25": -0.05,
+                  "Dec-25": -0.05
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            },
+            {
+              "name": "CapEx",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": -0.1,
+                  "Apr-25": -0.1,
+                  "May-25": -0.1,
+                  "Jun-25": -0.1,
+                  "Jul-25": -0.1,
+                  "Aug-25": -0.1,
+                  "Sep-25": -0.1,
+                  "Oct-25": -0.1,
+                  "Nov-25": -0.1,
+                  "Dec-25": -0.1
+                },
+                "forecasts": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": -0.1,
+                  "Apr-25": -0.1,
+                  "May-25": -0.1,
+                  "Jun-25": -0.1,
+                  "Jul-25": -0.1,
+                  "Aug-25": -0.1,
+                  "Sep-25": -0.1,
+                  "Oct-25": -0.1,
+                  "Nov-25": -0.1,
+                  "Dec-25": -0.1
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": -0.1,
+                  "Apr-25": -0.1,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            },
+            {
+              "name": "Direct BOM Savings",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": 0.2,
+                  "Apr-25": 0.2,
+                  "May-25": 0.2,
+                  "Jun-25": 0.2,
+                  "Jul-25": 0.2,
+                  "Aug-25": 0.2,
+                  "Sep-25": 0.2,
+                  "Oct-25": 0.2,
+                  "Nov-25": 0.2,
+                  "Dec-25": 0.2
+                },
+                "forecasts": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": 0.2,
+                  "Apr-25": 0.2,
+                  "May-25": 0.25,
+                  "Jun-25": 0.2,
+                  "Jul-25": 0.2,
+                  "Aug-25": 0.25,
+                  "Sep-25": 0.2,
+                  "Oct-25": 0.2,
+                  "Nov-25": 0.2,
+                  "Dec-25": 0.2
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": 0.2,
+                  "Apr-25": 0.2,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Preventive Maintenance Uplift",
+          "metrics": [
+            {
+              "name": "CapEx",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": -0.15,
+                  "Jul-25": -0.15,
+                  "Aug-25": -0.15,
+                  "Sep-25": -0.15,
+                  "Oct-25": -0.15,
+                  "Nov-25": -0.15,
+                  "Dec-25": -0.15
+                },
+                "forecasts": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": -0.15,
+                  "Jul-25": -0.15,
+                  "Aug-25": -0.15,
+                  "Sep-25": -0.15,
+                  "Oct-25": -0.15,
+                  "Nov-25": -0.15,
+                  "Dec-25": -0.15
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            },
+            {
+              "name": "OpEx",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                },
+                "forecasts": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            },
+            {
+              "name": "Direct BOM Savings",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": 0.25,
+                  "Jul-25": 0.25,
+                  "Aug-25": 0.25,
+                  "Sep-25": 0.25,
+                  "Oct-25": 0.25,
+                  "Nov-25": 0.25,
+                  "Dec-25": 0.25
+                },
+                "forecasts": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": 0.25,
+                  "Jul-25": 0.25,
+                  "Aug-25": 0.25,
+                  "Sep-25": 0.25,
+                  "Oct-25": 0.25,
+                  "Nov-25": 0.25,
+                  "Dec-25": 0.25
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Robotics upgrade on packaging line",
+          "metrics": [
+            {
+              "name": "OpEx",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": -0.75,
+                  "Feb-25": -0.75,
+                  "Mar-25": -0.75,
+                  "Apr-25": -0.75,
+                  "May-25": -0.75,
+                  "Jun-25": -0.75,
+                  "Jul-25": -0.75,
+                  "Aug-25": -0.75,
+                  "Sep-25": -0.75,
+                  "Oct-25": -0.75,
+                  "Nov-25": -0.75,
+                  "Dec-25": -0.75
+                },
+                "forecasts": {
+                  "Jan-25": -0.75,
+                  "Feb-25": -0.75,
+                  "Mar-25": -0.75,
+                  "Apr-25": -0.75,
+                  "May-25": -0.75,
+                  "Jun-25": -0.75,
+                  "Jul-25": -0.75,
+                  "Aug-25": -0.75,
+                  "Sep-25": -0.75,
+                  "Oct-25": -0.75,
+                  "Nov-25": -0.75,
+                  "Dec-25": -0.75
+                },
+                "actuals": {
+                  "Jan-25": -0.75,
+                  "Feb-25": -0.75,
+                  "Mar-25": -0.75,
+                  "Apr-25": -0.75,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            },
+            {
+              "name": "CapEx",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": -0.5,
+                  "Feb-25": -0.5,
+                  "Mar-25": -0.5,
+                  "Apr-25": -0.5,
+                  "May-25": -0.5,
+                  "Jun-25": -0.5,
+                  "Jul-25": -0.5,
+                  "Aug-25": -0.5,
+                  "Sep-25": -0.5,
+                  "Oct-25": -0.5,
+                  "Nov-25": -0.5,
+                  "Dec-25": -0.5
+                },
+                "forecasts": {
+                  "Jan-25": -0.5,
+                  "Feb-25": -0.5,
+                  "Mar-25": -0.5,
+                  "Apr-25": -0.5,
+                  "May-25": -0.5,
+                  "Jun-25": -0.5,
+                  "Jul-25": -0.5,
+                  "Aug-25": -0.5,
+                  "Sep-25": -0.5,
+                  "Oct-25": -0.5,
+                  "Nov-25": -0.5,
+                  "Dec-25": -0.5
+                },
+                "actuals": {
+                  "Jan-25": -0.5,
+                  "Feb-25": -0.5,
+                  "Mar-25": -0.5,
+                  "Apr-25": -0.5,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            },
+            {
+              "name": "Direct BOM Savings",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": 1.25,
+                  "Feb-25": 1.25,
+                  "Mar-25": 1.25,
+                  "Apr-25": 1.25,
+                  "May-25": 1.25,
+                  "Jun-25": 1.25,
+                  "Jul-25": 1.25,
+                  "Aug-25": 1.25,
+                  "Sep-25": 1.25,
+                  "Oct-25": 1.25,
+                  "Nov-25": 1.25,
+                  "Dec-25": 1.25
+                },
+                "forecasts": {
+                  "Jan-25": 1.25,
+                  "Feb-25": 1.25,
+                  "Mar-25": 1.25,
+                  "Apr-25": 1.25,
+                  "May-25": 1.25,
+                  "Jun-25": 1.25,
+                  "Jul-25": 1.25,
+                  "Aug-25": 1.25,
+                  "Sep-25": 1.25,
+                  "Oct-25": 1.25,
+                  "Nov-25": 1.25,
+                  "Dec-25": 1.25
+                },
+                "actuals": {
+                  "Jan-25": 1.0,
+                  "Feb-25": 1.0,
+                  "Mar-25": 1.0,
+                  "Apr-25": 1.0,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Scrap and Rework Reduction",
+          "metrics": [
+            {
+              "name": "OpEx",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": -0.05,
+                  "May-25": -0.05,
+                  "Jun-25": -0.05,
+                  "Jul-25": -0.05,
+                  "Aug-25": -0.05,
+                  "Sep-25": -0.05,
+                  "Oct-25": -0.05,
+                  "Nov-25": -0.05,
+                  "Dec-25": -0.05
+                },
+                "forecasts": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": -0.05,
+                  "May-25": -0.05,
+                  "Jun-25": -0.05,
+                  "Jul-25": -0.05,
+                  "Aug-25": -0.05,
+                  "Sep-25": -0.05,
+                  "Oct-25": -0.05,
+                  "Nov-25": -0.05,
+                  "Dec-25": -0.05
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": -0.05,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            },
+            {
+              "name": "CapEx",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                },
+                "forecasts": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            },
+            {
+              "name": "Indirect BOM Savings",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": 0.1,
+                  "May-25": 0.1,
+                  "Jun-25": 0.1,
+                  "Jul-25": 0.1,
+                  "Aug-25": 0.1,
+                  "Sep-25": 0.1,
+                  "Oct-25": 0.1,
+                  "Nov-25": 0.1,
+                  "Dec-25": 0.1
+                },
+                "forecasts": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": 0.1,
+                  "May-25": 0.1,
+                  "Jun-25": 0.1,
+                  "Jul-25": 0.1,
+                  "Aug-25": 0.1,
+                  "Sep-25": 0.1,
+                  "Oct-25": 0.1,
+                  "Nov-25": 0.1,
+                  "Dec-25": 0.1
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": 0.1,
+                  "May-25": 0.1,
+                  "Jun-25": 0.1,
+                  "Jul-25": 0.1,
+                  "Aug-25": 0.1,
+                  "Sep-25": 0.1,
+                  "Oct-25": 0.1,
+                  "Nov-25": 0.1,
+                  "Dec-25": 0.1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Shift Pattern Redesign",
+          "metrics": [
+            {
+              "name": "CapEx",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": -0.15,
+                  "Aug-25": -0.15,
+                  "Sep-25": -0.15,
+                  "Oct-25": -0.15,
+                  "Nov-25": -0.15,
+                  "Dec-25": -0.15
+                },
+                "forecasts": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": -0.15,
+                  "Aug-25": -0.15,
+                  "Sep-25": -0.15,
+                  "Oct-25": -0.15,
+                  "Nov-25": -0.15,
+                  "Dec-25": -0.15
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            },
+            {
+              "name": "OpEx",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                },
+                "forecasts": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            },
+            {
+              "name": "Labor",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": 0.2,
+                  "Aug-25": 0.2,
+                  "Sep-25": 0.2,
+                  "Oct-25": 0.2,
+                  "Nov-25": 0.2,
+                  "Dec-25": 0.2
+                },
+                "forecasts": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": 0.2,
+                  "Aug-25": 0.2,
+                  "Sep-25": 0.2,
+                  "Oct-25": 0.2,
+                  "Nov-25": 0.2,
+                  "Dec-25": 0.2
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Tooling Changeover Reduction",
+          "metrics": [
+            {
+              "name": "OpEx",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": null,
+                  "Feb-25": -0.1,
+                  "Mar-25": -0.1,
+                  "Apr-25": -0.1,
+                  "May-25": -0.1,
+                  "Jun-25": -0.1,
+                  "Jul-25": -0.1,
+                  "Aug-25": -0.1,
+                  "Sep-25": -0.1,
+                  "Oct-25": -0.1,
+                  "Nov-25": -0.1,
+                  "Dec-25": -0.1
+                },
+                "forecasts": {
+                  "Jan-25": null,
+                  "Feb-25": -0.1,
+                  "Mar-25": -0.1,
+                  "Apr-25": -0.1,
+                  "May-25": -0.1,
+                  "Jun-25": -0.1,
+                  "Jul-25": -0.1,
+                  "Aug-25": -0.1,
+                  "Sep-25": -0.1,
+                  "Oct-25": -0.1,
+                  "Nov-25": -0.1,
+                  "Dec-25": -0.1
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": -0.1,
+                  "Mar-25": -0.1,
+                  "Apr-25": -0.1,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            },
+            {
+              "name": "CapEx",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                },
+                "forecasts": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            },
+            {
+              "name": "Direct BOM Savings",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": null,
+                  "Feb-25": 0.15,
+                  "Mar-25": 0.15,
+                  "Apr-25": 0.15,
+                  "May-25": 0.15,
+                  "Jun-25": 0.15,
+                  "Jul-25": 0.15,
+                  "Aug-25": 0.15,
+                  "Sep-25": 0.15,
+                  "Oct-25": 0.15,
+                  "Nov-25": 0.15,
+                  "Dec-25": 0.15
+                },
+                "forecasts": {
+                  "Jan-25": null,
+                  "Feb-25": 0.15,
+                  "Mar-25": 0.15,
+                  "Apr-25": 0.15,
+                  "May-25": 0.15,
+                  "Jun-25": 0.15,
+                  "Jul-25": 0.15,
+                  "Aug-25": 0.15,
+                  "Sep-25": 0.15,
+                  "Oct-25": 0.15,
+                  "Nov-25": 0.15,
+                  "Dec-25": 0.15
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": 0.15,
+                  "Mar-25": 0.15,
+                  "Apr-25": 0.15,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Distribution",
+      "projects": [
+        {
+          "name": "Global Supply Chain Optimization",
+          "metrics": [
+            {
+              "name": "OpEx",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": -0.25,
+                  "Feb-25": -0.25,
+                  "Mar-25": -0.25,
+                  "Apr-25": -0.25,
+                  "May-25": -0.25,
+                  "Jun-25": -0.25,
+                  "Jul-25": -0.25,
+                  "Aug-25": -0.25,
+                  "Sep-25": -0.25,
+                  "Oct-25": -0.25,
+                  "Nov-25": -0.25,
+                  "Dec-25": -0.25
+                },
+                "forecasts": {
+                  "Jan-25": -0.25,
+                  "Feb-25": -0.25,
+                  "Mar-25": -0.25,
+                  "Apr-25": -0.25,
+                  "May-25": -0.25,
+                  "Jun-25": -0.25,
+                  "Jul-25": -0.25,
+                  "Aug-25": -0.25,
+                  "Sep-25": -0.25,
+                  "Oct-25": -0.25,
+                  "Nov-25": -0.25,
+                  "Dec-25": -0.25
+                },
+                "actuals": {
+                  "Jan-25": -0.25,
+                  "Feb-25": -0.25,
+                  "Mar-25": -0.25,
+                  "Apr-25": -0.25,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            },
+            {
+              "name": "CapEx",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": -0.15,
+                  "Feb-25": -0.15,
+                  "Mar-25": -0.15,
+                  "Apr-25": -0.15,
+                  "May-25": -0.15,
+                  "Jun-25": -0.15,
+                  "Jul-25": -0.15,
+                  "Aug-25": -0.15,
+                  "Sep-25": -0.15,
+                  "Oct-25": -0.15,
+                  "Nov-25": -0.15,
+                  "Dec-25": -0.15
+                },
+                "forecasts": {
+                  "Jan-25": -0.15,
+                  "Feb-25": -0.15,
+                  "Mar-25": -0.15,
+                  "Apr-25": -0.15,
+                  "May-25": -0.15,
+                  "Jun-25": -0.15,
+                  "Jul-25": -0.15,
+                  "Aug-25": -0.15,
+                  "Sep-25": -0.15,
+                  "Oct-25": -0.15,
+                  "Nov-25": -0.15,
+                  "Dec-25": -0.15
+                },
+                "actuals": {
+                  "Jan-25": -0.15,
+                  "Feb-25": -0.15,
+                  "Mar-25": -0.15,
+                  "Apr-25": -0.15,
+                  "May-25": -0.15,
+                  "Jun-25": -0.15,
+                  "Jul-25": -0.15,
+                  "Aug-25": -0.15,
+                  "Sep-25": -0.15,
+                  "Oct-25": -0.15,
+                  "Nov-25": -0.15,
+                  "Dec-25": -0.15
+                }
+              }
+            },
+            {
+              "name": "Direct BOM Savings",
+              "unit": "(million)",
+              "series": {
+                "targets": {
+                  "Jan-25": 0.5,
+                  "Feb-25": 0.5,
+                  "Mar-25": 0.5,
+                  "Apr-25": 0.5,
+                  "May-25": 0.5,
+                  "Jun-25": 0.5,
+                  "Jul-25": 0.5,
+                  "Aug-25": 0.5,
+                  "Sep-25": 0.5,
+                  "Oct-25": 0.5,
+                  "Nov-25": 0.5,
+                  "Dec-25": 0.5
+                },
+                "forecasts": {
+                  "Jan-25": 0.5,
+                  "Feb-25": 0.5,
+                  "Mar-25": 0.5,
+                  "Apr-25": 0.5,
+                  "May-25": 0.5,
+                  "Jun-25": 0.5,
+                  "Jul-25": 0.5,
+                  "Aug-25": 0.5,
+                  "Sep-25": 0.5,
+                  "Oct-25": 0.5,
+                  "Nov-25": 0.5,
+                  "Dec-25": 0.5
+                },
+                "actuals": {
+                  "Jan-25": 0.5,
+                  "Feb-25": 0.5,
+                  "Mar-25": 0.5,
+                  "Apr-25": 0.5,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Outsource shipping in urban centers",
+          "metrics": [
+            {
+              "name": "Diesel fuel",
+              "unit": "tCO2e",
+              "series": {
+                "forecasts": {
+                  "Jan-25": 5.0,
+                  "Feb-25": 5.0,
+                  "Mar-25": 5.0,
+                  "Apr-25": 5.0,
+                  "May-25": 5.0,
+                  "Jun-25": 5.0,
+                  "Jul-25": 5.0,
+                  "Aug-25": 5.0,
+                  "Sep-25": 5.0,
+                  "Oct-25": 5.0,
+                  "Nov-25": 5.0,
+                  "Dec-25": 5.0
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            },
+            {
+              "name": "Natural gas",
+              "unit": "tCO2e",
+              "series": {
+                "forecasts": {
+                  "Jan-25": 3.0,
+                  "Feb-25": 3.0,
+                  "Mar-25": 3.0,
+                  "Apr-25": 3.0,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            },
+            {
+              "name": "Non-recyclable other waste",
+              "unit": "Tonnes",
+              "series": {
+                "forecasts": {
+                  "Jan-25": 15.0,
+                  "Feb-25": 15.0,
+                  "Mar-25": 15.0,
+                  "Apr-25": 15.0,
+                  "May-25": 15.0,
+                  "Jun-25": 15.0,
+                  "Jul-25": 15.0,
+                  "Aug-25": 15.0,
+                  "Sep-25": 15.0,
+                  "Oct-25": 15.0,
+                  "Nov-25": 15.0,
+                  "Dec-25": 15.0
+                },
+                "actuals": {
+                  "Jan-25": null,
+                  "Feb-25": null,
+                  "Mar-25": null,
+                  "Apr-25": null,
+                  "May-25": null,
+                  "Jun-25": null,
+                  "Jul-25": null,
+                  "Aug-25": null,
+                  "Sep-25": null,
+                  "Oct-25": null,
+                  "Nov-25": null,
+                  "Dec-25": null
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

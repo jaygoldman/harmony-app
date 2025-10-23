@@ -255,6 +255,19 @@ app.get('/api/mobile/data/harmony-chats', verifyMobileToken, async (req, res) =>
   }
 });
 
+app.get('/api/mobile/data/kpis', verifyMobileToken, async (req, res) => {
+  try {
+    const data = await readJsonResource('kpiData.json');
+    res.json(data);
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      return res.status(404).json({ error: 'KPI data not found' });
+    }
+    console.error('Failed to load KPI data:', error);
+    res.status(500).json({ error: 'Unable to load KPI data' });
+  }
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ 

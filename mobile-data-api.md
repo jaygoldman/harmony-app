@@ -14,8 +14,9 @@ This guide explains how the Harmony mobile app can retrieve shared UI data from 
 
 | Endpoint | Purpose | Response |
 | --- | --- | --- |
-| `GET /api/mobile/data/sample` | Returns the contents of `src/data/sampleData.json`, including sample questions, the activity pool, and historical activity data. | Full JSON file |
+| `GET /api/mobile/data/sample` | Returns the contents of `src/data/sampleData.json`, including sample questions, the activity pool, historical activity data, active tasks, and user podcasts. | Full JSON file |
 | `GET /api/mobile/data/harmony-chats` | Returns the contents of `src/data/harmonyChats.json`, including the chat list metadata and seeded conversation transcripts. | Full JSON file |
+| `GET /api/mobile/data/kpis` | Returns `src/data/kpiData.json`, providing KPI metrics for the Manufacturing and Distribution workstreams. | Full JSON file |
 
 Both routes require the mobile token and respond with `401` if the header is missing or invalid. If a file cannot be located the server returns `404`.
 
@@ -70,8 +71,7 @@ The Harmony chats endpoint mirrors the structure of `harmonyChats.json`:
 ## Development Notes
 
 - In development the backend reads the JSON files from disk on every request so updates appear immediately.
-- The server searches for `sampleData.json` and `harmonyChats.json` in a few standard locations: `src/data`, `data`, or `build/data`. Override the lookup path by setting `HARMONY_DATA_DIR=/absolute/path/to/data` before launching `server.js`.
-- The backend reads the JSON files from `build/data` (or the directory set via `HARMONY_DATA_DIR`). The build step already copies `src/data/*.json` into that location.
+- The server reads data files from `build/data` (or the directory set via `HARMONY_DATA_DIR`). The build step already copies `src/data/*.json` into that location, including the new KPI dataset.
 - In production responses are cached for five minutes to reduce disk I/O; redeploying or waiting for the TTL invalidates the cache.
 - The desktop application retains the existing token-validation rules. Do not call the data endpoints without a successful `POST /api/mobile/connect`.
 
