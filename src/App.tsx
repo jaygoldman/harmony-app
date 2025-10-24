@@ -1,4 +1,5 @@
-import React, { useState, useMemo, useEffect, useRef } from "react";
+import React, { useState, useMemo, useEffect, useRef, useCallback } from "react";
+import { createPortal } from 'react-dom';
 import { useMsal } from '@azure/msal-react';
 import { useAuth } from './AuthWrapper';
 import sampleData from "./data/sampleData.json";
@@ -1043,6 +1044,125 @@ const AgentInput: React.FC<{
   const [pendingAttachments, setPendingAttachments] = useState<{ type: 'scenario' }[]>([]);
   const editableRef = useRef<HTMLDivElement>(null);
   const mentionMenuRef = useRef<HTMLDivElement>(null);
+  const agentsMenuAnchorRef = useRef<HTMLButtonElement>(null);
+  const agentsMenuDropdownRef = useRef<HTMLDivElement>(null);
+  const [mentionMenuPosition, setMentionMenuPosition] = useState<{ left: number; top: number } | null>(null);
+  const [agentsMenuPosition, setAgentsMenuPosition] = useState<{ left: number; top: number } | null>(null);
+  const portalRoot = typeof document !== 'undefined' ? document.body : null;
+
+  const positionsAreEqual = useCallback(
+    (a: { left: number; top: number } | null, b: { left: number; top: number } | null) => {
+      if (!a || !b) return false;
+      return Math.abs(a.left - b.left) < 0.5 && Math.abs(a.top - b.top) < 0.5;
+    },
+    []
+  );
+
+  const setMentionMenuPositionSafely = useCallback(
+    (next: { left: number; top: number }) => {
+      setMentionMenuPosition((prev) => (positionsAreEqual(prev, next) ? prev : next));
+    },
+    [positionsAreEqual]
+  );
+
+  const setAgentsMenuPositionSafely = useCallback(
+    (next: { left: number; top: number }) => {
+      setAgentsMenuPosition((prev) => (positionsAreEqual(prev, next) ? prev : next));
+    },
+    [positionsAreEqual]
+  );
+
+  const updateMentionMenuPosition = React.useCallback(() => {
+    const editable = editableRef.current;
+    if (!editable) return;
+
+    const selection = window.getSelection();
+    let referenceRect = editable.getBoundingClientRect();
+
+    if (selection && selection.rangeCount > 0) {
+      const range = selection.getRangeAt(0).cloneRange();
+      range.collapse(false);
+      const rangeRect = range.getBoundingClientRect();
+      if (rangeRect && !(rangeRect.x === 0 && rangeRect.y === 0 && referenceRect.x !== 0 && referenceRect.y !== 0)) {
+        referenceRect = rangeRect;
+      }
+    }
+
+    const menuWidth = mentionMenuRef.current?.offsetWidth ?? 360;
+    const margin = 16;
+    const rawLeft = referenceRect.left + window.scrollX;
+    const left = Math.min(
+      Math.max(rawLeft, margin),
+      window.innerWidth - menuWidth - margin
+    );
+    const menuHeight = mentionMenuRef.current?.offsetHeight ?? 0;
+    const viewportTop = window.scrollY + margin;
+    const anchorTop = referenceRect.top + window.scrollY;
+    const proposedTopAbove = anchorTop - menuHeight - 12;
+    const top = Math.max(viewportTop, menuHeight ? proposedTopAbove : viewportTop);
+
+    setMentionMenuPositionSafely({ left, top });
+  }, [mentionMenuRef, editableRef, setMentionMenuPositionSafely]);
+
+  const updateAgentsMenuPosition = React.useCallback(() => {
+    const anchor = agentsMenuAnchorRef.current;
+    if (!anchor) return;
+
+    const menuWidth = agentsMenuDropdownRef.current?.offsetWidth ?? 360;
+    const menuHeight = agentsMenuDropdownRef.current?.offsetHeight ?? 0;
+    const rect = anchor.getBoundingClientRect();
+    const margin = 16;
+    const rawLeft = rect.left + window.scrollX;
+    const left = Math.min(
+      Math.max(rawLeft, margin),
+      window.innerWidth - menuWidth - margin
+    );
+
+    let top = rect.bottom + window.scrollY + 12;
+    const viewportBottom = window.scrollY + window.innerHeight;
+    if (top + menuHeight + margin > viewportBottom && menuHeight) {
+      top = rect.top + window.scrollY - menuHeight - 12;
+      if (top < window.scrollY + margin) {
+        top = Math.max(window.scrollY + margin, viewportBottom - menuHeight - margin);
+      }
+    }
+
+    setAgentsMenuPositionSafely({ left, top });
+  }, [setAgentsMenuPositionSafely]);
+
+  const computeMentionFallbackPosition = useCallback(() => {
+    if (typeof window === 'undefined') return { left: 0, top: 0 };
+    const editorRect = editableRef.current?.getBoundingClientRect();
+    if (!editorRect) return { left: 0, top: 0 };
+    const margin = 16;
+    const menuWidth = mentionMenuRef.current?.offsetWidth ?? 360;
+    const left = Math.min(
+      Math.max(editorRect.left + window.scrollX + 12, margin),
+      window.innerWidth - menuWidth - margin
+    );
+    const assumedHeight = mentionMenuRef.current?.offsetHeight ?? 260;
+    const proposedTopAbove = editorRect.top + window.scrollY - assumedHeight - 12;
+    const viewportTop = window.scrollY + margin;
+    const top = Math.max(viewportTop, proposedTopAbove);
+    return { left, top };
+  }, []);
+
+  const computeManualMenuFallback = useCallback(() => {
+    if (typeof window === 'undefined' || !agentsMenuAnchorRef.current) return { left: 0, top: 0 };
+    const rect = agentsMenuAnchorRef.current.getBoundingClientRect();
+    const margin = 16;
+    const menuWidth = agentsMenuDropdownRef.current?.offsetWidth ?? 360;
+    const left = Math.min(
+      Math.max(rect.left + window.scrollX, margin),
+      window.innerWidth - menuWidth - margin
+    );
+    const top = rect.bottom + window.scrollY + 12;
+    return { left, top };
+  }, []);
+
+  const mentionMenuStyle: React.CSSProperties = mentionMenuPosition ?? computeMentionFallbackPosition();
+
+  const manualAgentsMenuStyle: React.CSSProperties = agentsMenuPosition ?? computeManualMenuFallback();
 
   // Filter agents based on mention query
   const filteredAgents = React.useMemo(() => {
@@ -1055,25 +1175,84 @@ const AgentInput: React.FC<{
     );
   }, [mentionQuery]);
 
-  // Scroll to selected item in mention menu
-  const scrollToSelectedItem = (index: number) => {
-    if (!mentionMenuRef.current) return;
-    
-    const selectedElement = mentionMenuRef.current.querySelector(`[data-agent-index="${index}"]`) as HTMLElement;
-    if (selectedElement) {
-      selectedElement.scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest'
-      });
+  const ensureItemVisible = useCallback((menu: HTMLDivElement | null, index: number) => {
+    if (!menu) return;
+    const selectedElement = menu.querySelector(`[data-agent-index="${index}"]`) as HTMLElement | null;
+    if (!selectedElement) return;
+
+    const elTop = selectedElement.offsetTop;
+    const elBottom = elTop + selectedElement.offsetHeight;
+    const viewTop = menu.scrollTop;
+    const viewBottom = viewTop + menu.clientHeight;
+
+    if (elTop < viewTop) {
+      menu.scrollTop = elTop;
+    } else if (elBottom > viewBottom) {
+      menu.scrollTop = elBottom - menu.clientHeight;
     }
-  };
+  }, []);
+
+  // Scroll to selected item in mention menu
+  const scrollToSelectedItem = useCallback((index: number) => {
+    ensureItemVisible(mentionMenuRef.current, index);
+  }, [ensureItemVisible]);
 
   // Auto-scroll when selected index changes
   React.useEffect(() => {
     if (showMentionMenu) {
       scrollToSelectedItem(selectedMentionIndex);
     }
-  }, [selectedMentionIndex, showMentionMenu]);
+  }, [selectedMentionIndex, showMentionMenu, scrollToSelectedItem]);
+
+  React.useEffect(() => {
+    if (!showMentionMenu) return;
+    updateMentionMenuPosition();
+  }, [showMentionMenu, mentionQuery, content, updateMentionMenuPosition]);
+
+  React.useEffect(() => {
+    if (!showMentionMenu) return;
+    const handleReposition = () => updateMentionMenuPosition();
+    window.addEventListener('resize', handleReposition);
+    window.addEventListener('scroll', handleReposition, true);
+    return () => {
+      window.removeEventListener('resize', handleReposition);
+      window.removeEventListener('scroll', handleReposition, true);
+    };
+  }, [showMentionMenu, updateMentionMenuPosition]);
+
+  React.useEffect(() => {
+    if (!agentsMenuOpen) {
+      setAgentsMenuPosition(null);
+      return;
+    }
+    updateAgentsMenuPosition();
+  }, [agentsMenuOpen, updateAgentsMenuPosition]);
+
+  React.useEffect(() => {
+    if (!agentsMenuOpen) return;
+    const handleReposition = () => updateAgentsMenuPosition();
+    window.addEventListener('resize', handleReposition);
+    window.addEventListener('scroll', handleReposition, true);
+    return () => {
+      window.removeEventListener('resize', handleReposition);
+      window.removeEventListener('scroll', handleReposition, true);
+    };
+  }, [agentsMenuOpen, updateAgentsMenuPosition]);
+
+  useEffect(() => {
+    if (!agentsMenuOpen) return;
+    const handleClickAway = (event: MouseEvent) => {
+      const target = event.target as Node;
+      const anchor = agentsMenuRef.current;
+      const dropdown = agentsMenuDropdownRef.current;
+      if (anchor?.contains(target) || dropdown?.contains(target)) {
+        return;
+      }
+      setAgentsMenuOpen(false);
+    };
+    document.addEventListener('mousedown', handleClickAway);
+    return () => document.removeEventListener('mousedown', handleClickAway);
+  }, [agentsMenuOpen, setAgentsMenuOpen, agentsMenuRef, agentsMenuDropdownRef]);
 
   // Detect @ mentions in text
   const detectMention = (text: string, cursorPos: number) => {
@@ -1094,6 +1273,7 @@ const AgentInput: React.FC<{
             console.log('Cursor is after a pill, not triggering mention');
             setShowMentionMenu(false);
             setMentionQuery('');
+            setMentionMenuPosition(null);
             return;
           }
         }
@@ -1111,6 +1291,7 @@ const AgentInput: React.FC<{
       setMentionQuery('');
       setSelectedMentionIndex(0);
       setMentionStartPos(0);
+      setMentionMenuPosition(null);
       return;
     }
     
@@ -1124,6 +1305,7 @@ const AgentInput: React.FC<{
       setMentionQuery('');
       setSelectedMentionIndex(0);
       setMentionStartPos(0);
+      setMentionMenuPosition(null);
       return;
     }
     
@@ -1133,6 +1315,7 @@ const AgentInput: React.FC<{
     setMentionQuery(afterAt);
     setShowMentionMenu(true);
     setSelectedMentionIndex(0);
+    updateMentionMenuPosition();
   };
 
   // Save cursor position when @ menu might open
@@ -1242,12 +1425,13 @@ const AgentInput: React.FC<{
       }
     }
     
-    // Reset mention state
-    setShowMentionMenu(false);
-    setMentionQuery('');
-    setSelectedMentionIndex(0);
-    setMentionStartPos(0);
-    setContent(editable.textContent || '');
+  // Reset mention state
+  setShowMentionMenu(false);
+  setMentionQuery('');
+  setSelectedMentionIndex(0);
+  setMentionStartPos(0);
+  setMentionMenuPosition(null);
+  setContent(editable.textContent || '');
     editable.focus();
   };
 
@@ -1482,7 +1666,10 @@ const AgentInput: React.FC<{
           return newIndex;
         });
         // Clear navigation flag after a delay
-        setTimeout(() => setIsNavigatingMention(false), 100);
+        setTimeout(() => {
+          setIsNavigatingMention(false);
+          updateMentionMenuPosition();
+        }, 100);
         return; // Don't process any other events
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
@@ -1494,7 +1681,10 @@ const AgentInput: React.FC<{
           return newIndex;
         });
         // Clear navigation flag after a delay
-        setTimeout(() => setIsNavigatingMention(false), 100);
+        setTimeout(() => {
+          setIsNavigatingMention(false);
+          updateMentionMenuPosition();
+        }, 100);
         return; // Don't process any other events
       } else if (e.key === 'Enter') {
         e.preventDefault();
@@ -1511,6 +1701,7 @@ const AgentInput: React.FC<{
         setMentionQuery('');
         setSelectedMentionIndex(0);
         setMentionStartPos(0);
+        setMentionMenuPosition(null);
         return; // Don't process any other events
       }
       // For other keys during mention, let them through but don't do other processing
@@ -1667,14 +1858,20 @@ const AgentInput: React.FC<{
           {/* Agents Menu */}
           <div className="relative" ref={agentsMenuRef}>
             <button 
+              ref={agentsMenuAnchorRef}
               onClick={() => {
-                // Save cursor position before opening menu
                 if ((window as any).__saveCursorPosition) {
                   (window as any).__saveCursorPosition();
                 }
-                setAgentsMenuOpen(!agentsMenuOpen);
-                if (!agentsMenuOpen) {
-                  setSelectedAgentIndex(0); // Reset selection when opening
+                const willOpen = !agentsMenuOpen;
+                setAgentsMenuOpen(willOpen);
+                if (willOpen) {
+                  setSelectedAgentIndex(0);
+                  if (typeof window !== 'undefined') {
+                    window.requestAnimationFrame(() => updateAgentsMenuPosition());
+                  } else {
+                    updateAgentsMenuPosition();
+                  }
                 }
               }} 
               className="w-6 h-6 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 text-sm font-bold" 
@@ -1682,64 +1879,149 @@ const AgentInput: React.FC<{
             >
               @
             </button>
-            {agentsMenuOpen && (
-              <div className="absolute bottom-full mb-2 left-0 bg-white border rounded shadow-lg text-sm min-w-[320px] max-w-[400px] z-50">
-                <div className="max-h-[300px] overflow-y-auto">
-                  {AGENTS.map((agent, idx) => (
-                    <button
-                      key={agent.name}
-                      data-agent-index={idx}
-                      className={cls(
-                        "w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-100 last:border-b-0",
-                        idx === selectedAgentIndex && "bg-slate-100"
-                      )}
-                      onClick={() => handleAgentSelect(agent)}
-                      onMouseEnter={() => setSelectedAgentIndex(idx)}
-                    >
-                      <div className="font-semibold text-[13px] text-slate-900 mb-1">
-                        {agent.name}
-                      </div>
-                      <div className="text-[11px] text-slate-600 leading-relaxed line-clamp-2">
-                        {agent.desc}
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
+            {agentsMenuOpen && portalRoot
+              ? createPortal(
+                  <div
+                    ref={(node) => {
+                      agentsMenuDropdownRef.current = node;
+                      if (node) {
+                        updateAgentsMenuPosition();
+                      }
+                    }}
+                    className="fixed bg-white border rounded shadow-lg text-sm min-w-[320px] max-w-[400px] max-h-[300px] overflow-y-auto z-[1100]"
+                    style={manualAgentsMenuStyle}
+                  >
+                    {AGENTS.map((agent, idx) => (
+                      <button
+                        key={agent.name}
+                        data-agent-index={idx}
+                        className={cls(
+                          "w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-100 last:border-b-0",
+                          idx === selectedAgentIndex && "bg-slate-100"
+                        )}
+                        onClick={() => handleAgentSelect(agent)}
+                        onMouseEnter={() => setSelectedAgentIndex(idx)}
+                      >
+                        <div className="font-semibold text-[13px] text-slate-900 mb-1">
+                          {agent.name}
+                        </div>
+                        <div className="text-[11px] text-slate-600 leading-relaxed line-clamp-2">
+                          {agent.desc}
+                        </div>
+                      </button>
+                    ))}
+                  </div>,
+                  portalRoot
+                )
+              : agentsMenuOpen && (
+                  <div
+                    ref={(node) => {
+                      agentsMenuDropdownRef.current = node;
+                      if (node) {
+                        updateAgentsMenuPosition();
+                      }
+                    }}
+                    className="absolute left-0 top-full mt-2 bg-white border rounded shadow-lg text-sm min-w-[320px] max-w-[400px] max-h-[300px] overflow-y-auto z-[1100]"
+                    style={manualAgentsMenuStyle}
+                  >
+                    {AGENTS.map((agent, idx) => (
+                      <button
+                        key={agent.name}
+                        data-agent-index={idx}
+                        className={cls(
+                          "w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-100 last:border-b-0",
+                          idx === selectedAgentIndex && "bg-slate-100"
+                        )}
+                        onClick={() => handleAgentSelect(agent)}
+                        onMouseEnter={() => setSelectedAgentIndex(idx)}
+                      >
+                        <div className="font-semibold text-[13px] text-slate-900 mb-1">
+                          {agent.name}
+                        </div>
+                        <div className="text-[11px] text-slate-600 leading-relaxed line-clamp-2">
+                          {agent.desc}
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                )}
           </div>
         </div>
       </div>
       
       {/* Mention Menu */}
-      {showMentionMenu && filteredAgents.length > 0 && (
-        <div className="absolute bottom-full mb-2 left-0 bg-white border rounded shadow-lg text-sm min-w-[320px] max-w-[400px] z-50">
-          <div ref={mentionMenuRef} className="max-h-[300px] overflow-y-auto">
-            {filteredAgents.map((agent, idx) => (
-              <button
-                key={agent.name}
-                data-agent-index={idx}
-                className={cls(
-                  "w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-100 last:border-b-0",
-                  idx === selectedMentionIndex && "bg-slate-100"
-                )}
-                onClick={() => insertMentionAgent(agent)}
-                onMouseEnter={() => setSelectedMentionIndex(idx)}
-              >
-                <div className="font-semibold text-[13px] text-slate-900 mb-1">
-                  {agent.name}
-                  {agent.acronyms && agent.acronyms.length > 0 && (
-                    <span className="text-slate-500 font-normal ml-2">({agent.acronyms.join(", ")})</span>
+      {showMentionMenu && filteredAgents.length > 0 && portalRoot
+        ? createPortal(
+            <div
+              ref={(node) => {
+                mentionMenuRef.current = node;
+                if (node) {
+                  updateMentionMenuPosition();
+                }
+              }}
+              className="fixed bg-white border rounded shadow-lg text-sm min-w-[320px] max-w-[400px] max-h-[300px] overflow-y-auto z-[1200]"
+              style={mentionMenuStyle}
+            >
+              {filteredAgents.map((agent, idx) => (
+                <button
+                  key={agent.name}
+                  data-agent-index={idx}
+                  className={cls(
+                    "w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-100 last:border-b-0",
+                    idx === selectedMentionIndex && "bg-slate-100"
                   )}
-                </div>
-                <div className="text-[11px] text-slate-600 leading-relaxed line-clamp-2">
-                  {agent.desc}
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+                  onClick={() => insertMentionAgent(agent)}
+                  onMouseEnter={() => setSelectedMentionIndex(idx)}
+                >
+                  <div className="font-semibold text-[13px] text-slate-900 mb-1">
+                    {agent.name}
+                    {agent.acronyms && agent.acronyms.length > 0 && (
+                      <span className="text-slate-500 font-normal ml-2">({agent.acronyms.join(", ")})</span>
+                    )}
+                  </div>
+                  <div className="text-[11px] text-slate-600 leading-relaxed line-clamp-2">
+                    {agent.desc}
+                  </div>
+                </button>
+              ))}
+            </div>,
+            portalRoot
+          )
+        : showMentionMenu && filteredAgents.length > 0 && (
+            <div
+              ref={(node) => {
+                mentionMenuRef.current = node;
+                if (node) {
+                  updateMentionMenuPosition();
+                }
+              }}
+              className="absolute left-0 top-full mt-2 bg-white border rounded shadow-lg text-sm min-w-[320px] max-w-[400px] max-h-[300px] overflow-y-auto z-[1200]"
+              style={mentionMenuStyle}
+            >
+              {filteredAgents.map((agent, idx) => (
+                <button
+                  key={agent.name}
+                  data-agent-index={idx}
+                  className={cls(
+                    "w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-100 last:border-b-0",
+                    idx === selectedMentionIndex && "bg-slate-100"
+                  )}
+                  onClick={() => insertMentionAgent(agent)}
+                  onMouseEnter={() => setSelectedMentionIndex(idx)}
+                >
+                  <div className="font-semibold text-[13px] text-slate-900 mb-1">
+                    {agent.name}
+                    {agent.acronyms && agent.acronyms.length > 0 && (
+                      <span className="text-slate-500 font-normal ml-2">({agent.acronyms.join(", ")})</span>
+                    )}
+                  </div>
+                  <div className="text-[11px] text-slate-600 leading-relaxed line-clamp-2">
+                    {agent.desc}
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
     </div>
   );
 };
@@ -3073,16 +3355,16 @@ const ActivityFeedWidget: React.FC = () => {
     {/* Configuration Modal */}
     {showConfigModal && (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 modal-overlay">
-        <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full mx-4 max-h-[80vh] overflow-hidden" onClick={(e) => e.stopPropagation()}>
-          <div className="flex h-full">
+        <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full mx-4 max-h-[80vh] overflow-hidden flex flex-col" onClick={(e) => e.stopPropagation()}>
+          <div className="flex h-full min-h-0">
             {/* Left sidebar - Integration list */}
-            <div className="w-80 bg-slate-50 border-r border-slate-200">
-              <div className="p-6 border-b border-slate-200">
+            <div className="w-80 bg-slate-50 border-r border-slate-200 flex flex-col min-h-0">
+              <div className="p-6 border-b border-slate-200 flex-none">
                 <h2 className="text-lg font-semibold text-slate-900">Activity Feed Integrations</h2>
                 <p className="text-sm text-slate-600 mt-1">Configure third-party platforms and insights</p>
               </div>
               
-              <div className="overflow-y-auto h-full pb-20">
+              <div className="flex-1 overflow-y-auto pb-20 min-h-0">
                 {/* Third party platforms */}
                 <div className="p-4">
                   <h3 className="text-sm font-medium text-slate-700 mb-3">Third Party Platforms</h3>
@@ -3147,7 +3429,7 @@ const ActivityFeedWidget: React.FC = () => {
             </div>
             
             {/* Right content - Configuration */}
-            <div className="flex-1 flex flex-col">
+            <div className="flex-1 flex flex-col min-h-0">
               <div className="flex items-center justify-between p-6 border-b border-slate-200">
                 <div>
                   {selectedIntegration && integrationConfig[selectedIntegration] && (
@@ -3174,7 +3456,7 @@ const ActivityFeedWidget: React.FC = () => {
                 </button>
               </div>
               
-              <div className="flex-1 p-6 overflow-y-auto max-h-[calc(80vh-120px)]">
+              <div className="flex-1 p-6 overflow-y-auto max-h-[calc(80vh-120px)] min-h-0">
                 {selectedIntegration && integrationConfig[selectedIntegration] ? (
                   <div>
                     {integrationConfig[selectedIntegration].type === 'platform' ? (
@@ -3660,17 +3942,6 @@ const HarmonySidebar: React.FC<{ onOpenScenario: () => void }> = ({ onOpenScenar
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, [addMenuOpen]);
-
-  useEffect(() => {
-    if (!agentsMenuOpen) return;
-    const handler = (e: MouseEvent) => {
-      if (agentsMenuRef.current && !agentsMenuRef.current.contains(e.target as Node)) {
-        setAgentsMenuOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [agentsMenuOpen]);
 
   // Handle keyboard navigation for agents menu
   useEffect(() => {
@@ -4316,12 +4587,12 @@ function App() {
         </aside>
 
         {/* Left rail toggle tab */}
-        <button onClick={() => setLeftOpen((v) => !v)} className="absolute z-[70] w-6 h-6 rounded-full bg-white border border-purple-200 shadow grid place-items-center text-purple-700 cursor-pointer" style={{ top: 16, left: leftW - 12 }} aria-label="Toggle left rail">
+        <button onClick={() => setLeftOpen((v) => !v)} className="absolute z-40 w-6 h-6 rounded-full bg-white border border-purple-200 shadow grid place-items-center text-purple-700 cursor-pointer" style={{ top: 16, left: leftW - 12 }} aria-label="Toggle left rail">
           {leftOpen ? <ChevLeftCircle /> : <ChevRightCircle />}
         </button>
 
         {/* Right rail toggle tab */}
-        <button onClick={() => setRightOpen((v) => !v)} aria-label="Toggle right rail" className={cls("absolute z-[70] w-6 h-6 rounded-full bg-white border border-purple-200 shadow grid place-items-center text-purple-700 cursor-pointer", browseOpen && "pointer-events-none")} style={{ top: 16, right: rightW ? rightW - 12 : -12 }}>
+        <button onClick={() => setRightOpen((v) => !v)} aria-label="Toggle right rail" className={cls("absolute z-40 w-6 h-6 rounded-full bg-white border border-purple-200 shadow grid place-items-center text-purple-700 cursor-pointer", browseOpen && "pointer-events-none")} style={{ top: 16, right: rightW ? rightW - 12 : -12 }}>
           {rightOpen ? <ChevRightCircle /> : <ChevLeftCircle />}
         </button>
 

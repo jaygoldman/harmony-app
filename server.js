@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs/promises');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
+const crypto = require('crypto');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -12,8 +13,12 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-producti
 
 // In-memory store for connection codes (use Redis in production)
 const connectionCodes = new Map();
+const refreshTokens = new Map();
 const dataCache = new Map();
 const JSON_CACHE_TTL_MS = 5 * 60 * 1000;
+const MOBILE_ACCESS_TOKEN_TTL = process.env.MOBILE_ACCESS_TOKEN_TTL || '15m';
+const MOBILE_REFRESH_TOKEN_TTL_MS = Number(process.env.MOBILE_REFRESH_TOKEN_TTL_MS) || (30 * 24 * 60 * 60 * 1000);
+const REFRESH_TOKEN_BYTE_LENGTH = 32;
 const DATA_LOCATIONS = [
   process.env.HARMONY_DATA_DIR && path.resolve(process.env.HARMONY_DATA_DIR),
   path.join(__dirname, 'build', 'data'),
@@ -34,6 +39,16 @@ setInterval(() => {
     if (data.expiresAt < now) {
       connectionCodes.delete(code);
       console.log(`Expired code removed: ${code}`);
+    }
+  }
+}, 60000);
+
+// Clean up expired refresh tokens every minute
+setInterval(() => {
+  const now = Date.now();
+  for (const [token, data] of refreshTokens.entries()) {
+    if (data.expiresAt < now) {
+      refreshTokens.delete(token);
     }
   }
 }, 60000);
@@ -177,8 +192,18 @@ app.post('/api/mobile/connect', (req, res) => {
       type: 'mobile'
     },
     JWT_SECRET,
-    { expiresIn: '30d' } // Mobile token valid for 30 days
+    { expiresIn: MOBILE_ACCESS_TOKEN_TTL }
   );
+  const decodedMobileToken = jwt.decode(mobileToken);
+  const tokenExpiresAt = decodedMobileToken?.exp ? decodedMobileToken.exp * 1000 : undefined;
+  const refreshToken = crypto.randomBytes(REFRESH_TOKEN_BYTE_LENGTH).toString('hex');
+  const refreshTokenExpiresAt = Date.now() + MOBILE_REFRESH_TOKEN_TTL_MS;
+  refreshTokens.set(refreshToken, {
+    username: userData.username,
+    email: userData.email,
+    name: userData.name,
+    expiresAt: refreshTokenExpiresAt
+  });
   
   // Delete the code after successful use (one-time use)
   connectionCodes.delete(code);
@@ -188,10 +213,70 @@ app.post('/api/mobile/connect', (req, res) => {
   res.json({
     success: true,
     token: mobileToken,
+    tokenExpiresAt,
+    refreshToken,
+    refreshTokenExpiresAt,
     username: userData.username,
     name: userData.name,
     email: userData.email,
     apiUrl: `${req.protocol}://${req.get('host')}`
+  });
+});
+
+app.post('/api/mobile/token/refresh', async (req, res) => {
+  const { refreshToken } = req.body || {};
+
+  if (!refreshToken) {
+    return res.status(400).json({ error: 'Missing refresh token' });
+  }
+
+  const storedToken = refreshTokens.get(refreshToken);
+
+  if (!storedToken) {
+    return res.status(401).json({ error: 'Invalid or expired refresh token' });
+  }
+
+  if (storedToken.expiresAt < Date.now()) {
+    refreshTokens.delete(refreshToken);
+    return res.status(401).json({ error: 'Invalid or expired refresh token' });
+  }
+
+  // Rotate refresh token
+  refreshTokens.delete(refreshToken);
+
+  const mobileToken = jwt.sign(
+    {
+      username: storedToken.username,
+      email: storedToken.email,
+      name: storedToken.name,
+      type: 'mobile'
+    },
+    JWT_SECRET,
+    { expiresIn: MOBILE_ACCESS_TOKEN_TTL }
+  );
+
+  const decodedMobileToken = jwt.decode(mobileToken);
+  const tokenExpiresAt = decodedMobileToken?.exp ? decodedMobileToken.exp * 1000 : undefined;
+
+  const newRefreshToken = crypto.randomBytes(REFRESH_TOKEN_BYTE_LENGTH).toString('hex');
+  const refreshTokenExpiresAt = Date.now() + MOBILE_REFRESH_TOKEN_TTL_MS;
+
+  refreshTokens.set(newRefreshToken, {
+    username: storedToken.username,
+    email: storedToken.email,
+    name: storedToken.name,
+    expiresAt: refreshTokenExpiresAt
+  });
+
+  res.json({
+    success: true,
+    token: mobileToken,
+    tokenExpiresAt,
+    refreshToken: newRefreshToken,
+    refreshTokenExpiresAt,
+    username: storedToken.username,
+    name: storedToken.name,
+    email: storedToken.email
   });
 });
 

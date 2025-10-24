@@ -109,6 +109,9 @@ const result = await response.json();
 
 // Store securely (use secure storage like Keychain/Keystore)
 await SecureStorage.set('authToken', result.token);
+await SecureStorage.set('tokenExpiresAt', result.tokenExpiresAt);
+await SecureStorage.set('refreshToken', result.refreshToken);
+await SecureStorage.set('refreshTokenExpiresAt', result.refreshTokenExpiresAt);
 await SecureStorage.set('apiUrl', result.apiUrl);
 await SecureStorage.set('username', result.username);
 await SecureStorage.set('userEmail', result.email);
@@ -116,6 +119,9 @@ await SecureStorage.set('userName', result.name);
 
 // Test connection
 await testConnection();
+
+// Schedule silent refresh a few minutes before the access token expires
+scheduleTokenRefresh(result.tokenExpiresAt, result.refreshToken);
 ```
 
 ## API Endpoints
@@ -168,7 +174,7 @@ Content-Type: application/json
 #### 2. Connect with Code (Mobile)
 **Endpoint:** `POST /api/mobile/connect`
 
-**Description:** Mobile app calls this with the scanned/entered code to establish connection. Returns user info and a session token for the mobile app.
+**Description:** Mobile app calls this with the scanned/entered code to establish connection. Returns user info alongside the access token and refresh token pair needed for ongoing API access.
 
 **Headers:**
 ```http
@@ -186,7 +192,10 @@ Content-Type: application/json
 ```json
 {
   "success": true,
-  "token": "mobile-session-token-here",
+  "token": "access-token-here",
+  "tokenExpiresAt": 1705768800000,
+  "refreshToken": "refresh-token-here",
+  "refreshTokenExpiresAt": 1708360800000,
   "username": "user@example.com",
   "name": "John Doe",
   "email": "user@example.com",
@@ -206,6 +215,54 @@ Content-Type: application/json
 curl -X POST https://app.example.com/api/mobile/connect \
   -H "Content-Type: application/json" \
   -d '{"code": "X7K9M2WP"}'
+```
+
+---
+
+#### Refresh Access Token
+
+**Endpoint:** `POST /api/mobile/token/refresh`
+
+**Description:** Exchanges a valid refresh token for a new access token and refresh token pair. Clients should call this silently a few minutes before the current access token expires.
+
+**Headers:**
+```http
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+  "refreshToken": "refresh-token-here"
+}
+```
+
+**Response (200 OK):**
+```json
+{
+  "success": true,
+  "token": "new-access-token",
+  "tokenExpiresAt": 1705772400000,
+  "refreshToken": "rotated-refresh-token",
+  "refreshTokenExpiresAt": 1708364400000,
+  "username": "user@example.com",
+  "name": "John Doe",
+  "email": "user@example.com"
+}
+```
+
+**Error Response (401 Unauthorized):**
+```json
+{
+  "error": "Invalid or expired refresh token"
+}
+```
+
+**Example cURL:**
+```bash
+curl -X POST https://app.example.com/api/mobile/token/refresh \
+  -H "Content-Type: application/json" \
+  -d '{"refreshToken": "refresh-token-here"}'
 ```
 
 ---
@@ -359,15 +416,16 @@ curl -X GET https://app.example.com/api/mobile/notifications \
 ## Security Considerations
 
 ### Token Storage
-- **Mobile App:** Store JWT tokens in secure storage (iOS Keychain, Android Keystore)
+- **Mobile App:** Store both access and refresh tokens in secure storage (iOS Keychain, Android Keystore)
 - **Never store tokens in plain text or shared preferences**
 - Clear tokens when user logs out or disconnects
 
-### Token Expiration
-- JWT tokens follow the backend's configured expiration time (typically 24 hours)
-- Mobile app should handle 401 Unauthorized responses gracefully
-- When token expires, user must scan a new QR code
-- Consider implementing token refresh if needed
+### Token Expiration and Refresh
+- Access tokens follow the backend's configured expiration (`MOBILE_ACCESS_TOKEN_TTL`, 15 minutes by default)
+- Schedule a refresh call a few minutes before the access token expires using `/api/mobile/token/refresh`
+- Handle 401 Unauthorized responses by retrying once with a fresh token; if refresh also fails, prompt the user to reconnect
+- Refresh tokens expire after `MOBILE_REFRESH_TOKEN_TTL_MS` (30 days by default) or when the server rotates them
+- Always remove both tokens from secure storage when the user logs out or disconnects
 
 ### HTTPS
 - All API requests MUST use HTTPS in production

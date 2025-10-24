@@ -5,10 +5,11 @@ This guide explains how the Harmony mobile app can retrieve shared UI data from 
 ## Prerequisites
 
 - Complete the connection-code flow described in `mobile-auth.md`.
-- Persist the `token` and `apiUrl` returned by `POST /api/mobile/connect`.
+- Persist the `token`, `tokenExpiresAt`, `refreshToken`, `refreshTokenExpiresAt`, and `apiUrl` returned by `POST /api/mobile/connect`.
 - Send the token on every request:  
   `Authorization: Bearer <token>`
-- Tokens are signed with the backend secret and expire 30 days after creation. Handle `401` responses by prompting the user to reconnect.
+- Access tokens expire after the configured TTL (`MOBILE_ACCESS_TOKEN_TTL`, 15 minutes by default). Schedule a silent refresh a few minutes before expiry using `POST /api/mobile/token/refresh`, then replace the stored token pair with the response.
+- Refresh tokens last 30 days by default (or until rotated). If a data request returns `401`, retry once after refreshing; if the refresh also fails, prompt the user to reconnect.
 
 ## Available Data Endpoints
 
@@ -75,7 +76,7 @@ The Harmony chats endpoint mirrors the structure of `harmonyChats.json`. Each ch
 
 | Status | Meaning | Suggested App Action |
 | --- | --- | --- |
-| `401 Unauthorized` | Token missing, expired, or invalid. | Prompt the user to reconnect via the QR-code flow. |
+| `401 Unauthorized` | Token missing, expired, or invalid. | Attempt a token refresh once; if still unauthorized, prompt the user to reconnect via the QR-code flow. |
 | `404 Not Found` | Requested dataset is unavailable (e.g., missing file). | Surface a friendly message and retry later. |
 | `500 Internal Server Error` | Server failed to load or parse the JSON file. | Log diagnostics and show a generic retry prompt. |
 

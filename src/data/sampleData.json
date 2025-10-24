@@ -380,38 +380,479 @@
   "podcasts": [
     {
       "date": "2025-01-22",
+      "episodeId": "daily-brief-2025-01-22",
       "title": "Daily Brief: Supplier recovery update",
       "description": "Recap of the Line 3 bearing replacement plan, supplier expediting status, and what to watch on throughput this week.",
       "duration": "07:45",
-      "file": "daily-brief-2025-01-22.mp3"
+      "durationSeconds": 465,
+      "file": "daily-brief-2025-01-22.mp3",
+      "entityMentions": [
+        {
+          "entityId": "project-line3-bearing-recovery",
+          "name": "Line 3 Bearing Recovery",
+          "entityType": "project",
+          "timeIndex": "00:42",
+          "timeSeconds": 42,
+          "context": "Expedited shipment confirmed for Thursday; assembly team on standby.",
+          "link": "https://conductor.harmony.com/projects/line3-bearing-recovery"
+        },
+        {
+          "entityId": "task-bearing-replacement-window",
+          "name": "Schedule bearing replacement window",
+          "entityType": "task",
+          "timeIndex": "02:18",
+          "timeSeconds": 138,
+          "context": "Locked 6-hour downtime window with maintenance and operations leads.",
+          "link": "https://conductor.harmony.com/tasks/bearing-replacement-window"
+        },
+        {
+          "entityId": "initiative-throughput-stabilization",
+          "name": "Throughput Stabilization Initiative",
+          "entityType": "initiative",
+          "timeIndex": "03:47",
+          "timeSeconds": 227,
+          "context": "Tracking throughput trend and fallback scenarios if supplier slips.",
+          "link": "https://conductor.harmony.com/initiatives/throughput-stabilization"
+        },
+        {
+          "entityId": "workstream-maintenance-ops",
+          "name": "Maintenance & Operations",
+          "entityType": "workstream",
+          "timeIndex": "05:56",
+          "timeSeconds": 356,
+          "context": "Maintenance partner hand-off for QA sign-off on Friday.",
+          "link": "https://conductor.harmony.com/workstreams/maintenance-operations"
+        }
+      ],
+      "transcript": {
+        "language": "en-US",
+        "synopsis": "Supplier recovery briefing outlining the bearing replacement plan, downtime coordination, and throughput watchlist.",
+        "segments": [
+          {
+            "start": "00:00",
+            "end": "00:58",
+            "speaker": "Host",
+            "text": "Good morning team. Today's briefing centers on the Line 3 bearing recovery efforts and the downstream impact on throughput.",
+            "entityRefs": []
+          },
+          {
+            "start": "00:58",
+            "end": "02:35",
+            "speaker": "Host",
+            "text": "Expedited shipments left the supplier overnight. We're confirming torque testing windows and the maintenance crew is staged to begin the swap as soon as parts hit the dock.",
+            "entityRefs": [
+              "project-line3-bearing-recovery",
+              "task-bearing-replacement-window"
+            ]
+          },
+          {
+            "start": "02:35",
+            "end": "04:10",
+            "speaker": "Host",
+            "text": "Packaging is holding buffer inventory, but we need hourly updates on Line 3 throughput until we declare the all-clear. Keep the mitigation plan ready if supplier QA slips.",
+            "entityRefs": [
+              "initiative-throughput-stabilization"
+            ]
+          },
+          {
+            "start": "04:10",
+            "end": "05:38",
+            "speaker": "Host",
+            "text": "Upstream workstreams are synced, and procurement confirmed the backup vendor can still land stock within 48 hours if we trigger the option.",
+            "entityRefs": [
+              "project-line3-bearing-recovery",
+              "workstream-maintenance-ops"
+            ]
+          },
+          {
+            "start": "05:38",
+            "end": "07:45",
+            "speaker": "Host",
+            "text": "Final reminder: push status updates into Conductor every two hours. We'll capture photos of the install for the exec readout.",
+            "entityRefs": [
+              "workstream-maintenance-ops"
+            ]
+          }
+        ]
+      }
     },
     {
       "date": "2025-01-21",
+      "episodeId": "daily-brief-2025-01-21",
       "title": "Daily Brief: Distribution sprint reset",
       "description": "Highlights from the distribution backlog reshuffle, including automation retrofit impacts and carrier diversification progress.",
       "duration": "06:58",
-      "file": "daily-brief-2025-01-21.mp3"
+      "durationSeconds": 418,
+      "file": "daily-brief-2025-01-21.mp3",
+      "entityMentions": [
+        {
+          "entityId": "project-distribution-backlog-reset",
+          "name": "Distribution Backlog Reset",
+          "entityType": "project",
+          "timeIndex": "00:37",
+          "timeSeconds": 37,
+          "context": "Sprint backlog re-sequenced to unblock retrofit dependencies.",
+          "link": "https://conductor.harmony.com/projects/distribution-backlog-reset"
+        },
+        {
+          "entityId": "initiative-automation-retrofit",
+          "name": "Automation Retrofit Program",
+          "entityType": "initiative",
+          "timeIndex": "02:11",
+          "timeSeconds": 131,
+          "context": "Retrofit crews rotating to Plant 4 with new wiring diagrams approved.",
+          "link": "https://conductor.harmony.com/initiatives/automation-retrofit"
+        },
+        {
+          "entityId": "workstream-logistics-optimization",
+          "name": "Logistics Optimization",
+          "entityType": "workstream",
+          "timeIndex": "03:05",
+          "timeSeconds": 185,
+          "context": "Reallocating RPA capacity for load tendering to smooth carrier coverage.",
+          "link": "https://conductor.harmony.com/workstreams/logistics-optimization"
+        },
+        {
+          "entityId": "task-carrier-diversification-update",
+          "name": "Carrier diversification update",
+          "entityType": "task",
+          "timeIndex": "04:52",
+          "timeSeconds": 292,
+          "context": "Three new carrier pilots now in UAT with service-level tracking live.",
+          "link": "https://conductor.harmony.com/tasks/carrier-diversification-update"
+        }
+      ],
+      "transcript": {
+        "language": "en-US",
+        "synopsis": "Distribution sprint reset detailing backlog priorities, automation retrofit shifts, and carrier diversification checkpoints.",
+        "segments": [
+          {
+            "start": "00:00",
+            "end": "01:05",
+            "speaker": "Host",
+            "text": "We kicked off the distribution sprint reset last night. The team re-ordered the backlog so automation work clears path dependencies first.",
+            "entityRefs": [
+              "project-distribution-backlog-reset"
+            ]
+          },
+          {
+            "start": "01:05",
+            "end": "02:42",
+            "speaker": "Host",
+            "text": "Retrofit crews are rotating to Plant 4 this afternoon. Wiring diagrams are signed off, and controls engineers are pairing with the on-site techs.",
+            "entityRefs": [
+              "initiative-automation-retrofit"
+            ]
+          },
+          {
+            "start": "02:42",
+            "end": "04:15",
+            "speaker": "Host",
+            "text": "Automation changes mean we need to retune the load balancer logic. The logistics optimization workstream is handling the rule updates.",
+            "entityRefs": [
+              "workstream-logistics-optimization"
+            ]
+          },
+          {
+            "start": "04:15",
+            "end": "05:30",
+            "speaker": "Host",
+            "text": "Carrier diversification remains on track. Three pilot carriers are now flowing through UAT with service-level reporting dashboards live.",
+            "entityRefs": [
+              "task-carrier-diversification-update"
+            ]
+          },
+          {
+            "start": "05:30",
+            "end": "06:58",
+            "speaker": "Host",
+            "text": "Please log any exceptions in Conductor so we can adjust the sprint backlog at the evening stand-up.",
+            "entityRefs": [
+              "project-distribution-backlog-reset",
+              "workstream-logistics-optimization"
+            ]
+          }
+        ]
+      }
     },
     {
       "date": "2025-01-20",
+      "episodeId": "daily-brief-2025-01-20",
       "title": "Daily Brief: Talent capacity outlook",
       "description": "Resourcing coverage across additive technicians, training certifications, and the February hiring funnel.",
       "duration": "08:12",
-      "file": "daily-brief-2025-01-20.mp3"
+      "durationSeconds": 492,
+      "file": "daily-brief-2025-01-20.mp3",
+      "entityMentions": [
+        {
+          "entityId": "workstream-talent-capacity",
+          "name": "Talent Capacity",
+          "entityType": "workstream",
+          "timeIndex": "00:54",
+          "timeSeconds": 54,
+          "context": "Assessing technician bench depth across additive manufacturing lines.",
+          "link": "https://conductor.harmony.com/workstreams/talent-capacity"
+        },
+        {
+          "entityId": "initiative-training-certification",
+          "name": "Training Certification Push",
+          "entityType": "initiative",
+          "timeIndex": "02:36",
+          "timeSeconds": 156,
+          "context": "Certification surge plan for cross-training maintenance technicians.",
+          "link": "https://conductor.harmony.com/initiatives/training-certification"
+        },
+        {
+          "entityId": "task-additive-tech-recruiting",
+          "name": "Additive technician recruiting sprint",
+          "entityType": "task",
+          "timeIndex": "04:48",
+          "timeSeconds": 288,
+          "context": "February hiring funnel tracking with talent acquisition.",
+          "link": "https://conductor.harmony.com/tasks/additive-tech-recruiting"
+        },
+        {
+          "entityId": "project-capacity-ramp-roadmap",
+          "name": "Capacity Ramp Roadmap",
+          "entityType": "project",
+          "timeIndex": "06:25",
+          "timeSeconds": 385,
+          "context": "Roadmap checkpoints for onboarding waves and knowledge transfer.",
+          "link": "https://conductor.harmony.com/projects/capacity-ramp-roadmap"
+        }
+      ],
+      "transcript": {
+        "language": "en-US",
+        "synopsis": "Talent capacity briefing covering staffing gaps, training certifications, recruiting sprint health, and onboarding roadmap signals.",
+        "segments": [
+          {
+            "start": "00:00",
+            "end": "01:20",
+            "speaker": "Host",
+            "text": "We're north of 90 percent coverage on additive shifts, but bench depth is still thin for the weekend rotation. Talent capacity is working through cross-coverage scenarios.",
+            "entityRefs": [
+              "workstream-talent-capacity"
+            ]
+          },
+          {
+            "start": "01:20",
+            "end": "03:05",
+            "speaker": "Host",
+            "text": "Training is accelerating the certification queue. We pulled two additional instructors and scheduled overflow sessions so techs can log hours before the end of the month.",
+            "entityRefs": [
+              "initiative-training-certification"
+            ]
+          },
+          {
+            "start": "03:05",
+            "end": "05:02",
+            "speaker": "Host",
+            "text": "Recruiting has thirty candidates in the February pipeline. We're scoring them against the additive profile and will begin offers by Friday.",
+            "entityRefs": [
+              "task-additive-tech-recruiting"
+            ]
+          },
+          {
+            "start": "05:02",
+            "end": "06:55",
+            "speaker": "Host",
+            "text": "Capacity ramp roadmap checkpoints are holding. Make sure pre-boarding kits are sent so new hires can badge in without delays.",
+            "entityRefs": [
+              "project-capacity-ramp-roadmap"
+            ]
+          },
+          {
+            "start": "06:55",
+            "end": "08:12",
+            "speaker": "Host",
+            "text": "Log any training blockers in Conductor. We'll revisit staffing balance in tomorrow's leadership stand-up.",
+            "entityRefs": [
+              "workstream-talent-capacity",
+              "initiative-training-certification"
+            ]
+          }
+        ]
+      }
     },
     {
       "date": "2025-01-17",
+      "episodeId": "daily-brief-2025-01-17",
       "title": "Daily Brief: Executive prep notes",
       "description": "Key storylines for Monday's ELT readout covering KPIs, risks, and financials.",
       "duration": "05:54",
-      "file": "daily-brief-2025-01-17.mp3"
+      "durationSeconds": 354,
+      "file": "daily-brief-2025-01-17.mp3",
+      "entityMentions": [
+        {
+          "entityId": "project-elt-readout",
+          "name": "ELT Monday Readout",
+          "entityType": "project",
+          "timeIndex": "00:31",
+          "timeSeconds": 31,
+          "context": "Framing Monday's exec storylines across KPIs, risks, and financial posture.",
+          "link": "https://conductor.harmony.com/projects/elt-readout"
+        },
+        {
+          "entityId": "task-dashboard-refresh",
+          "name": "Refresh weekly KPI dashboard",
+          "entityType": "task",
+          "timeIndex": "01:58",
+          "timeSeconds": 118,
+          "context": "Dashboard updates due Sunday with revised throughput and cost numbers.",
+          "link": "https://conductor.harmony.com/tasks/dashboard-refresh"
+        },
+        {
+          "entityId": "initiative-risk-tracking",
+          "name": "Cross-functional Risk Tracking",
+          "entityType": "initiative",
+          "timeIndex": "03:05",
+          "timeSeconds": 185,
+          "context": "Highlighting top three risks and ownership for mitigation slides.",
+          "link": "https://conductor.harmony.com/initiatives/risk-tracking"
+        },
+        {
+          "entityId": "workstream-financial-oversight",
+          "name": "Financial Oversight",
+          "entityType": "workstream",
+          "timeIndex": "04:27",
+          "timeSeconds": 267,
+          "context": "Finance finalizing variance commentary for the deck.",
+          "link": "https://conductor.harmony.com/workstreams/financial-oversight"
+        }
+      ],
+      "transcript": {
+        "language": "en-US",
+        "synopsis": "Executive prep rundown aligning ELT storyline, dashboard refresh tasks, risk mitigation narratives, and financial closeouts.",
+        "segments": [
+          {
+            "start": "00:00",
+            "end": "01:10",
+            "speaker": "Host",
+            "text": "We're sequencing Monday's ELT readout. The lead story connects throughput recovery, customer fill, and cost productivity.",
+            "entityRefs": [
+              "project-elt-readout"
+            ]
+          },
+          {
+            "start": "01:10",
+            "end": "02:30",
+            "speaker": "Host",
+            "text": "Dashboard owners, please refresh the KPI workbook by Sunday evening so we can lock the deck.",
+            "entityRefs": [
+              "task-dashboard-refresh"
+            ]
+          },
+          {
+            "start": "02:30",
+            "end": "04:00",
+            "speaker": "Host",
+            "text": "Ensure risk narratives are crisp. We want mitigation owners ready with next actions in case ELT drills into the details.",
+            "entityRefs": [
+              "initiative-risk-tracking"
+            ]
+          },
+          {
+            "start": "04:00",
+            "end": "05:54",
+            "speaker": "Host",
+            "text": "Finance is tightening the variance storyline. Confirm any last SAP entries before close of business today.",
+            "entityRefs": [
+              "workstream-financial-oversight",
+              "project-elt-readout"
+            ]
+          }
+        ]
+      }
     },
     {
       "date": "2025-01-16",
+      "episodeId": "daily-brief-2025-01-16",
       "title": "Daily Brief: Change pulse",
       "description": "Site sentiment trends, training adoption metrics, and upcoming communications milestones.",
       "duration": "06:21",
-      "file": "daily-brief-2025-01-16.mp3"
+      "durationSeconds": 381,
+      "file": "daily-brief-2025-01-16.mp3",
+      "entityMentions": [
+        {
+          "entityId": "workstream-change-management",
+          "name": "Change Management",
+          "entityType": "workstream",
+          "timeIndex": "00:48",
+          "timeSeconds": 48,
+          "context": "Sentiment tracker shows Zone B teams easing concerns on shift rotations.",
+          "link": "https://conductor.harmony.com/workstreams/change-management"
+        },
+        {
+          "entityId": "project-training-adoption",
+          "name": "Training Adoption Dashboard",
+          "entityType": "project",
+          "timeIndex": "02:04",
+          "timeSeconds": 124,
+          "context": "Adoption metrics now at 83 percent with two plants lagging.",
+          "link": "https://conductor.harmony.com/projects/training-adoption"
+        },
+        {
+          "entityId": "initiative-communications-milestones",
+          "name": "Communications Milestones",
+          "entityType": "initiative",
+          "timeIndex": "03:26",
+          "timeSeconds": 206,
+          "context": "Sequencing leadership video drops and site huddles for next week.",
+          "link": "https://conductor.harmony.com/initiatives/communications-milestones"
+        },
+        {
+          "entityId": "task-sentiment-survey-wave",
+          "name": "Launch sentiment survey wave",
+          "entityType": "task",
+          "timeIndex": "04:55",
+          "timeSeconds": 295,
+          "context": "Survey wave kicks off Monday with automated reminders configured.",
+          "link": "https://conductor.harmony.com/tasks/sentiment-survey-wave"
+        }
+      ],
+      "transcript": {
+        "language": "en-US",
+        "synopsis": "Change pulse briefing covering sentiment signals, training adoption metrics, communications milestones, and the next survey wave.",
+        "segments": [
+          {
+            "start": "00:00",
+            "end": "01:20",
+            "speaker": "Host",
+            "text": "Pulse scores continue to rise in Zone B, and change champions are logging more shout-outs in the channel.",
+            "entityRefs": [
+              "workstream-change-management"
+            ]
+          },
+          {
+            "start": "01:20",
+            "end": "02:55",
+            "speaker": "Host",
+            "text": "Training adoption crossed 83 percent. We still need coaching sessions in Plants 6 and 8 to close the gap.",
+            "entityRefs": [
+              "project-training-adoption"
+            ]
+          },
+          {
+            "start": "02:55",
+            "end": "04:20",
+            "speaker": "Host",
+            "text": "Communications is staging next week's content drops. Expect leadership videos on Tuesday and on-site huddles throughout Wednesday.",
+            "entityRefs": [
+              "initiative-communications-milestones"
+            ]
+          },
+          {
+            "start": "04:20",
+            "end": "06:21",
+            "speaker": "Host",
+            "text": "The next sentiment survey wave goes live Monday morning. Automated reminders are configured, so expect higher engagement.",
+            "entityRefs": [
+              "task-sentiment-survey-wave",
+              "workstream-change-management"
+            ]
+          }
+        ]
+      }
     }
   ]
 }
